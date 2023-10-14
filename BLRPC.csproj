@@ -75,5 +75,8 @@
           <HintPath>References\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
     </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="DiscordRPC.dll" />
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>

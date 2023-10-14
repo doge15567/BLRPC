@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using BoneLib;
+﻿using BoneLib;
 using MelonLoader;
 
 namespace BLRPC
@@ -18,6 +17,12 @@ namespace BLRPC
             Rpc.LoadAssembly();
             Rpc.Initialize();
             Hooking.OnLevelInitialized += OnLevelLoad;
+        }
+
+        public override void OnApplicationQuit()
+        {
+            if (Rpc.HasLoadedLib) DllTools.FreeLibrary(Rpc.RPCLibrary);
+            Rpc.Client.Dispose();
         }
 
         private static void OnLevelLoad(LevelInfo levelInfo)
