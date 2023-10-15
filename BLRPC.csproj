@@ -43,8 +43,10 @@
         <Compile Include="DiscordGameSDK\LobbyManager.cs" />
         <Compile Include="DiscordGameSDK\StorageManager.cs" />
         <Compile Include="DiscordGameSDK\StoreManager.cs" />
-        <Compile Include="Internal\AvatarChange.cs" />
+        <Compile Include="Internal\AvatarHandler.cs" />
+        <Compile Include="Internal\BonelabAvatars.cs" />
         <Compile Include="Internal\BonelabMaps.cs" />
+        <Compile Include="Internal\CheckBarcode.cs" />
         <Compile Include="Internal\CheckPallets.cs" />
         <Compile Include="Internal\DllTools.cs" />
         <Compile Include="Internal\EmbeddedResource.cs" />

@@ -26,7 +26,8 @@ namespace BLRPC.Patching
         {
             Counter += 1;
             ModConsole.Msg($"Gun fired, new shot count is {Counter}", LoggingMode.DEBUG);
-            Rpc.SetRpc($"Gun Shots Fired: {Counter}", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+            GlobalVariables.details = $"Gun Shots Fired: {Counter}";
+            Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
         }
     }
 }

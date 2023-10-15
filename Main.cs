@@ -1,6 +1,7 @@
 ﻿using System;
 using BoneLib;
 using System.IO;
+using System.Threading;
 using BLRPC.Internal;
 using BLRPC.Melon;
 using MelonLoader;
@@ -85,55 +86,63 @@ namespace BLRPC
         {
             if (_isQuest) return;
             Rpc.Discord.RunCallbacks();
-            if (Preferences.detailsMode.entry.Value == DetailsMode.CurrentAvatar && _levelLoaded)
-            {
-                AvatarChange.UpdateRpc();
-            }
         }
 
+        private static void Avatar(object state)
+        {
+            if (!_levelLoaded) return;
+            AvatarHandler.UpdateRpc();
+        }
+        
+        private static bool _setTimer;
+        
         private static void OnLevelLoad(LevelInfo levelInfo)
         {
             _levelLoaded = true;
+            if (!_setTimer)
+            {
+                var timer = new Timer(Avatar, null, 0, 10000);
+                _setTimer = true;
+            }
             MelonLogger.Msg($"Level loaded: {levelInfo.title}", LoggingMode.DEBUG);
             DeathCounter.Counter = 0;
             ShotCounter.Counter = 0;
             GlobalVariables.status = $"In {levelInfo.title}";
             ModConsole.Msg($"Status is {GlobalVariables.status}", LoggingMode.DEBUG);
-            GlobalVariables.largeImageKey = CheckMap(levelInfo.barcode);
+            GlobalVariables.largeImageKey = CheckBarcode.CheckMap(levelInfo.barcode);
             ModConsole.Msg($"Large image key is {GlobalVariables.largeImageKey}", LoggingMode.DEBUG);
             GlobalVariables.largeImageText = levelInfo.title;
             ModConsole.Msg($"Large image text is {GlobalVariables.largeImageText}", LoggingMode.DEBUG);
             switch (Preferences.detailsMode.entry.Value)
             {
                 case DetailsMode.GunShots:
-                    Rpc.SetRpc("Gun Shots Fired: 0", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    GlobalVariables.details = "Gun Shots Fired: 0";
+                    Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
                     break;
                 case DetailsMode.NPCDeaths:
-                    Rpc.SetRpc("NPC Deaths: 0", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    GlobalVariables.details = "NPC Deaths: 0";
+                    Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
                     break;
                 case DetailsMode.SpawnablesPlaced:
-                    Rpc.SetRpc("Objects Spawned: 0", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    GlobalVariables.details = "Objects Spawned: 0";
+                    Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
                     break;
                 case DetailsMode.SDKMods:
-                    Rpc.SetRpc($"SDK Mods Loaded: {CheckPallets.GetPalletCount()}", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    GlobalVariables.details = $"SDK Mods Loaded: {CheckPallets.GetPalletCount()}";
+                    Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
                     break;
                 case DetailsMode.Extraes:
-                    var details = ExtraesMode.RandomScreamingAboutNonsense();
-                    Rpc.SetRpc(details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    GlobalVariables.details = ExtraesMode.RandomScreamingAboutNonsense();
+                    Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
                     break;
                 case DetailsMode.Entries:
-                    var moddetails = GetEntry();
-                    ModConsole.Msg($"Details are {moddetails}", LoggingMode.DEBUG);
-                    Rpc.SetRpc(moddetails, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
-                    break;
-                case DetailsMode.CurrentAvatar:
-                    var avatar = Player.GetCurrentAvatar();
-                    var avatarclean = HelperMethods.GetCleanObjectName(avatar.name);
-                    Rpc.SetRpc($"Current Avatar: {avatarclean}", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    GlobalVariables.details = GetEntry();
+                    ModConsole.Msg($"Details are {GlobalVariables.details}", LoggingMode.DEBUG);
+                    Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
                     break;
                 default:
                     ModConsole.Error("You don't have a proper mode set!");
-                    Rpc.SetRpc(null, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    Rpc.SetRpc(null, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
                     break;
             }
         }
@@ -144,79 +153,6 @@ namespace BLRPC
             var lines = File.ReadAllLines(UserEntriesPath);
             var r = rnd.Next(lines.Length);
             return lines[r];
-        }
-
-        private static string CheckMap(string barcode)
-        {
-            switch (barcode)
-            {
-                case BonelabMaps.MainMenu:
-                    return "mainmenu";
-                case BonelabMaps.Descent:
-                    return "descent";
-                case BonelabMaps.BLHub:
-                    return "blhub";
-                case BonelabMaps.LongRun:
-                    return "longrun";
-                case BonelabMaps.MineDive:
-                    return "minedive";
-                case BonelabMaps.BigAnomaly:
-                    return "biganomaly";
-                case BonelabMaps.StreetPuncher:
-                    return "streetpuncher";
-                case BonelabMaps.SprintBridge:
-                    return "sprintbridge";
-                case BonelabMaps.MagmaGate:
-                    return "magmagate";
-                case BonelabMaps.Moonbase:
-                    return "moonbase";
-                case BonelabMaps.MonogonMotorway:
-                    return "monogonmotorway";
-                case BonelabMaps.PillarClimb:
-                    return "pillarclimb";
-                case BonelabMaps.BigAnomaly2:
-                    return "biganomaly2";
-                case BonelabMaps.Ascent:
-                    return "ascent";
-                case BonelabMaps.Home:
-                    return "home";
-                case BonelabMaps.VoidG114:
-                    return "voidg114";
-                case BonelabMaps.Baseline:
-                    return "baseline";
-                case BonelabMaps.BigBoneBowling:
-                    return "bigbonebowling";
-                case BonelabMaps.DropPit:
-                    return "droppit";
-                case BonelabMaps.DungeonWarrior:
-                    return "dungeonwarrior";
-                case BonelabMaps.FantasyArena:
-                    return "fantasyarena";
-                case BonelabMaps.GunRange:
-                    return "gunrange";
-                case BonelabMaps.HalfwayPark:
-                    return "halfwaypark";
-                case BonelabMaps.Holochamber:
-                    return "holochamber";
-                case BonelabMaps.MuseumBasement:
-                    return "museumbasement";
-                case BonelabMaps.NeonParkour:
-                    return "neonparkour";
-                case BonelabMaps.NeonTrial:
-                    return "neontrial";
-                case BonelabMaps.Rooftops:
-                    return "rooftops";
-                case BonelabMaps.TunnelTipper:
-                    return "tunneltipper";
-                case BonelabMaps.Tuscany:
-                    return "tuscany";
-                case BonelabMaps.ContainerYard:
-                    return "containeryard";
-                case BonelabMaps.Mirror:
-                    return "mirror";
-                default:
-                    return "moddedmap";
-            }
         }
     }
 }

@@ -17,10 +17,10 @@ namespace BLRPC
             ModConsole.Msg($"Application ID is {Preferences.discordAppId}", LoggingMode.DEBUG);
             _activityManager = Discord.GetActivityManager();
             ModConsole.Msg($"Activity manager is {_activityManager}", LoggingMode.DEBUG);
-            SetRpc(null, "Loading Game", "bonelab", "BONELAB");
+            SetRpc(null, "Loading Game", "bonelab", "BONELAB", null, null);
         }
         
-        public static void SetRpc(string details, string state, string largeImageKey, string largeImageText)
+        public static void SetRpc(string details, string state, string largeImageKey, string largeImageText, string smallImageKey, string smallImageText)
         {
             ModConsole.Msg($"Setting activity with details {details}, state {state}, large image key {largeImageKey}, and large image text {largeImageText}", LoggingMode.DEBUG);
             var activity = new Activity
@@ -34,7 +34,9 @@ namespace BLRPC
                 Assets =
                 {
                     LargeImage = largeImageKey,
-                    LargeText = largeImageText
+                    LargeText = largeImageText,
+                    SmallImage = smallImageKey,
+                    SmallText = smallImageText
                 },
                 Instance = false
             };
