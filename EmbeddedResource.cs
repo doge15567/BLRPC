@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Reflection;
 
 namespace BLRPC
@@ -8,15 +7,15 @@ namespace BLRPC
     {
         public static byte[] GetResourceBytes(String filename)
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
+            var assembly = Assembly.GetExecutingAssembly();
             foreach (var resource in assembly.GetManifestResourceNames())
             {
                 if (resource.Contains(filename))
                 {
-                    using (Stream resFilestream = assembly.GetManifestResourceStream(resource))
+                    using (var resFilestream = assembly.GetManifestResourceStream(resource))
                     {
                         if (resFilestream == null) return null;
-                        byte[] ba = new byte[resFilestream.Length];
+                        var ba = new byte[resFilestream.Length];
                         resFilestream.Read(ba, 0, ba.Length);
                         return ba;
                     }

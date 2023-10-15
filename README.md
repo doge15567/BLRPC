@@ -1,4 +1,9 @@
 # BLRPC
 Discord Rich Presence for BONELAB
 
-Uses [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
+## Installation
+1. Download the latest release from [here](https://bonelab.thunderstore.io/package/CarrionAndOn/BonelabRichPresence/)
+2. Extract the zip file into your BONELAB directory
+
+## Customization
+1. Edit the "UserEntries.txt" file in the "UserData/BLRPC" folder and add stuff on new lines

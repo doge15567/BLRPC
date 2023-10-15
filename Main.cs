@@ -2,36 +2,46 @@
 using BoneLib;
 using System.IO;
 using MelonLoader;
-using UnityEngine;
 
 namespace BLRPC
 {
     public class Main : MelonMod
     {
-        internal const string Name = "BLRPC"; // Required
-        internal const string Description = "Discord Rich Presence for BONELAB"; // Required
-        internal const string Author = "SoulWithMae"; // Required
-        internal const string Company = "Weather Electric"; // Set as null if blank
-        internal const string Version = "1.0.0"; // Required
-        internal const string DownloadLink = "null"; // Set as null if blank
+        internal const string Name = "BLRPC";
+        internal const string Description = "Discord Rich Presence for BONELAB";
+        internal const string Author = "SoulWithMae";
+        internal const string Company = "Weather Electric";
+        internal const string Version = "1.0.0";
+        internal const string DownloadLink = "null";
         
-        private readonly string _dllPath = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC", "discord_game_sdk.dll");
-        private static bool hasLoadedLib;
+        // Stuff for userdata folder
+        private static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC");
+        private static readonly string DLLPath = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC", "discord_game_sdk.dll");
+        private static readonly string UserEntriesPath = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC", "UserEntries.txt");
+        // Stuff for loading the discord game SDK assembly
+        private static bool _hasLoadedLib;
         private static IntPtr _rpcLib;
         public override void OnInitializeMelon()
         {
             MelonLogger.Msg("Mod loaded, loading discord SDK");
-            if (!File.Exists(_dllPath))
+            if (!Directory.Exists(UserDataDirectory))
             {
-                File.WriteAllBytes(_dllPath, EmbeddedResource.GetResourceBytes("discord_game_sdk.dll"));
+                Directory.CreateDirectory(UserDataDirectory);
             }
-            if (!hasLoadedLib)
+            if (!File.Exists(DLLPath))
             {
-                _rpcLib = DllTools.LoadLibrary(_dllPath);
-                hasLoadedLib = true;
+                File.WriteAllBytes(DLLPath, EmbeddedResource.GetResourceBytes("discord_game_sdk.dll"));
             }
-            MelonLogger.Msg($"Discord SDK loaded at {_dllPath}");
-            UserEntries.Setup();
+            if (!File.Exists(UserEntriesPath))
+            {
+                File.WriteAllBytes(UserEntriesPath, EmbeddedResource.GetResourceBytes("UserEntries.txt"));
+            }
+            if (!_hasLoadedLib)
+            {
+                _rpcLib = DllTools.LoadLibrary(DLLPath);
+                _hasLoadedLib = true;
+            }
+            MelonLogger.Msg($"Discord SDK loaded at {DLLPath}");
             Rpc.Initialize();
             MelonLogger.Msg("Hooking LevelLoad");
             Hooking.OnLevelInitialized += OnLevelLoad;
@@ -39,8 +49,8 @@ namespace BLRPC
 
         public override void OnApplicationQuit()
         {
-            MelonLogger.Msg("Application quit, disposing RPC...");
-            if (hasLoadedLib)
+            MelonLogger.Msg("Application quit, disposing RPC");
+            if (_hasLoadedLib)
             {
                 DllTools.FreeLibrary(_rpcLib);
             }
@@ -48,7 +58,7 @@ namespace BLRPC
 
         public override void OnUpdate()
         {
-            Rpc.discord.RunCallbacks();
+            Rpc.Discord.RunCallbacks();
         }
 
         private static void OnLevelLoad(LevelInfo levelInfo)
@@ -56,8 +66,17 @@ namespace BLRPC
             var title = levelInfo.title;
             var map = CheckMap(levelInfo.barcode);
             MelonLogger.Msg($"Level loaded: {title} ({map})");
-            var details = UserEntries.GetEntry();
+            MelonLogger.Msg($"Barcode is {levelInfo.barcode}");
+            var details = GetEntry();
             Rpc.SetRpc(details,"In " + title, map, title, "bonelabsmall", "BONELAB");
+        }
+
+        private static string GetEntry()
+        {
+            var rnd = new Random();
+            var lines = File.ReadAllLines(UserEntriesPath);
+            var r = rnd.Next(lines.Length);
+            return lines[r];
         }
 
         private static string CheckMap(string barcode)
@@ -112,10 +131,6 @@ namespace BLRPC
                     return "halfwaypark";
                 case BonelabMaps.Holochamber:
                     return "holochamber";
-                case BonelabMaps.LoadDefault:
-                    return "loaddefault";
-                case BonelabMaps.LoadMod:
-                    return "loadmod";
                 case BonelabMaps.MuseumBasement:
                     return "museumbasement";
                 case BonelabMaps.NeonParkour:
@@ -130,6 +145,8 @@ namespace BLRPC
                     return "tuscany";
                 case BonelabMaps.ContainerYard:
                     return "containeryard";
+                case BonelabMaps.Mirror:
+                    return "mirror";
                 default:
                     return "moddedmap";
             }

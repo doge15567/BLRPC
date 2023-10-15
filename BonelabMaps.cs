@@ -19,24 +19,26 @@
         public const string Ascent = "c2534c5a-db71-49cf-b694-24584c657665";
         public const string Home = "SLZ.BONELAB.Content.Level.LevelOutro";
         public const string VoidG114 = "fa534c5a868247138f50c62e424c4144.Level.VoidG114";
-        // Extra
+        // Sandbox
         public const string Baseline = "c2534c5a-61b3-4f97-9059-79155363656e";
-        public const string BigBoneBowling = "fa534c5a83ee4ec6bd641fec424c4142.Level.LevelKartBowling";
-        public const string DropPit = "c2534c5a-de61-4df9-8f6c-416954726547";
-        public const string DungeonWarrior = "c2534c5a-5c2f-4eef-a851-66214c657665";
-        public const string FantasyArena = "fa534c5a868247138f50c62e424c4144.Level.LevelArenaMin";
-        public const string GunRange = "fa534c5a83ee4ec6bd641fec424c4142.Level.LevelGunRange";
-        public const string HalfwayPark = "fa534c5a83ee4ec6bd641fec424c4142.Level.LevelHalfwayPark";
-        public const string Holochamber = "fa534c5a83ee4ec6bd641fec424c4142.Level.LevelHoloChamber";
-        public const string LoadDefault = "fa534c5a83ee4ec6bd641fec424c4142.Level.DefaultLoad";
-        public const string LoadMod = "SLZ.BONELAB.CORE.Level.LevelModLevelLoad";
-        public const string MuseumBasement = "fa534c5a83ee4ec6bd641fec424c4142.Level.LevelMuseumBasement";
-        public const string NeonParkour = "fa534c5a83ee4ec6bd641fec424c4142.Level.SceneparkourDistrictLogic";
-        public const string NeonTrial = "c2534c5a-4f3b-480e-ad2f-69175363656e";
-        public const string Rooftops = "c2534c5a-c6ac-48b4-9c5f-b5cd5363656e";
-        public const string TunnelTipper = "c2534c5a-c180-40e0-b2b7-325c5363656e";
         public const string Tuscany = "c2534c5a-2c4c-4b44-b076-203b5363656e";
+        public const string MuseumBasement = "fa534c5a83ee4ec6bd641fec424c4142.Level.LevelMuseumBasement";
+        public const string HalfwayPark = "fa534c5a83ee4ec6bd641fec424c4142.Level.LevelHalfwayPark";
+        public const string GunRange = "fa534c5a83ee4ec6bd641fec424c4142.Level.LevelGunRange";
+        public const string Holochamber = "fa534c5a83ee4ec6bd641fec424c4142.Level.LevelHoloChamber";
+        // Experimental
+        public const string BigBoneBowling = "fa534c5a83ee4ec6bd641fec424c4142.Level.LevelKartBowling";
+        public const string Mirror = "SLZ.BONELAB.Content.Level.LevelMirror";
+        // Tac Trial
+        public const string NeonTrial = "c2534c5a-4f3b-480e-ad2f-69175363656e";
+        public const string DropPit = "c2534c5a-de61-4df9-8f6c-416954726547";
+        // Arena
+        public const string TunnelTipper = "c2534c5a-c180-40e0-b2b7-325c5363656e";
+        public const string FantasyArena = "fa534c5a868247138f50c62e424c4144.Level.LevelArenaMin";
         public const string ContainerYard = "c2534c5a-162f-4661-a04d-975d5363656e";
-        
+        // Parkour
+        public const string DungeonWarrior = "c2534c5a-5c2f-4eef-a851-66214c657665";
+        public const string Rooftops = "c2534c5a-c6ac-48b4-9c5f-b5cd5363656e";
+        public const string NeonParkour = "fa534c5a83ee4ec6bd641fec424c4142.Level.SceneparkourDistrictLogic";
     }
 }

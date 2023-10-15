@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="Details field">
-      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/ActivityManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/Constants.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/Core.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/ImageManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/LobbyManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/StorageManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/StoreManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DllTools.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EmbeddedResource.cs" afterDir="false" />
+    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="It actually works now">
+      <change afterPath="$PROJECT_DIR$/Resources/discord_game_sdk.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLRPC.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BLRPC.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BonelabMaps.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BonelabMaps.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RPC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RPC.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/UserEntries.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/UserEntries.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserEntries.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +22,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -88,6 +87,9 @@
       <workItem from="1697339193617" duration="1257000" />
       <workItem from="1697340544051" duration="165000" />
       <workItem from="1697340767503" duration="194000" />
+      <workItem from="1697341102915" duration="303000" />
+      <workItem from="1697341526381" duration="266000" />
+      <workItem from="1697342013110" duration="1056000" />
     </task>
     <task id="LOCAL-00001" summary="Some test stuff">
       <option name="closed" value="true" />
@@ -113,7 +115,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697337786006</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="It actually works now">
+      <option name="closed" value="true" />
+      <created>1697341381207</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1697341381207</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
@@ -121,6 +131,7 @@
     <MESSAGE value="Some test stuff" />
     <MESSAGE value="It no longer errors out! But nothing works." />
     <MESSAGE value="Details field" />
-    <option name="LAST_COMMIT_MESSAGE" value="Details field" />
+    <MESSAGE value="It actually works now" />
+    <option name="LAST_COMMIT_MESSAGE" value="It actually works now" />
   </component>
 </project>
