@@ -37,6 +37,15 @@
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="BonelabMaps.cs" />
+        <Compile Include="DiscordGameSDK\ActivityManager.cs" />
+        <Compile Include="DiscordGameSDK\Constants.cs" />
+        <Compile Include="DiscordGameSDK\Core.cs" />
+        <Compile Include="DiscordGameSDK\ImageManager.cs" />
+        <Compile Include="DiscordGameSDK\LobbyManager.cs" />
+        <Compile Include="DiscordGameSDK\StorageManager.cs" />
+        <Compile Include="DiscordGameSDK\StoreManager.cs" />
+        <Compile Include="DllTools.cs" />
+        <Compile Include="EmbeddedResource.cs" />
         <Compile Include="UserEntries.cs" />
         <Compile Include="Main.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
@@ -48,9 +57,6 @@
         </Reference>
         <Reference Include="BoneLib">
           <HintPath>References\BoneLib.dll</HintPath>
-        </Reference>
-        <Reference Include="DiscordRPC">
-          <HintPath>References\DiscordRPC.dll</HintPath>
         </Reference>
         <Reference Include="Il2Cppmscorlib">
             <HintPath>References\Il2Cppmscorlib.dll</HintPath>
@@ -74,6 +80,12 @@
         <Reference Include="UnityEngine.CoreModule">
           <HintPath>References\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\discord_game_sdk.dll" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\UserEntries.txt" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>

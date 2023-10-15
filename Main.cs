@@ -1,5 +1,8 @@
-﻿using BoneLib;
+﻿using System;
+using BoneLib;
+using System.IO;
 using MelonLoader;
+using UnityEngine;
 
 namespace BLRPC
 {
@@ -12,9 +15,22 @@ namespace BLRPC
         internal const string Version = "1.0.0"; // Required
         internal const string DownloadLink = "null"; // Set as null if blank
         
+        private readonly string _dllPath = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC", "discord_game_sdk.dll");
+        private static bool hasLoadedLib;
+        private static IntPtr _rpcLib;
         public override void OnInitializeMelon()
         {
-            MelonLogger.Msg("Mod loaded, trying initialize RPC...");
+            MelonLogger.Msg("Mod loaded, loading discord SDK");
+            if (!File.Exists(_dllPath))
+            {
+                File.WriteAllBytes(_dllPath, EmbeddedResource.GetResourceBytes("discord_game_sdk.dll"));
+            }
+            if (!hasLoadedLib)
+            {
+                _rpcLib = DllTools.LoadLibrary(_dllPath);
+                hasLoadedLib = true;
+            }
+            MelonLogger.Msg($"Discord SDK loaded at {_dllPath}");
             UserEntries.Setup();
             Rpc.Initialize();
             MelonLogger.Msg("Hooking LevelLoad");
@@ -24,7 +40,15 @@ namespace BLRPC
         public override void OnApplicationQuit()
         {
             MelonLogger.Msg("Application quit, disposing RPC...");
-            Rpc.Client.Dispose();
+            if (hasLoadedLib)
+            {
+                DllTools.FreeLibrary(_rpcLib);
+            }
+        }
+
+        public override void OnUpdate()
+        {
+            Rpc.discord.RunCallbacks();
         }
 
         private static void OnLevelLoad(LevelInfo levelInfo)

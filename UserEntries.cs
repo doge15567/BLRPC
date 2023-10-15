@@ -17,21 +17,7 @@ namespace BLRPC
             }
             if (!File.Exists(FilePath))
             {
-                File.Create(FilePath);
-                MelonLogger.Msg("Created UserEntries.txt");
-                File.WriteAllText(FilePath, "Got fenced in :(" + Environment.NewLine);
-                File.AppendAllText(FilePath, "Plugging a USB device in.." + Environment.NewLine);
-                File.AppendAllText(FilePath, "Stuck on Long Run's puzzle" + Environment.NewLine);
-                File.AppendAllText(FilePath, "DAMN YOU PILLAR CLIMB." + Environment.NewLine);
-                File.AppendAllText(FilePath, "Making another generic bodycam video" + Environment.NewLine);
-                File.AppendAllText(FilePath, "Trying to get a good time on Monogon Motorway" + Environment.NewLine);
-                File.AppendAllText(FilePath, "Suffering with My Pal Apollo" + Environment.NewLine);
-                File.AppendAllText(FilePath, "Getting NullReference'd" + Environment.NewLine);
-                File.AppendAllText(FilePath, "Getting stuck in the void" + Environment.NewLine);
-                File.AppendAllText(FilePath, "Getting stuck in the void again" + Environment.NewLine);
-                File.AppendAllText(FilePath, "I'm not even playing the game, I'm just testing my mods" + Environment.NewLine);
-                File.AppendAllText(FilePath, "Stuck with a bunch of Quest kids in a Fusion lobby" + Environment.NewLine);
-                File.AppendAllText(FilePath, "System.NullReferenceException: Object reference not set to an instance of an object" + Environment.NewLine);
+                File.WriteAllBytes(FilePath, EmbeddedResource.GetResourceBytes("UserEntries.txt"));
             }
         }
         public static string GetEntry()

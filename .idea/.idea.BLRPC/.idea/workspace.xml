@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/UserEntries.cs" afterDir="false" />
+    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="Details field">
+      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/ActivityManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/Constants.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/Core.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/ImageManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/LobbyManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/StorageManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscordGameSDK/StoreManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DllTools.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EmbeddedResource.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLRPC.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BLRPC.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Main.cs" afterDir="false" />
@@ -33,6 +41,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -72,7 +81,13 @@
       <workItem from="1697333639675" duration="8000" />
       <workItem from="1697333733782" duration="134000" />
       <workItem from="1697333895853" duration="372000" />
-      <workItem from="1697335869337" duration="1722000" />
+      <workItem from="1697335869337" duration="1915000" />
+      <workItem from="1697338039925" duration="42000" />
+      <workItem from="1697338399281" duration="159000" />
+      <workItem from="1697338738224" duration="368000" />
+      <workItem from="1697339193617" duration="1257000" />
+      <workItem from="1697340544051" duration="165000" />
+      <workItem from="1697340767503" duration="194000" />
     </task>
     <task id="LOCAL-00001" summary="Some test stuff">
       <option name="closed" value="true" />
@@ -90,13 +105,22 @@
       <option name="project" value="LOCAL" />
       <updated>1697333322772</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Details field">
+      <option name="closed" value="true" />
+      <created>1697337786006</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1697337786006</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Some test stuff" />
     <MESSAGE value="It no longer errors out! But nothing works." />
-    <option name="LAST_COMMIT_MESSAGE" value="It no longer errors out! But nothing works." />
+    <MESSAGE value="Details field" />
+    <option name="LAST_COMMIT_MESSAGE" value="Details field" />
   </component>
 </project>
