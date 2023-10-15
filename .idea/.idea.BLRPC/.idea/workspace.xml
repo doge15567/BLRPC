@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="" />
+    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="changed UserEntries.txt">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/UserEntries.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/UserEntries.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,6 +90,9 @@
       <workItem from="1697343216225" duration="350000" />
       <workItem from="1697343756059" duration="316000" />
       <workItem from="1697344669077" duration="60000" />
+      <workItem from="1697345736550" duration="1197000" />
+      <workItem from="1697347476118" duration="5000" />
+      <workItem from="1697348653447" duration="298000" />
     </task>
     <task id="LOCAL-00001" summary="Some test stuff">
       <option name="closed" value="true" />
@@ -151,7 +158,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697344696852</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="changed UserEntries.txt">
+      <option name="closed" value="true" />
+      <created>1697346506840</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1697346506840</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
@@ -164,6 +179,7 @@
     <MESSAGE value="huh" />
     <MESSAGE value="I did something" />
     <MESSAGE value="Icon" />
-    <option name="LAST_COMMIT_MESSAGE" value="Icon" />
+    <MESSAGE value="changed UserEntries.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed UserEntries.txt" />
   </component>
 </project>

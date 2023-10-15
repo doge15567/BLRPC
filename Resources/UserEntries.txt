@@ -1,14 +1,16 @@
 Got fenced in :(
-Getting hung for changing my avatar
 DAMN YOU PILLAR CLIMB.
-Making another generic bodycam video that'll get deleted
-Suffering with the My Pal Apollo achievement
-Getting NullReference'd
-Getting stuck in the void
-I'm not even playing the game, I'm just testing my mods
+My C: drive is suffering
 System.NullReferenceException: Object reference not set to an instance of an object
 Playing on 3DS!
-the game is broken
-oh no
-Falling through the floor because of mesh cols
+RigManager breaks in 3 seconds
+Boneworks: 2
+Play Hover Junkers!
+WRONG
+Borked Lightmaps: 3
 XBOX LIVE
+Metropolis has nothing on this!
+Half Life VR
+Algorithms Evolve
+SLZ.Serialize.dll
+Pooling Issues: 954

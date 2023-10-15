@@ -6,4 +6,4 @@ Discord Rich Presence for BONELAB
 2. Extract the zip file into your BONELAB directory
 
 ## Customization
-1. Edit the "UserEntries.txt" file in the "UserData/BLRPC" folder and add stuff on new lines
+1. Edit the "UserEntries.txt" file in the "UserData/BLRPC" folder and add stuff on new lines (This file is generated when you open the game with this mod installed.)
