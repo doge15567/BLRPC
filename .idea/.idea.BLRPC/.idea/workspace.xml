@@ -13,6 +13,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://I:/GitHub/Rider/BLRP/Main.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -81,6 +84,7 @@
       <workItem from="1697341526381" duration="266000" />
       <workItem from="1697342013110" duration="1056000" />
       <workItem from="1697343216225" duration="350000" />
+      <workItem from="1697343756059" duration="316000" />
     </task>
     <task id="LOCAL-00001" summary="Some test stuff">
       <option name="closed" value="true" />
@@ -130,7 +134,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697343540096</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="I did something">
+      <option name="closed" value="true" />
+      <created>1697344015872</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1697344015873</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
@@ -141,6 +153,7 @@
     <MESSAGE value="It actually works now" />
     <MESSAGE value="Organization, fixed mirror being missing from the map check" />
     <MESSAGE value="huh" />
-    <option name="LAST_COMMIT_MESSAGE" value="huh" />
+    <MESSAGE value="I did something" />
+    <option name="LAST_COMMIT_MESSAGE" value="I did something" />
   </component>
 </project>
