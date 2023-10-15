@@ -17,7 +17,7 @@ namespace BLRPC.Melon
         {
             loggingMode = new ModPref<LoggingMode>(category, "LoggingMode", LoggingMode.NORMAL, "Logging Mode", "The logging mode for the mod. DEBUG will show all messages, NORMAL will show all messages except DEBUG messages.");
             discordAppId = new ModPref<long>(category, "DiscordAppId", 1162864836418490388, "Discord Application ID", "The application ID for the Discord application that will be used for Rich Presence.");
-            detailsMode = new ModPref<DetailsMode>(category,"DetailsMode", DetailsMode.Entries, "Details Mode", "The mode for the details section. Possible Values: Entries, NPCDeaths, GunShots, Extraes");
+            detailsMode = new ModPref<DetailsMode>(category,"DetailsMode", DetailsMode.Entries, "Details Mode", "The mode for the details section. Possible Values: Entries, NPCDeaths, GunShots, Extraes, SDKMods, SpawnablesPlaced, CurrentAvatar");
 
             category.SaveToFile(false);
             ModConsole.Msg("Finished preferences setup", LoggingMode.DEBUG);
@@ -28,6 +28,9 @@ namespace BLRPC.Melon
         Entries,
         NPCDeaths,
         GunShots,
-        Extraes
+        Extraes,
+        SDKMods,
+        SpawnablesPlaced,
+        CurrentAvatar
     }
 }

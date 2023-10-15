@@ -3,7 +3,7 @@ using BLRPC.Melon;
 using HarmonyLib;
 using SLZ.AI;
 
-namespace BLRPC
+namespace BLRPC.Patching
 {
     public static class DeathCounter
     {

@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="extraes #3">
+    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="damn you rider">
+      <change afterPath="$PROJECT_DIR$/Internal/CheckPallets.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Patching/SpawnCounter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Internal/ExtraesMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Internal/ExtraesMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLRPC.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BLRPC.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeathCounter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Patching/DeathCounter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Melon/Preferences.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Melon/Preferences.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShotCounter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Patching/ShotCounter.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +117,7 @@
       <workItem from="1697365203732" duration="76000" />
       <workItem from="1697365677693" duration="118000" />
       <workItem from="1697365940347" duration="57000" />
-      <workItem from="1697398350356" duration="380000" />
+      <workItem from="1697398350356" duration="1617000" />
     </task>
     <task id="LOCAL-00001" summary="Some test stuff">
       <option name="closed" value="true" />
@@ -226,7 +231,23 @@
       <option name="project" value="LOCAL" />
       <updated>1697365986885</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Added more Extraes mode lines">
+      <option name="closed" value="true" />
+      <created>1697398899923</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1697398899923</updated>
+    </task>
+    <task id="LOCAL-00016" summary="damn you rider">
+      <option name="closed" value="true" />
+      <created>1697398929568</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1697398929568</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
@@ -244,6 +265,8 @@
     <MESSAGE value="Changed README" />
     <MESSAGE value="extraes #2" />
     <MESSAGE value="extraes #3" />
-    <option name="LAST_COMMIT_MESSAGE" value="extraes #3" />
+    <MESSAGE value="Added more Extraes mode lines" />
+    <MESSAGE value="damn you rider" />
+    <option name="LAST_COMMIT_MESSAGE" value="damn you rider" />
   </component>
 </project>

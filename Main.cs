@@ -5,6 +5,7 @@ using BLRPC.Internal;
 using BLRPC.Melon;
 using MelonLoader;
 using UnityEngine;
+using BLRPC.Patching;
 using Random = System.Random;
 
 namespace BLRPC
@@ -15,7 +16,7 @@ namespace BLRPC
         internal const string Description = "Discord Rich Presence for BONELAB";
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
-        internal const string Version = "1.1.0";
+        internal const string Version = "1.2.0";
         internal const string DownloadLink = "null";
         
         // Stuff for userdata folder
@@ -96,24 +97,37 @@ namespace BLRPC
             ModConsole.Msg($"Large image key is {GlobalVariables.largeImageKey}", LoggingMode.DEBUG);
             GlobalVariables.largeImageText = levelInfo.title;
             ModConsole.Msg($"Large image text is {GlobalVariables.largeImageText}", LoggingMode.DEBUG);
-            if (Preferences.detailsMode != DetailsMode.NPCDeaths && Preferences.detailsMode != DetailsMode.GunShots && Preferences.detailsMode != DetailsMode.Extraes)
+            switch (Preferences.detailsMode.entry.Value)
             {
-                var details = GetEntry();
-                ModConsole.Msg($"Details are {details}", LoggingMode.DEBUG);
-                Rpc.SetRpc(details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
-            }
-            if (Preferences.detailsMode == DetailsMode.NPCDeaths)
-            {
-                Rpc.SetRpc("NPC Deaths: 0", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
-            }
-            if (Preferences.detailsMode == DetailsMode.GunShots)
-            {
-                Rpc.SetRpc("Gun Shots Fired: 0", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
-            }
-            if (Preferences.detailsMode == DetailsMode.Extraes)
-            {
-                var details = ExtraesMode.RandomScreamingAboutNonsense();
-                Rpc.SetRpc(details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                case DetailsMode.GunShots:
+                    Rpc.SetRpc("Gun Shots Fired: 0", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    break;
+                case DetailsMode.NPCDeaths:
+                    Rpc.SetRpc("NPC Deaths: 0", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    break;
+                case DetailsMode.SpawnablesPlaced:
+                    Rpc.SetRpc("Objects Spawned: 0", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    break;
+                case DetailsMode.SDKMods:
+                    Rpc.SetRpc($"SDK Mods Loaded: {CheckPallets.GetPalletCount()}", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    break;
+                case DetailsMode.Extraes:
+                    var details = ExtraesMode.RandomScreamingAboutNonsense();
+                    Rpc.SetRpc(details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    break;
+                case DetailsMode.Entries:
+                    var moddetails = GetEntry();
+                    ModConsole.Msg($"Details are {moddetails}", LoggingMode.DEBUG);
+                    Rpc.SetRpc(moddetails, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    break;
+                case DetailsMode.CurrentAvatar:
+                    var avatar = Player.GetCurrentAvatar();
+                    Rpc.SetRpc($"Current Avatar: {avatar}", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    break;
+                default:
+                    ModConsole.Error("You don't have a proper mode set!");
+                    Rpc.SetRpc(null, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    break;
             }
         }
 

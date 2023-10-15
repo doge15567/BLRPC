@@ -5,7 +5,7 @@ using SLZ.AI;
 using SLZ.Props;
 using SLZ.Props.Weapons;
 
-namespace BLRPC
+namespace BLRPC.Patching
 {
     public static class ShotCounter
     {
