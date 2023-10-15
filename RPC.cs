@@ -1,55 +1,35 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Timers;
 using DiscordRPC;
+using DiscordRPC.Events;
+using DiscordRPC.Message;
 using MelonLoader;
 
 namespace BLRPC
 {
     public static class Rpc
     {
-        public static bool HasLoadedLib;
-        public static IntPtr RPCLibrary;
-
-        public static void LoadAssembly()
-        {
-            if (HasLoadedLib) return;
-            var appDataPath = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC");
-            var rpcDllPath = Path.Combine(appDataPath, "DiscordRPC.dll");
-            if (!Directory.Exists(appDataPath))
-                Directory.CreateDirectory(appDataPath);
-
-            if (!File.Exists(rpcDllPath))
-            {
-                using (Stream str = Assembly.GetExecutingAssembly().GetManifestResourceStream("BLRPC.DiscordRPC.dll"))
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    str?.CopyTo(memoryStream);
-                    File.WriteAllBytes(rpcDllPath, memoryStream.ToArray());
-                }
-            }
-
-            MelonLogger.Msg("Loading RPC from " + rpcDllPath);
-            RPCLibrary = DllTools.LoadLibrary(rpcDllPath);
-            HasLoadedLib = true;
-        }
+        private static DateTime _startTime;
         
         public static DiscordRpcClient Client;
-        
         public static void Initialize()
         {
-            Client.OnReady += (sender, e) =>
-            {
-                MelonLogger.Msg($"Received Ready from user {e.User.Username}");
-            };
-            Client.OnPresenceUpdate += (sender, e) =>
-            {
-                MelonLogger.Msg($"Received Update! {e.Presence}");
-            };
+            Client = new DiscordRpcClient("1162864836418490388");	
+            MelonLogger.Msg($"Client initialized with ID {Client.ApplicationID}");
+            Client.OnReady += OnReady;
+            Client.OnPresenceUpdate += OnPresenceUpdate;
             Client.Initialize();
+            MelonLogger.Msg("Client initialized! Probably.");
             Client.SetPresence(new RichPresence()
             {
                 State = "Loading",
+                Timestamps = new Timestamps()
+                {
+                    Start = Now
+                },
                 Assets = new Assets()
                 {
                     LargeImageKey = "bonelab",
@@ -58,13 +38,29 @@ namespace BLRPC
                     SmallImageText = "BONELAB"
                 }
             });
+            MelonLogger.Msg("Presence set! Maybe.");
+            _startTime = DateTime.UtcNow;
         }
 
+        private static void OnReady(object sender, ReadyMessage e)
+        {
+            MelonLogger.Msg($"Received Ready from user {e.User.Username}");
+        }
+
+        private static void OnPresenceUpdate(object sender, PresenceMessage e)
+        {
+            MelonLogger.Msg($"Received Update! {e.Presence}");
+        }
+        public static DateTime? Now { get; }
         public static void SetRpc(string state, string largeImageKey, string largeImageText, string smallImageKey, string smallImageText)
         {
             Client.SetPresence(new RichPresence()
             {
                 State = state,
+                Timestamps = new Timestamps()
+                {
+                    Start = Now
+                },
                 Assets = new Assets()
                 {
                     LargeImageKey = largeImageKey,

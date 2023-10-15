@@ -14,14 +14,15 @@ namespace BLRPC
         
         public override void OnInitializeMelon()
         {
-            Rpc.LoadAssembly();
+            MelonLogger.Msg("Mod loaded, trying initialize RPC...");
             Rpc.Initialize();
+            MelonLogger.Msg("Hooking LevelLoad");
             Hooking.OnLevelInitialized += OnLevelLoad;
         }
 
         public override void OnApplicationQuit()
         {
-            if (Rpc.HasLoadedLib) DllTools.FreeLibrary(Rpc.RPCLibrary);
+            MelonLogger.Msg("Application quit, disposing RPC...");
             Rpc.Client.Dispose();
         }
 
@@ -29,6 +30,7 @@ namespace BLRPC
         {
             var title = levelInfo.title;
             var map = CheckMap(levelInfo.barcode);
+            MelonLogger.Msg($"Level loaded: {title} ({map})");
             Rpc.SetRpc("In " + title, map, title, "bonelabsmall", "BONELAB");
         }
 
