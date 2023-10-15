@@ -4,7 +4,7 @@ namespace BLRPC.Internal
 {
     public static class ExtraesMode
     {
-        private static readonly string[] Ads = {
+        private static readonly string[] ads = new string[] {
         "my balls lol!!!!!!!!",
         "deez what sir",
         "hey mods... ni-",
@@ -72,7 +72,7 @@ namespace BLRPC.Internal
         "are nascar fans racists?",
         "i forgor",
         "steam cuts off usernames so let me tell you the long ones Brylan Bristopher Woods|CEO|LLC Owner|$DOGE HODLer🚀|Multimillionaire|Bossman, ❌suit ❌tie"+
-        " Brayden|32|ladies man|4'3|short kings stay winning lars|gay|transmasc|allosexual/poly|libra|ravenclaw Sydney|14|Bi|They/Them|BLM|ACAB",
+        " Brayden|32|ladies man|4'3\"|short kings stay winning lars|gay|transmasc|allosexual/poly|libra|ravenclaw Sydney|14|Bi|They/Them|BLM|ACAB",
         "harse effect when",
         "*vine boom sound effect*",
         "notascam.bwchaos.tk/download.php.js.aspx?dl=download_bone_work_chaos_free_punjabi_no_viroos_safe_clean_working_2020  (real)",
@@ -124,6 +124,7 @@ namespace BLRPC.Internal
         "Clearly, You don't have a father figure",
         "82 uncommitted changes",
         "change tha world my final message goodbye",
+        #region https://www.youtube.com/watch?v=y_mXCUP-AXI
         "i pop a perc while watchin euphoria",
         "i nut in her eyes broke both of her corneas",
         "i just beat stevie wonder in a staring contest",
@@ -134,6 +135,7 @@ namespace BLRPC.Internal
         "she said shes just trying to watch the movie shes not trying to fuck im like thats cool " +
         "SIKE i kicked that bitch out my house how dare you come here to not give me mouth " +
         "sike again we actually had a great time spent all night watching vines",
+        #endregion  
         "in development hell since july 2021",
         "Why you hatin when you don’t even be relatin, get yo money up not yo funny up *man growl*",
         "You should... ...NOW!",
@@ -203,6 +205,7 @@ namespace BLRPC.Internal
         "healthy coping mechanisms are as foreign to me as reasonable features are to the developers of java",
         "mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry. mommy? sorry.",
         "my beats are so gas they cost $8 per gallon",
+        #region basedbeefy
         "tarzan pack got me chimpin",
         "sweet pwussy sataday",
         "Whoever got my voodoo doll jus lick the bootyhole a lil bit",
@@ -370,6 +373,8 @@ namespace BLRPC.Internal
         "id fuck someone in the ass for some dumplings rn",
         "I apologize for the mean , hurtful and very accurate things I said",
         "سوف تنجو أنت ولا عائلتك من غضب الرب. كن على علم بنا.",
+        #endregion
+        #region various twitter tweakers
         "I got way too much self respect to use them dating apps for some pussy",
         "White people love letting they kids cry and act bad , it’s too fucking early in the morning for this shit I’m finna put a .5 on this lil fucker and watch the tsa dog tear him up",
         "If you ever off acid or shrooms watch Spy Kids 3 , thank me later",
@@ -481,6 +486,8 @@ namespace BLRPC.Internal
         "adderall needs to send me an influencer box",
         "i did a thing :P <i>picture of shit in ikea display toilet</i>",
         "sticking a floss pick in my urethra to make my penis sneeze",
+        "fucking a kiwifarms girl and she moans your address",
+        #endregion
         "iirc there was someone in the bw community that slowly faded away from it and one time i checked their twitter, and they liked a tweet saying 'peeing yourself is super cute' guh, am i right",
         "thinkin abt the joys of inhaling from a fine cuban smokeable whilst kicking up ones feet in a sun-drenched tropical paradise (like isle delfino)",
         "thinkin abt how much fun twisty straws were to drink chocolate milk through as a child",
@@ -530,17 +537,60 @@ namespace BLRPC.Internal
         "you got the dud!",
         "nothing beats a bald scrotum",
         "Under Articles 1 and 2 of the document Rules and Info, you are prohibited from sending homosexual porn in the general chat on the Unofficial BONELAB Discord Server",
-        "Why are you playing BW? Go play BONELAB!",
+        "A port of a BONEWORKS mod!",
         "Announcement to release window of 6 days. Hope my divorce has that kind of turnaround time.",
         "Drop kick a bitch",
         "He looks just like you, poindexter!",
-        "Why the fuck am I updating this mod in the last week before BONELAB's release?",
-        };
+        "Get Addicted To Nicotine To Combat Depression. -Chair",
+        "if your avatar is your fursona, i regret to inform you that originality is not your strong suit",
+        "i need pussy from a bitch from the psych ward",
+        "forget pussy from a bitch from the psych ward, i need bussy from a boy who knows 5+ javascript frameworks",
+        "autism speaks, but maybe we <i>shouldn't</i> listen. ",
+#region https://www.youtube.com/watch?v=TIZshFXYrJw (some changes made to fit better in context of BL)
+        "WARNING - HEALTH AND SAFET " +
+        "<b>   NOBODY CARES   </b> ",
+        "<sup><b>Press your Penis into buttcunts. yis.</b></sup>",
+        "<b>Stop Using Your Cock To Fuck That Sock</b> " +
+        "Learn this simple trick and she'll beg to suck your dick! " +
+        "<sup><b><u>Click here to learn more >></u></b></sup>",
+        "i'm looking for a boy with amazing elves who can sucj the bark off a dog",
+        "press <b>X</b> to get Goombella to talk your ear off about a bunch of borring bullshit in battle, she attacks with Donkey Kong",
+        "that security guard guy is always complaining about being a Hot Dad..",
+        "All bitches that Mario has on his diiiiiiiiick.",
+        "KILLA UP ?",
+        "OW, SPIDER BIT ME BAD SPIDER BITE BIT ME HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+        "ILL THROW IN A BRAND NEW CAR, BEHIND ONE OF TWO DOORS, CHOOSE WISELY.  WILL MAR MAR CHOOSE THE CORRECT DOOR OR WILL HE GET A BOX OF DEAD KITTENS!?  SORRY IT WAS THE DEAD KITTYS",
+        "Rub your hot salami all up in between my toes. ITS REALLY GOOD TRUST ME.",
+        "HALF MY FAT GOES TO MY ASS AND THE OTHER TO MY TOES, THESE TOES ARE BASICALLY THE BOOTY",
+        "GOD I wish I had a mouth so I could stuff my face in and motorboat those fine tits of light's.",
+#endregion
+#region https://twitter.com/SicK_cs
+        "JENNA ORTEGA AND JULIA ORTEGA PLEASE COME TO MY HOUSE! ITS JUST SO WE CAN CHAT AT LEAST.",
+        "marijuana is now legal everywhere! mmmkay",
+        "Joe Biden has no idea what he is doing... Sleep maybe?",
+        "FEDS have my brokerage account can't trade but will get car anyway KKKKKKKKK!!!",
+        "ALL NUCLEAR WEAPONS MUST BE DEACTIVATED!! For the sake of the people..,",
+        "Ain't no RICO case that can stop another brody from droping!!!!",
+        "I ain't in a gang you just caught me hangin with em!!!!!",
+        "The FEDS are on me bro what is this life. GTA type shit maybe my mic will work today @FBI please daddy. Also @CIA",
+        "Can I have the presidential position? @JoeBiden",
+        "How can I bring nothing to the table!?!When I'm the table!!!",
+        ".@JoeBiden any ideas sir, on how to proceed?!",
+        "Dense fucks everywhere in politics here in America but we can fix that! Corruption on many levels",
+        "Marry me @jennaortega",
+        "BACK FROM JAIL ... AGAIN. Update soon!!! ZThey say I'm a menace to society!!",
+        "Another day another dollar as they say!!!!",
+        ".@FBI what is the solution here?! @Ferrari I need 4 cars sir can you help?",
+        "Most of the demons have been conquered! World peace is more achievable than ever. This life is worth living ... we are all just trying our best!",
+        "Is everyone brainwashed or am I retarded?!",
+        "Am I an AI?",
+#endregion
+    };
         public static string RandomScreamingAboutNonsense()
         {
             var rand = new Random();
-            var randomIndex = rand.Next(0, Ads.Length);
-            return Ads[randomIndex];
+            var randomIndex = rand.Next(0, ads.Length);
+            return ads[randomIndex];
         }
     }
 }
