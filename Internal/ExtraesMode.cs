@@ -4,6 +4,7 @@ namespace BLRPC.Internal
 {
     public static class ExtraesMode
     {
+        // this all comes from the BW/BL-CHAOS ads effect, extraes suggested i add it and goddamn it was a good idea
         private static readonly string[] ads = new string[] {
         "my balls lol!!!!!!!!",
         "deez what sir",
@@ -584,6 +585,7 @@ namespace BLRPC.Internal
         "Most of the demons have been conquered! World peace is more achievable than ever. This life is worth living ... we are all just trying our best!",
         "Is everyone brainwashed or am I retarded?!",
         "Am I an AI?",
+        "bush did it",
 #endregion
     };
         public static string RandomScreamingAboutNonsense()
