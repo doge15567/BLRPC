@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="Some test stuff">
+    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/UserEntries.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLRPC.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BLRPC.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscordRPC.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DllTools.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Main.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RPC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RPC.cs" afterDir="false" />
     </list>
@@ -68,6 +67,12 @@
       <workItem from="1697330729695" duration="992000" />
       <workItem from="1697331818031" duration="393000" />
       <workItem from="1697332269949" duration="648000" />
+      <workItem from="1697333144242" duration="254000" />
+      <workItem from="1697333482036" duration="96000" />
+      <workItem from="1697333639675" duration="8000" />
+      <workItem from="1697333733782" duration="134000" />
+      <workItem from="1697333895853" duration="372000" />
+      <workItem from="1697335869337" duration="1722000" />
     </task>
     <task id="LOCAL-00001" summary="Some test stuff">
       <option name="closed" value="true" />
@@ -77,12 +82,21 @@
       <option name="project" value="LOCAL" />
       <updated>1697324450879</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="It no longer errors out! But nothing works.">
+      <option name="closed" value="true" />
+      <created>1697333322772</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1697333322772</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Some test stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some test stuff" />
+    <MESSAGE value="It no longer errors out! But nothing works." />
+    <option name="LAST_COMMIT_MESSAGE" value="It no longer errors out! But nothing works." />
   </component>
 </project>

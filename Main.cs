@@ -15,6 +15,7 @@ namespace BLRPC
         public override void OnInitializeMelon()
         {
             MelonLogger.Msg("Mod loaded, trying initialize RPC...");
+            UserEntries.Setup();
             Rpc.Initialize();
             MelonLogger.Msg("Hooking LevelLoad");
             Hooking.OnLevelInitialized += OnLevelLoad;
@@ -31,7 +32,8 @@ namespace BLRPC
             var title = levelInfo.title;
             var map = CheckMap(levelInfo.barcode);
             MelonLogger.Msg($"Level loaded: {title} ({map})");
-            Rpc.SetRpc("In " + title, map, title, "bonelabsmall", "BONELAB");
+            var details = UserEntries.GetEntry();
+            Rpc.SetRpc(details,"In " + title, map, title, "bonelabsmall", "BONELAB");
         }
 
         private static string CheckMap(string barcode)

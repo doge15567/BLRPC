@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Timers;
 using DiscordRPC;
 using DiscordRPC.Events;
+using DiscordRPC.Logging;
 using DiscordRPC.Message;
 using MelonLoader;
 
@@ -13,18 +14,20 @@ namespace BLRPC
     public static class Rpc
     {
         private static DateTime _startTime;
-        
-        public static DiscordRpcClient Client;
+
+        public static readonly DiscordRpcClient Client = new DiscordRpcClient("1162864836418490388");
         public static void Initialize()
         {
-            Client = new DiscordRpcClient("1162864836418490388");	
+            Client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
             MelonLogger.Msg($"Client initialized with ID {Client.ApplicationID}");
             Client.OnReady += OnReady;
             Client.OnPresenceUpdate += OnPresenceUpdate;
             Client.Initialize();
             MelonLogger.Msg("Client initialized! Probably.");
+            _startTime = DateTime.UtcNow;
             Client.SetPresence(new RichPresence()
             {
+                Details = UserEntries.GetEntry(),
                 State = "Loading",
                 Timestamps = new Timestamps()
                 {
@@ -39,7 +42,7 @@ namespace BLRPC
                 }
             });
             MelonLogger.Msg("Presence set! Maybe.");
-            _startTime = DateTime.UtcNow;
+            MelonLogger.Msg($"Current presence: {Client.CurrentPresence}");
         }
 
         private static void OnReady(object sender, ReadyMessage e)
@@ -52,23 +55,12 @@ namespace BLRPC
             MelonLogger.Msg($"Received Update! {e.Presence}");
         }
         public static DateTime? Now { get; }
-        public static void SetRpc(string state, string largeImageKey, string largeImageText, string smallImageKey, string smallImageText)
+        public static void SetRpc(string details, string state, string largeImageKey, string largeImageText, string smallImageKey, string smallImageText)
         {
-            Client.SetPresence(new RichPresence()
-            {
-                State = state,
-                Timestamps = new Timestamps()
-                {
-                    Start = Now
-                },
-                Assets = new Assets()
-                {
-                    LargeImageKey = largeImageKey,
-                    LargeImageText = largeImageText,
-                    SmallImageKey = smallImageKey,
-                    SmallImageText = smallImageText
-                }
-            });
+            Client.UpdateDetails(details);
+            Client.UpdateState(state);
+            Client.UpdateLargeAsset(largeImageKey, largeImageText);
+            Client.UpdateSmallAsset(smallImageKey, smallImageText);
         }
     }
 }
