@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="It actually works now">
-      <change afterPath="$PROJECT_DIR$/Resources/discord_game_sdk.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLRPC.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BLRPC.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BonelabMaps.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BonelabMaps.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Main.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RPC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RPC.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/UserEntries.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/UserEntries.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserEntries.cs" beforeDir="false" />
-    </list>
+    <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="Organization, fixed mirror being missing from the map check" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,6 +80,7 @@
       <workItem from="1697341102915" duration="303000" />
       <workItem from="1697341526381" duration="266000" />
       <workItem from="1697342013110" duration="1056000" />
+      <workItem from="1697343216225" duration="314000" />
     </task>
     <task id="LOCAL-00001" summary="Some test stuff">
       <option name="closed" value="true" />
@@ -123,7 +114,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697341381207</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Organization, fixed mirror being missing from the map check">
+      <option name="closed" value="true" />
+      <created>1697343527704</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1697343527704</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
@@ -132,6 +131,7 @@
     <MESSAGE value="It no longer errors out! But nothing works." />
     <MESSAGE value="Details field" />
     <MESSAGE value="It actually works now" />
-    <option name="LAST_COMMIT_MESSAGE" value="It actually works now" />
+    <MESSAGE value="Organization, fixed mirror being missing from the map check" />
+    <option name="LAST_COMMIT_MESSAGE" value="Organization, fixed mirror being missing from the map check" />
   </component>
 </project>
