@@ -32,7 +32,15 @@ namespace BLRPC
             ModConsole.Setup(LoggerInstance);
             if (Application.platform == RuntimePlatform.Android)
             {
+                // copilot came up with the "please use the PC version" line
+                // just to make it clear, this mod will not work on Quest.
+                // wait they wont see these comments they're kinda stupid
+                // eh fuck it ill just add more logging to make it obvious
                 ModConsole.Error("You are on Quest! This mod won't work! Please use the PC version of BONELAB!");
+                ModConsole.Error("Seriously, this won't work at all. Don't come whining to me.");
+                ModConsole.Error("You can't install Discord on Quest, so it won't work.");
+                ModConsole.Error("All of the code is prevented from running if you're on Quest. It'll just cause issues.");
+                ModConsole.Error("Just to get it through: DO NOT COMPLAIN TO ME ABOUT IT NOT WORKING. ITS IMPOSSIBLE FOR IT TO WORK.");
                 _isQuest = true;
             }
             if (_isQuest) return;
