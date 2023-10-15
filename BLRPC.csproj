@@ -43,6 +43,7 @@
         <Compile Include="DiscordGameSDK\LobbyManager.cs" />
         <Compile Include="DiscordGameSDK\StorageManager.cs" />
         <Compile Include="DiscordGameSDK\StoreManager.cs" />
+        <Compile Include="Internal\AvatarChange.cs" />
         <Compile Include="Internal\BonelabMaps.cs" />
         <Compile Include="Internal\CheckPallets.cs" />
         <Compile Include="Internal\DllTools.cs" />
@@ -53,7 +54,6 @@
         <Compile Include="Melon\ModConsole.cs" />
         <Compile Include="Melon\ModPref.cs" />
         <Compile Include="Melon\Preferences.cs" />
-        <Compile Include="Patching\AvatarChange.cs" />
         <Compile Include="Patching\DeathCounter.cs" />
         <Compile Include="Patching\ShotCounter.cs" />
         <Compile Include="Patching\SpawnCounter.cs" />

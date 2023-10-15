@@ -79,15 +79,21 @@ namespace BLRPC
                 DllTools.FreeLibrary(_rpcLib);
             }
         }
-
+        
+        private static bool _levelLoaded;
         public override void OnUpdate()
         {
             if (_isQuest) return;
             Rpc.Discord.RunCallbacks();
+            if (Preferences.detailsMode.entry.Value == DetailsMode.CurrentAvatar && _levelLoaded)
+            {
+                AvatarChange.UpdateRpc();
+            }
         }
 
         private static void OnLevelLoad(LevelInfo levelInfo)
         {
+            _levelLoaded = true;
             MelonLogger.Msg($"Level loaded: {levelInfo.title}", LoggingMode.DEBUG);
             DeathCounter.Counter = 0;
             ShotCounter.Counter = 0;
@@ -122,7 +128,8 @@ namespace BLRPC
                     break;
                 case DetailsMode.CurrentAvatar:
                     var avatar = Player.GetCurrentAvatar();
-                    Rpc.SetRpc($"Current Avatar: {avatar}", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+                    var avatarclean = HelperMethods.GetCleanObjectName(avatar.name);
+                    Rpc.SetRpc($"Current Avatar: {avatarclean}", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
                     break;
                 default:
                     ModConsole.Error("You don't have a proper mode set!");

@@ -24,6 +24,7 @@ namespace BLRPC.Patching
         private static void UpdateCounter()
         {
             Counter += 1;
+            ModConsole.Msg($"Spawnable placed, new spawn count is {Counter}", LoggingMode.DEBUG);
             Rpc.SetRpc($"Objects Spawned: {Counter}", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
         }
     }
