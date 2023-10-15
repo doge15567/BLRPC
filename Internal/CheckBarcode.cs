@@ -1,57 +1,7 @@
-﻿using System.Linq;
-
-namespace BLRPC.Internal
+﻿namespace BLRPC.Internal
 {
     public static class CheckBarcode
     {
-        public static string CheckAvatarName(string name)
-        {
-            switch (name)
-            {
-                case BonelabAvatars.Heavy:
-                    return "Heavy";
-                case BonelabAvatars.Fast:
-                    return "Fast";
-                case BonelabAvatars.Short:
-                    return "Short";
-                case BonelabAvatars.Tall:
-                    return "Tall";
-                case BonelabAvatars.Strong:
-                    return "Strong";
-                case BonelabAvatars.Light:
-                    return "Light";
-                case BonelabAvatars.Jimmy:
-                    return "Jimmy";
-                case BonelabAvatars.Ford:
-                    return "Ford";
-                case BonelabAvatars.PeasantFemaleA:
-                    return "Peasant Female A";
-                case BonelabAvatars.PeasantFemaleB:
-                    return "Peasant Female B";
-                case BonelabAvatars.PeasantFemaleC:
-                    return "Peasant Female C";
-                case BonelabAvatars.PeasantMaleA:
-                    return "Peasant Male A";
-                case BonelabAvatars.PeasantMaleB:
-                    return "Peasant Male B";
-                case BonelabAvatars.PeasantMaleC:
-                    return "Peasant Male C";
-                case BonelabAvatars.Nullbody:
-                    return "Nullbody";
-                case BonelabAvatars.Skeleton:
-                    return "Skeleton";
-                case BonelabAvatars.SecurityGuard:
-                    return "Security Guard";
-                case BonelabAvatars.DuckSeasonDog:
-                    return "The Dog";
-                case BonelabAvatars.PolyBlank:
-                    return "PolyBlank";
-                case BonelabAvatars.PolyDebugger:
-                    return "PolyBlank";
-                default:
-                    return name;
-            }
-        }
         public static string CheckAvatar(string name)
         {
             switch (name)

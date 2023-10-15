@@ -1,9 +1,4 @@
-﻿using System;
-using BLRPC.Internal;
-using BLRPC.Melon;
-using BoneLib;
-using HarmonyLib;
-using SLZ.Rig;
+﻿using BoneLib;
 
 namespace BLRPC.Internal
 {
@@ -11,19 +6,10 @@ namespace BLRPC.Internal
     {
         public static void UpdateRpc()
         {
-            var avatar = Player.GetCurrentAvatar();
-            var index = avatar.name.LastIndexOf("(Clone)", StringComparison.Ordinal);
-            if (index != -1)
-            {
-                var cleanName = avatar.name.Substring(0, index);
-                GlobalVariables.smallImageText = CheckBarcode.CheckAvatarName(cleanName);
-                GlobalVariables.smallImageKey = CheckBarcode.CheckAvatar(cleanName);
-            }
-            else
-            {
-                GlobalVariables.smallImageText = avatar.name;
-                GlobalVariables.smallImageKey = CheckBarcode.CheckAvatar(avatar.name);
-            }
+            var rigManager = Player.rigManager;
+            var avatar = rigManager.AvatarCrate.Crate;
+            GlobalVariables.smallImageKey = CheckBarcode.CheckAvatar(avatar.Barcode);
+            GlobalVariables.smallImageText = avatar.Title;
             Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
         }
     }
