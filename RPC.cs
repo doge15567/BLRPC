@@ -1,6 +1,6 @@
 ﻿using System;
+using BLRPC.Melon;
 using Discord;
-using MelonLoader;
 
 namespace BLRPC
 {
@@ -11,16 +11,18 @@ namespace BLRPC
         private static readonly long Start = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         public static void Initialize()
         {
-            MelonLogger.Msg("We got to the activity stuff");
-            Discord = new global::Discord.Discord(1162864836418490388, (ulong)CreateFlags.Default);
+            ModConsole.Msg("Initializing RPC", LoggingMode.DEBUG);
+            Discord = new global::Discord.Discord(Preferences.discordAppId, (ulong)CreateFlags.Default);
+            ModConsole.Msg($"Discord is {Discord}", LoggingMode.DEBUG);
+            ModConsole.Msg($"Application ID is {Preferences.discordAppId}", LoggingMode.DEBUG);
             _activityManager = Discord.GetActivityManager();
+            ModConsole.Msg($"Activity manager is {_activityManager}", LoggingMode.DEBUG);
             SetRpc(null, "Loading Game", "bonelab", "BONELAB");
-            MelonLogger.Msg("We got past the activity stuff");
         }
         
         public static void SetRpc(string details, string state, string largeImageKey, string largeImageText)
         {
-            MelonLogger.Msg("Setting activity");
+            ModConsole.Msg($"Setting activity with details {details}, state {state}, large image key {largeImageKey}, and large image text {largeImageText}", LoggingMode.DEBUG);
             var activity = new Activity
             {
                 State = state,
@@ -36,16 +38,15 @@ namespace BLRPC
                 },
                 Instance = false
             };
-            MelonLogger.Msg("Activity set");
             _activityManager.UpdateActivity(activity, (result) =>
             {
                 if (result == global::Discord.Result.Ok)
                 {
-                    MelonLogger.Msg("Successfully set activity");
+                    ModConsole.Msg("Successfully set activity!", LoggingMode.DEBUG);
                 }
                 else
                 {
-                    MelonLogger.Msg("Failed setting activity");
+                    ModConsole.Error("Failed to set activity!");
                 }
             });
         }

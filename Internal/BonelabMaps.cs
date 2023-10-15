@@ -1,4 +1,4 @@
-﻿namespace BLRPC
+﻿namespace BLRPC.Internal
 {
     public static class BonelabMaps
     {

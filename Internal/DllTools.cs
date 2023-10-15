@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace BLRPC
+namespace BLRPC.Internal
 {
     internal static class DllTools
     {

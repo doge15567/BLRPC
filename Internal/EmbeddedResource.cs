@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace BLRPC
+namespace BLRPC.Internal
 {
     public static class EmbeddedResource
     {

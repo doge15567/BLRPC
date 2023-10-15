@@ -5,8 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="950b2727-40cc-4c01-a175-198d08393a9c" name="Changes" comment="changed UserEntries.txt">
+      <change afterPath="$PROJECT_DIR$/DeathCounter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Internal/ExtraesMode.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Internal/GlobalVariables.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Melon/ModConsole.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Melon/ModPref.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Melon/Preferences.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ShotCounter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BLRPC/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLRPC.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BLRPC.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BonelabMaps.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Internal/BonelabMaps.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DllTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Internal/DllTools.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EmbeddedResource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Internal/EmbeddedResource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RPC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RPC.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Resources/UserEntries.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/UserEntries.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,6 +40,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2Wm3B6BaPyLFYnBirDZSTEjCHU4" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -92,7 +107,13 @@
       <workItem from="1697344669077" duration="60000" />
       <workItem from="1697345736550" duration="1197000" />
       <workItem from="1697347476118" duration="5000" />
-      <workItem from="1697348653447" duration="298000" />
+      <workItem from="1697348653447" duration="350000" />
+      <workItem from="1697354013043" duration="1691000" />
+      <workItem from="1697356046639" duration="591000" />
+      <workItem from="1697356809299" duration="487000" />
+      <workItem from="1697357611723" duration="1035000" />
+      <workItem from="1697358791199" duration="2037000" />
+      <workItem from="1697360862526" duration="341000" />
     </task>
     <task id="LOCAL-00001" summary="Some test stuff">
       <option name="closed" value="true" />
@@ -166,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697346506840</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="changed UserEntries.txt">
+      <option name="closed" value="true" />
+      <created>1697348969650</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1697348969650</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />

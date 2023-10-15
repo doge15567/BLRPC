@@ -1,7 +1,11 @@
 ﻿using System;
 using BoneLib;
 using System.IO;
+using BLRPC.Internal;
+using BLRPC.Melon;
 using MelonLoader;
+using UnityEngine;
+using Random = System.Random;
 
 namespace BLRPC
 {
@@ -11,7 +15,7 @@ namespace BLRPC
         internal const string Description = "Discord Rich Presence for BONELAB";
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
-        internal const string Version = "1.0.0";
+        internal const string Version = "1.1.0";
         internal const string DownloadLink = "null";
         
         // Stuff for userdata folder
@@ -21,35 +25,46 @@ namespace BLRPC
         // Stuff for loading the discord game SDK assembly
         private static bool _hasLoadedLib;
         private static IntPtr _rpcLib;
+        // Quest users.
+        private bool _isQuest;
         public override void OnInitializeMelon()
         {
-            MelonLogger.Msg("Mod loaded, loading discord SDK");
+            ModConsole.Setup(LoggerInstance);
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                ModConsole.Error("You are on Quest! This mod won't work! Please use the PC version of BONELAB!");
+                _isQuest = true;
+            }
+            if (_isQuest) return;
+            Preferences.Setup();
             if (!Directory.Exists(UserDataDirectory))
             {
+                ModConsole.Msg($"User data directory not found, creating at {UserDataDirectory}", LoggingMode.DEBUG);
                 Directory.CreateDirectory(UserDataDirectory);
             }
             if (!File.Exists(DLLPath))
             {
+                ModConsole.Msg($"Discord SDK not unpacked, unpacking at {DLLPath}", LoggingMode.DEBUG);
                 File.WriteAllBytes(DLLPath, EmbeddedResource.GetResourceBytes("discord_game_sdk.dll"));
             }
             if (!File.Exists(UserEntriesPath))
             {
+                ModConsole.Msg($"User entries file not unpacked, unpacking at {UserEntriesPath}", LoggingMode.DEBUG);
                 File.WriteAllBytes(UserEntriesPath, EmbeddedResource.GetResourceBytes("UserEntries.txt"));
             }
             if (!_hasLoadedLib)
             {
+                ModConsole.Msg($"Loading Discord SDK from {DLLPath}", LoggingMode.DEBUG);
                 _rpcLib = DllTools.LoadLibrary(DLLPath);
                 _hasLoadedLib = true;
             }
-            MelonLogger.Msg($"Discord SDK loaded at {DLLPath}");
+            ModConsole.Msg("Initializing RPC", LoggingMode.DEBUG);
             Rpc.Initialize();
-            MelonLogger.Msg("Hooking LevelLoad");
             Hooking.OnLevelInitialized += OnLevelLoad;
         }
 
         public override void OnApplicationQuit()
         {
-            MelonLogger.Msg("Application quit, disposing RPC");
             if (_hasLoadedLib)
             {
                 DllTools.FreeLibrary(_rpcLib);
@@ -58,17 +73,40 @@ namespace BLRPC
 
         public override void OnUpdate()
         {
+            if (_isQuest) return;
             Rpc.Discord.RunCallbacks();
         }
 
         private static void OnLevelLoad(LevelInfo levelInfo)
         {
-            var title = levelInfo.title;
-            var map = CheckMap(levelInfo.barcode);
-            MelonLogger.Msg($"Level loaded: {title} ({map})");
-            MelonLogger.Msg($"Barcode is {levelInfo.barcode}");
-            var details = GetEntry();
-            Rpc.SetRpc(details,"In " + title, map, title);
+            MelonLogger.Msg($"Level loaded: {levelInfo.title}", LoggingMode.DEBUG);
+            DeathCounter.Counter = 0;
+            ShotCounter.Counter = 0;
+            GlobalVariables.status = $"In {levelInfo.title}";
+            ModConsole.Msg($"Status is {GlobalVariables.status}", LoggingMode.DEBUG);
+            GlobalVariables.largeImageKey = CheckMap(levelInfo.barcode);
+            ModConsole.Msg($"Large image key is {GlobalVariables.largeImageKey}", LoggingMode.DEBUG);
+            GlobalVariables.largeImageText = levelInfo.title;
+            ModConsole.Msg($"Large image text is {GlobalVariables.largeImageText}", LoggingMode.DEBUG);
+            if (Preferences.detailsMode != DetailsMode.NPCDeaths && Preferences.detailsMode != DetailsMode.GunShots && Preferences.detailsMode != DetailsMode.Extraes)
+            {
+                var details = GetEntry();
+                ModConsole.Msg($"Details are {details}", LoggingMode.DEBUG);
+                Rpc.SetRpc(details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+            }
+            if (Preferences.detailsMode == DetailsMode.NPCDeaths)
+            {
+                Rpc.SetRpc("NPC Deaths: 0", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+            }
+            if (Preferences.detailsMode == DetailsMode.GunShots)
+            {
+                Rpc.SetRpc("Gun Shots Fired: 0", GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+            }
+            if (Preferences.detailsMode == DetailsMode.Extraes)
+            {
+                var details = ExtraesMode.RandomScreamingAboutNonsense();
+                Rpc.SetRpc(details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText);
+            }
         }
 
         private static string GetEntry()
