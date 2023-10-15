@@ -68,7 +68,7 @@ namespace BLRPC
             MelonLogger.Msg($"Level loaded: {title} ({map})");
             MelonLogger.Msg($"Barcode is {levelInfo.barcode}");
             var details = GetEntry();
-            Rpc.SetRpc(details,"In " + title, map, title, "bonelabsmall", "BONELAB");
+            Rpc.SetRpc(details,"In " + title, map, title);
         }
 
         private static string GetEntry()
