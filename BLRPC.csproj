@@ -75,6 +75,9 @@
         <Reference Include="Il2Cppmscorlib">
             <HintPath>References\Il2Cppmscorlib.dll</HintPath>
         </Reference>
+        <Reference Include="JeviLib">
+          <HintPath>..\TheAnnoyance\References\JeviLib.dll</HintPath>
+        </Reference>
         <Reference Include="MelonLoader">
             <HintPath>References\MelonLoader.dll</HintPath>
         </Reference>

@@ -7,6 +7,7 @@ using BLRPC.Melon;
 using MelonLoader;
 using UnityEngine;
 using BLRPC.Patching;
+using Jevil.Waiting;
 using Random = System.Random;
 
 namespace BLRPC
@@ -17,7 +18,7 @@ namespace BLRPC
         internal const string Description = "Discord Rich Presence for BONELAB";
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
-        internal const string Version = "1.2.1";
+        internal const string Version = "1.2.2";
         internal const string DownloadLink = "null";
         
         // Stuff for userdata folder
@@ -88,10 +89,11 @@ namespace BLRPC
             Rpc.Discord.RunCallbacks();
         }
 
-        private static void Avatar(object state)
+        private static void Avatar()
         {
             if (!_levelLoaded) return;
             AvatarHandler.UpdateRpc();
+            CallDelayed.CallAction(Avatar, 10, false);
         }
         
         private static bool _setTimer;
@@ -101,7 +103,7 @@ namespace BLRPC
             _levelLoaded = true;
             if (!_setTimer)
             {
-                var timer = new Timer(Avatar, null, 0, 10000);
+                CallDelayed.CallAction(Avatar, 10, false);
                 _setTimer = true;
             }
             MelonLogger.Msg($"Level loaded: {levelInfo.title}", LoggingMode.DEBUG);
