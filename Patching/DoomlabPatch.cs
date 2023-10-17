@@ -14,7 +14,7 @@ namespace BLRPC.Patching
             {
                 if (Preferences.detailsMode == DetailsMode.NPCDeaths)
                 {
-                    if (__instance.flags.HasFlag(MobjFlags.MF_COUNTKILL)) return;
+                    if (!__instance.flags.HasFlag(MobjFlags.MF_COUNTKILL)) return;
                     UpdateCounter();
                 }
             }
