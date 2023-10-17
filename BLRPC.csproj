@@ -57,6 +57,7 @@
         <Compile Include="Melon\ModPref.cs" />
         <Compile Include="Melon\Preferences.cs" />
         <Compile Include="Patching\DeathCounter.cs" />
+        <Compile Include="Patching\DoomlabPatch.cs" />
         <Compile Include="Patching\ShotCounter.cs" />
         <Compile Include="Patching\SpawnCounter.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
@@ -71,6 +72,9 @@
         </Reference>
         <Reference Include="BoneLib">
           <HintPath>References\BoneLib.dll</HintPath>
+        </Reference>
+        <Reference Include="DOOMLAB">
+          <HintPath>References\DOOMLAB.dll</HintPath>
         </Reference>
         <Reference Include="Il2Cppmscorlib">
             <HintPath>References\Il2Cppmscorlib.dll</HintPath>

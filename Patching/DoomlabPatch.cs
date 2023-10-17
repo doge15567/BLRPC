@@ -1,32 +1,30 @@
 ﻿using BLRPC.Internal;
 using BLRPC.Melon;
 using HarmonyLib;
-using SLZ.AI;
-using SLZ.Props;
-using SLZ.Props.Weapons;
+using NEP.DOOMLAB.Entities;
 
 namespace BLRPC.Patching
 {
-    public static class SpawnCounter
+    public static class DoomlabPatch
     {
-        [HarmonyPatch(typeof(SpawnGun), "OnFire")]
-        public class SpawnGun_Spawn
+        [HarmonyPatch(typeof(Mobj), "Kill")]
+        public class Mobj_OnDeath
         {
-            public static void Postfix(Gun __instance)
+            public static void Postfix(Mobj __instance)
             {
-                if (Preferences.detailsMode == DetailsMode.SpawnablesPlaced)
+                if (Preferences.detailsMode == DetailsMode.NPCDeaths)
                 {
+                    if (__instance.flags.HasFlag(MobjFlags.MF_COUNTKILL)) return;
                     UpdateCounter();
                 }
             }
         }
-
         public static int Counter = 0;
         private static void UpdateCounter()
         {
             Counter += 1;
-            ModConsole.Msg($"Spawnable placed, new spawn count is {Counter}", LoggingMode.DEBUG);
-            GlobalVariables.details = $"Objects Spawned: {Counter}";
+            ModConsole.Msg($"NPC died, new death count is {Counter}", LoggingMode.DEBUG);
+            GlobalVariables.details = $"NPC Deaths: {Counter}";
             Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
         }
     }

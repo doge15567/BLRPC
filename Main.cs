@@ -1,7 +1,6 @@
 ﻿using System;
 using BoneLib;
 using System.IO;
-using System.Threading;
 using BLRPC.Internal;
 using BLRPC.Melon;
 using MelonLoader;
@@ -18,7 +17,7 @@ namespace BLRPC
         internal const string Description = "Discord Rich Presence for BONELAB";
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
-        internal const string Version = "1.2.2";
+        internal const string Version = "1.2.3";
         internal const string DownloadLink = "null";
         
         // Stuff for userdata folder
@@ -109,6 +108,8 @@ namespace BLRPC
             MelonLogger.Msg($"Level loaded: {levelInfo.title}", LoggingMode.DEBUG);
             DeathCounter.Counter = 0;
             ShotCounter.Counter = 0;
+            SpawnCounter.Counter = 0;
+            DoomlabPatch.Counter = 0;
             GlobalVariables.status = $"In {levelInfo.title}";
             ModConsole.Msg($"Status is {GlobalVariables.status}", LoggingMode.DEBUG);
             GlobalVariables.largeImageKey = CheckBarcode.CheckMap(levelInfo.barcode);
