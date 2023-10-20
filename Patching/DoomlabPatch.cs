@@ -23,7 +23,7 @@ namespace BLRPC.Patching
         private static void UpdateCounter()
         {
             Counter += 1;
-            ModConsole.Msg($"NPC died, new death count is {Counter}", LoggingMode.DEBUG);
+            ModConsole.Msg($"DoomNPC died, new death count is {Counter}", LoggingMode.DEBUG);
             GlobalVariables.details = $"NPC Deaths: {Counter}";
             Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
         }
