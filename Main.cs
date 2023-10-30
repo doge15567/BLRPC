@@ -97,6 +97,12 @@ namespace BLRPC
                 AvatarHandler.UpdateRpc();
                 yield return new WaitForSeconds(10);
             }
+
+            while (!_levelLoaded)
+            {
+                yield return null;
+            }
+            MelonCoroutines.Start(AvatarUpdate());
         }
         
         private static void OnLevelLoad(LevelInfo levelInfo)
