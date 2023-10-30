@@ -22,6 +22,8 @@
                     return "jimmy";
                 case BonelabAvatars.Ford:
                     return "ford";
+                case BonelabAvatars.FordBL:
+                    return "ford";
                 case BonelabAvatars.PeasantFemaleA:
                     return "peasantfemalea";
                 case BonelabAvatars.PeasantFemaleB:

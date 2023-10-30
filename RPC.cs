@@ -19,6 +19,11 @@ namespace BLRPC
             ModConsole.Msg($"Activity manager is {_activityManager}", LoggingMode.DEBUG);
             SetRpc(null, "Loading Game", "bonelab", "BONELAB", null, null);
         }
+
+        public static void Dispose()
+        {
+            Discord.Dispose();
+        }
         
         public static void SetRpc(string details, string state, string largeImageKey, string largeImageText, string smallImageKey, string smallImageText)
         {

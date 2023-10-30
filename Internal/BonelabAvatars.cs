@@ -9,7 +9,8 @@
         public const string Strong = "fa534c5a83ee4ec6bd641fec424c4142.Avatar.Strong";
         public const string Light = "SLZ.BONELAB.Content.Avatar.Anime";
         public const string Jimmy = "SLZ.BONELAB.Content.Avatar.CharJimmy";
-        public const string Ford = "SLZ.BONELAB.Content.Avatar.CharFord";
+        public const string Ford = "SLZ.BONELAB.Content.Avatar.FordBW";
+        public const string FordBL = "SLZ.BONELAB.Content.Avatar.CharFord";
         public const string PeasantFemaleA = "SLZ.BONELAB.Core.Avatar.PeasantFemaleA";
         public const string PeasantFemaleB = "c3534c5a-10bf-48e9-beca-4ca850656173";
         public const string PeasantFemaleC = "c3534c5a-2236-4ce5-9385-34a850656173";

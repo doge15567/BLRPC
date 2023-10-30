@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using BoneLib;
 using System.IO;
 using BLRPC.Internal;
@@ -6,7 +7,6 @@ using BLRPC.Melon;
 using MelonLoader;
 using UnityEngine;
 using BLRPC.Patching;
-using Jevil.Waiting;
 using Random = System.Random;
 
 namespace BLRPC
@@ -17,7 +17,7 @@ namespace BLRPC
         internal const string Description = "Discord Rich Presence for BONELAB";
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
-        internal const string Version = "1.2.3";
+        internal const string Version = "1.3.1";
         internal const string DownloadLink = "null";
         
         // Stuff for userdata folder
@@ -70,11 +70,13 @@ namespace BLRPC
             }
             ModConsole.Msg("Initializing RPC", LoggingMode.DEBUG);
             Rpc.Initialize();
+            MelonCoroutines.Start(AvatarUpdate());
             Hooking.OnLevelInitialized += OnLevelLoad;
         }
 
         public override void OnApplicationQuit()
         {
+            Rpc.Dispose();
             if (_hasLoadedLib)
             {
                 DllTools.FreeLibrary(_rpcLib);
@@ -88,23 +90,18 @@ namespace BLRPC
             Rpc.Discord.RunCallbacks();
         }
 
-        private static void Avatar()
+        private static IEnumerator AvatarUpdate()
         {
-            if (!_levelLoaded) return;
-            AvatarHandler.UpdateRpc();
-            CallDelayed.CallAction(Avatar, 10, false);
+            while (_levelLoaded)
+            {
+                AvatarHandler.UpdateRpc();
+                yield return new WaitForSeconds(10);
+            }
         }
-        
-        private static bool _setTimer;
         
         private static void OnLevelLoad(LevelInfo levelInfo)
         {
             _levelLoaded = true;
-            if (!_setTimer)
-            {
-                CallDelayed.CallAction(Avatar, 10, false);
-                _setTimer = true;
-            }
             MelonLogger.Msg($"Level loaded: {levelInfo.title}", LoggingMode.DEBUG);
             DeathCounter.Counter = 0;
             ShotCounter.Counter = 0;
