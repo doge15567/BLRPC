@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using BoneLib;
 using System.IO;
 using BLRPC.Internal;
@@ -71,8 +72,9 @@ namespace BLRPC
             }
             ModConsole.Msg("Initializing RPC", LoggingMode.DEBUG);
             Rpc.Initialize();
+            MelonCoroutines.Start(AvatarUpdate());
             Hooking.OnLevelInitialized += OnLevelLoad;
-            Hooking.OnSwitchAvatarPostfix += AvatarUpdate;
+            Hooking.OnLevelUnloaded += OnLevelUnload;
         }
 
         public override void OnApplicationQuit()
@@ -89,28 +91,25 @@ namespace BLRPC
             Rpc.Discord.RunCallbacks();
         }
 
-        private static void AvatarUpdate(Avatar avatar)
+        private static IEnumerator AvatarUpdate()
         {
-            AvatarHandler.UpdateRpc();
-        }
-
-        [HarmonyPatch(typeof(Player_Health), "MakeVignette")]
-        public static class VignettePatch
-        {
-            // ReSharper disable once InconsistentNaming, __instance CANNOT be renamed.
-            public static void Postfix(Player_Health __instance)
+            while (_levelLoaded)
             {
-                OnRigmanagerReady();
+                AvatarHandler.UpdateRpc();
+                yield return new WaitForSeconds(10);
             }
-        }
 
-        private static void OnRigmanagerReady()
-        {
-            AvatarHandler.UpdateRpc();
+            while (!_levelLoaded)
+            {
+                yield return null;
+            }
+            MelonCoroutines.Start(AvatarUpdate());
         }
         
+        private static bool _levelLoaded;
         private static void OnLevelLoad(LevelInfo levelInfo)
         {
+            _levelLoaded = true;
             MelonLogger.Msg($"Level loaded: {levelInfo.title}", LoggingMode.DEBUG);
             NPCDeathCounter.Counter = 0;
             ShotCounter.Counter = 0;
@@ -122,7 +121,6 @@ namespace BLRPC
             ModConsole.Msg($"Large image key is {GlobalVariables.largeImageKey}", LoggingMode.DEBUG);
             GlobalVariables.largeImageText = levelInfo.title;
             ModConsole.Msg($"Large image text is {GlobalVariables.largeImageText}", LoggingMode.DEBUG);
-            AvatarHandler.UpdateRpc();
             switch (Preferences.detailsMode.entry.Value)
             {
                 case DetailsMode.GunShots:
@@ -159,6 +157,11 @@ namespace BLRPC
                     Rpc.SetRpc(null, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
                     break;
             }
+        }
+
+        private static void OnLevelUnload()
+        {
+            _levelLoaded = false;
         }
 
         private static string GetEntry()

@@ -6,7 +6,7 @@ namespace BLRPC.Patching
 {
     public static class PlayerDeathCounter
     {
-        [HarmonyPatch(typeof(Player_Health.PlayerDeath))]
+        [HarmonyPatch(typeof(Player_Health), "Death")]
         public class PlayerDeath
         {
             public static void Postfix(Player_Health __instance)
