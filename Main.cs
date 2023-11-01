@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using BoneLib;
 using System.IO;
 using BLRPC.Internal;
@@ -7,6 +6,8 @@ using BLRPC.Melon;
 using MelonLoader;
 using UnityEngine;
 using BLRPC.Patching;
+using HarmonyLib;
+using SLZ.VRMK;
 using Random = System.Random;
 
 namespace BLRPC
@@ -70,8 +71,8 @@ namespace BLRPC
             }
             ModConsole.Msg("Initializing RPC", LoggingMode.DEBUG);
             Rpc.Initialize();
-            MelonCoroutines.Start(AvatarUpdate());
             Hooking.OnLevelInitialized += OnLevelLoad;
+            Hooking.OnSwitchAvatarPostfix += AvatarUpdate;
         }
 
         public override void OnApplicationQuit()
@@ -82,34 +83,36 @@ namespace BLRPC
                 DllTools.FreeLibrary(_rpcLib);
             }
         }
-        
-        private static bool _levelLoaded;
         public override void OnUpdate()
         {
             if (_isQuest) return;
             Rpc.Discord.RunCallbacks();
         }
 
-        private static IEnumerator AvatarUpdate()
+        private static void AvatarUpdate(Avatar avatar)
         {
-            while (_levelLoaded)
-            {
-                AvatarHandler.UpdateRpc();
-                yield return new WaitForSeconds(10);
-            }
+            AvatarHandler.UpdateRpc();
+        }
 
-            while (!_levelLoaded)
+        [HarmonyPatch(typeof(Player_Health), "MakeVignette")]
+        public static class VignettePatch
+        {
+            // ReSharper disable once InconsistentNaming, __instance CANNOT be renamed.
+            public static void Postfix(Player_Health __instance)
             {
-                yield return null;
+                OnRigmanagerReady();
             }
-            MelonCoroutines.Start(AvatarUpdate());
+        }
+
+        private static void OnRigmanagerReady()
+        {
+            AvatarHandler.UpdateRpc();
         }
         
         private static void OnLevelLoad(LevelInfo levelInfo)
         {
-            _levelLoaded = true;
             MelonLogger.Msg($"Level loaded: {levelInfo.title}", LoggingMode.DEBUG);
-            DeathCounter.Counter = 0;
+            NPCDeathCounter.Counter = 0;
             ShotCounter.Counter = 0;
             SpawnCounter.Counter = 0;
             DoomlabPatch.Counter = 0;
@@ -119,6 +122,7 @@ namespace BLRPC
             ModConsole.Msg($"Large image key is {GlobalVariables.largeImageKey}", LoggingMode.DEBUG);
             GlobalVariables.largeImageText = levelInfo.title;
             ModConsole.Msg($"Large image text is {GlobalVariables.largeImageText}", LoggingMode.DEBUG);
+            AvatarHandler.UpdateRpc();
             switch (Preferences.detailsMode.entry.Value)
             {
                 case DetailsMode.GunShots:
@@ -144,6 +148,10 @@ namespace BLRPC
                 case DetailsMode.Entries:
                     GlobalVariables.details = GetEntry();
                     ModConsole.Msg($"Details are {GlobalVariables.details}", LoggingMode.DEBUG);
+                    Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
+                    break;
+                case DetailsMode.PlayerDeaths:
+                    GlobalVariables.details = $"Player Deaths: {PlayerDeathCounter.Counter}";
                     Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
                     break;
                 default:

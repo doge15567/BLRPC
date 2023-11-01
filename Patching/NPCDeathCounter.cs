@@ -2,10 +2,12 @@
 using BLRPC.Melon;
 using HarmonyLib;
 using SLZ.AI;
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedParameter.Global
 
 namespace BLRPC.Patching
 {
-    public static class DeathCounter
+    public static class NPCDeathCounter
     {
         [HarmonyPatch(typeof(AIBrain), "OnDeath")]
         public class AIBrain_OnDeath

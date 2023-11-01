@@ -30,6 +30,7 @@ namespace BLRPC.Melon
         GunShots,
         Extraes,
         SDKMods,
-        SpawnablesPlaced
+        SpawnablesPlaced,
+        PlayerDeaths
     }
 }

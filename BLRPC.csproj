@@ -35,6 +35,9 @@
     <PropertyGroup>
         <StartupObject/>
     </PropertyGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="COPY &quot;$(TargetPath)&quot; &quot;I:\Steam\steamapps\common\BONELAB\Mods&quot;" />
+    </Target>
     <ItemGroup>
         <Compile Include="DiscordGameSDK\ActivityManager.cs" />
         <Compile Include="DiscordGameSDK\Constants.cs" />
@@ -56,8 +59,9 @@
         <Compile Include="Melon\ModConsole.cs" />
         <Compile Include="Melon\ModPref.cs" />
         <Compile Include="Melon\Preferences.cs" />
-        <Compile Include="Patching\DeathCounter.cs" />
+        <Compile Include="Patching\NPCDeathCounter.cs" />
         <Compile Include="Patching\DoomlabPatch.cs" />
+        <Compile Include="Patching\PlayerDeathCounter.cs" />
         <Compile Include="Patching\ShotCounter.cs" />
         <Compile Include="Patching\SpawnCounter.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
