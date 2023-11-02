@@ -1,52 +1,54 @@
-﻿namespace BLRPC.Internal
+﻿using BoneLib;
+
+namespace BLRPC.Internal
 {
     public static class CheckBarcode
     {
-        public static string CheckAvatar(string name)
+        public static string CheckAvatar(string barcode)
         {
-            switch (name)
+            switch (barcode)
             {
-                case BonelabAvatars.Heavy:
+                case CommonBarcodes.Avatars.Heavy:
                     return "heavy";
-                case BonelabAvatars.Fast:
+                case CommonBarcodes.Avatars.Fast:
                     return "fast";
-                case BonelabAvatars.Short:
+                case CommonBarcodes.Avatars.Short:
                     return "short";
-                case BonelabAvatars.Tall:
+                case CommonBarcodes.Avatars.Tall:
                     return "tall";
-                case BonelabAvatars.Strong:
+                case CommonBarcodes.Avatars.Strong:
                     return "strong";
-                case BonelabAvatars.Light:
+                case CommonBarcodes.Avatars.Light:
                     return "light";
-                case BonelabAvatars.Jimmy:
+                case CommonBarcodes.Avatars.Jimmy:
                     return "jimmy";
-                case BonelabAvatars.Ford:
+                case CommonBarcodes.Avatars.FordBW:
                     return "ford";
-                case BonelabAvatars.FordBL:
+                case CommonBarcodes.Avatars.FordBL:
                     return "ford";
-                case BonelabAvatars.PeasantFemaleA:
+                case CommonBarcodes.Avatars.PeasantFemaleA:
                     return "peasantfemalea";
-                case BonelabAvatars.PeasantFemaleB:
+                case CommonBarcodes.Avatars.PeasantFemaleB:
                     return "peasantfemaleb";
-                case BonelabAvatars.PeasantFemaleC:
+                case CommonBarcodes.Avatars.PeasantFemaleC:
                     return "peasantfemalec";
-                case BonelabAvatars.PeasantMaleA:
+                case CommonBarcodes.Avatars.PeasantMaleA:
                     return "peasantmalea";
-                case BonelabAvatars.PeasantMaleB:
+                case CommonBarcodes.Avatars.PeasantMaleB:
                     return "peasantmaleb";
-                case BonelabAvatars.PeasantMaleC:
+                case CommonBarcodes.Avatars.PeasantMaleC:
                     return "peasantmalec";
-                case BonelabAvatars.Nullbody:
+                case CommonBarcodes.Avatars.Nullbody:
                     return "nullbody";
-                case BonelabAvatars.Skeleton:
+                case CommonBarcodes.Avatars.Skeleton:
                     return "skeleton";
-                case BonelabAvatars.SecurityGuard:
+                case CommonBarcodes.Avatars.SecurityGuard:
                     return "securityguard";
-                case BonelabAvatars.DuckSeasonDog:
+                case CommonBarcodes.Avatars.DuckSeasonDog:
                     return "duckseasondog";
-                case BonelabAvatars.PolyBlank:
+                case CommonBarcodes.Avatars.PolyBlank:
                     return "polyblank";
-                case BonelabAvatars.PolyDebugger:
+                case CommonBarcodes.Avatars.PolyDebugger:
                     return "polyblank";
                 default:
                     return "moddedavatar";
@@ -56,69 +58,69 @@
         {
             switch (barcode)
             {
-                case BonelabMaps.MainMenu:
+                case CommonBarcodes.Maps.MainMenu:
                     return "mainmenu";
-                case BonelabMaps.Descent:
+                case CommonBarcodes.Maps.Descent:
                     return "descent";
-                case BonelabMaps.BLHub:
+                case CommonBarcodes.Maps.BLHub:
                     return "blhub";
-                case BonelabMaps.LongRun:
+                case CommonBarcodes.Maps.LongRun:
                     return "longrun";
-                case BonelabMaps.MineDive:
+                case CommonBarcodes.Maps.MineDive:
                     return "minedive";
-                case BonelabMaps.BigAnomaly:
+                case CommonBarcodes.Maps.BigAnomaly:
                     return "biganomaly";
-                case BonelabMaps.StreetPuncher:
+                case CommonBarcodes.Maps.StreetPuncher:
                     return "streetpuncher";
-                case BonelabMaps.SprintBridge:
+                case CommonBarcodes.Maps.SprintBridge:
                     return "sprintbridge";
-                case BonelabMaps.MagmaGate:
+                case CommonBarcodes.Maps.MagmaGate:
                     return "magmagate";
-                case BonelabMaps.Moonbase:
+                case CommonBarcodes.Maps.Moonbase:
                     return "moonbase";
-                case BonelabMaps.MonogonMotorway:
+                case CommonBarcodes.Maps.MonogonMotorway:
                     return "monogonmotorway";
-                case BonelabMaps.PillarClimb:
+                case CommonBarcodes.Maps.PillarClimb:
                     return "pillarclimb";
-                case BonelabMaps.BigAnomaly2:
+                case CommonBarcodes.Maps.BigAnomaly2:
                     return "biganomaly2";
-                case BonelabMaps.Ascent:
+                case CommonBarcodes.Maps.Ascent:
                     return "ascent";
-                case BonelabMaps.Home:
+                case CommonBarcodes.Maps.Home:
                     return "home";
-                case BonelabMaps.VoidG114:
+                case CommonBarcodes.Maps.VoidG114:
                     return "voidg114";
-                case BonelabMaps.Baseline:
+                case CommonBarcodes.Maps.Baseline:
                     return "baseline";
-                case BonelabMaps.BigBoneBowling:
+                case CommonBarcodes.Maps.BigBoneBowling:
                     return "bigbonebowling";
-                case BonelabMaps.DropPit:
+                case CommonBarcodes.Maps.DropPit:
                     return "droppit";
-                case BonelabMaps.DungeonWarrior:
+                case CommonBarcodes.Maps.DungeonWarrior:
                     return "dungeonwarrior";
-                case BonelabMaps.FantasyArena:
+                case CommonBarcodes.Maps.FantasyArena:
                     return "fantasyarena";
-                case BonelabMaps.GunRange:
+                case CommonBarcodes.Maps.GunRange:
                     return "gunrange";
-                case BonelabMaps.HalfwayPark:
+                case CommonBarcodes.Maps.HalfwayPark:
                     return "halfwaypark";
-                case BonelabMaps.Holochamber:
+                case CommonBarcodes.Maps.Holochamber:
                     return "holochamber";
-                case BonelabMaps.MuseumBasement:
+                case CommonBarcodes.Maps.MuseumBasement:
                     return "museumbasement";
-                case BonelabMaps.NeonParkour:
+                case CommonBarcodes.Maps.NeonParkour:
                     return "neonparkour";
-                case BonelabMaps.NeonTrial:
+                case CommonBarcodes.Maps.NeonTrial:
                     return "neontrial";
-                case BonelabMaps.Rooftops:
+                case CommonBarcodes.Maps.Rooftops:
                     return "rooftops";
-                case BonelabMaps.TunnelTipper:
+                case CommonBarcodes.Maps.TunnelTipper:
                     return "tunneltipper";
-                case BonelabMaps.Tuscany:
+                case CommonBarcodes.Maps.Tuscany:
                     return "tuscany";
-                case BonelabMaps.ContainerYard:
+                case CommonBarcodes.Maps.ContainerYard:
                     return "containeryard";
-                case BonelabMaps.Mirror:
+                case CommonBarcodes.Maps.Mirror:
                     return "mirror";
                 default:
                     return "moddedmap";
