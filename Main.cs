@@ -50,13 +50,27 @@ namespace BLRPC
             }
             if (IsQuest) return;
             Preferences.Setup();
-            var discord = Process.GetProcessesByName("Discord.exe");
-            var discordcanary = Process.GetProcessesByName("DiscordCanary.exe");
-            if (discordcanary.Length == 0 && discord.Length == 0)
+            var discord = Process.GetProcessesByName("discord");
+            #if DEBUG
+            foreach (var process in discord)
+            {
+                ModConsole.Msg($"Discord: {process.ProcessName}");
+            }
+            var discordcanary = Process.GetProcessesByName("discordcanary");
+            foreach (var process in discordcanary)
+            {
+                ModConsole.Msg($"Discord: {process.ProcessName}");
+            }
+            #endif
+            if (discordcanary.Length <= 0 && discord.Length <= 0)
             {
                 ModConsole.Error("Neither Discord or Discord Canary are running!");
                 DiscordClosed = true;
                 return;
+            }
+            if (discordcanary.Length > 0 && discord.Length > 0)
+            {
+                ModConsole.Error("You have both Discord and Discord Canary running! Discord may struggle to pick one, and it may not work! Please close one and restart!");
             }
             if (!Directory.Exists(UserDataDirectory))
             {
