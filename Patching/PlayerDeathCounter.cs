@@ -11,6 +11,7 @@ namespace BLRPC.Patching
         {
             public static void Postfix(Player_Health __instance)
             {
+                if (Main.IsQuest || Main.DiscordClosed) return;
                 if (Preferences.detailsMode == DetailsMode.PlayerDeaths)
                 {
                     UpdateCounter();

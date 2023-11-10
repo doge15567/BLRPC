@@ -12,6 +12,7 @@ namespace BLRPC.Patching
         {
             public static void Postfix(Mobj __instance)
             {
+                if (Main.IsQuest || Main.DiscordClosed) return;
                 if (Preferences.detailsMode == DetailsMode.NPCDeaths)
                 {
                     if (!__instance.flags.HasFlag(MobjFlags.MF_COUNTKILL)) return;

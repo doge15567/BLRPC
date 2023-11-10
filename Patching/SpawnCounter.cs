@@ -14,6 +14,7 @@ namespace BLRPC.Patching
         {
             public static void Postfix(Gun __instance)
             {
+                if (Main.IsQuest || Main.DiscordClosed) return;
                 if (Preferences.detailsMode == DetailsMode.SpawnablesPlaced)
                 {
                     UpdateCounter();

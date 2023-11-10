@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics;
 using BoneLib;
 using System.IO;
 using BLRPC.Internal;
@@ -7,8 +8,6 @@ using BLRPC.Melon;
 using MelonLoader;
 using UnityEngine;
 using BLRPC.Patching;
-using HarmonyLib;
-using SLZ.VRMK;
 using Random = System.Random;
 
 namespace BLRPC
@@ -19,7 +18,7 @@ namespace BLRPC
         internal const string Description = "Discord Rich Presence for BONELAB";
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
-        internal const string Version = "1.3.1";
+        internal const string Version = "1.3.2";
         internal const string DownloadLink = "null";
         
         // Stuff for userdata folder
@@ -30,7 +29,9 @@ namespace BLRPC
         private static bool _hasLoadedLib;
         private static IntPtr _rpcLib;
         // Quest users.
-        private bool _isQuest;
+        public static bool IsQuest;
+        // Prevents stuff from running if Discord isn't open
+        public static bool DiscordClosed;
         public override void OnInitializeMelon()
         {
             ModConsole.Setup(LoggerInstance);
@@ -45,10 +46,18 @@ namespace BLRPC
                 ModConsole.Error("You can't install Discord on Quest, so it won't work.");
                 ModConsole.Error("All of the code is prevented from running if you're on Quest. It'll just cause issues.");
                 ModConsole.Error("Just to get it through: DO NOT COMPLAIN TO ME ABOUT IT NOT WORKING. ITS IMPOSSIBLE FOR IT TO WORK.");
-                _isQuest = true;
+                IsQuest = true;
             }
-            if (_isQuest) return;
+            if (IsQuest) return;
             Preferences.Setup();
+            var discord = Process.GetProcessesByName("Discord.exe");
+            var discordcanary = Process.GetProcessesByName("DiscordCanary.exe");
+            if (discordcanary.Length == 0 && discord.Length == 0)
+            {
+                ModConsole.Error("Neither Discord or Discord Canary are running!");
+                DiscordClosed = true;
+                return;
+            }
             if (!Directory.Exists(UserDataDirectory))
             {
                 ModConsole.Msg($"User data directory not found, creating at {UserDataDirectory}", LoggingMode.DEBUG);
@@ -79,6 +88,7 @@ namespace BLRPC
 
         public override void OnApplicationQuit()
         {
+            if (IsQuest || DiscordClosed) return;
             Rpc.Dispose();
             if (_hasLoadedLib)
             {
@@ -87,7 +97,7 @@ namespace BLRPC
         }
         public override void OnUpdate()
         {
-            if (_isQuest) return;
+            if (IsQuest || DiscordClosed) return;
             Rpc.Discord.RunCallbacks();
         }
 
@@ -109,6 +119,7 @@ namespace BLRPC
         private static bool _levelLoaded;
         private static void OnLevelLoad(LevelInfo levelInfo)
         {
+            if (IsQuest || DiscordClosed) return;
             _levelLoaded = true;
             MelonLogger.Msg($"Level loaded: {levelInfo.title}", LoggingMode.DEBUG);
             NPCDeathCounter.Counter = 0;
