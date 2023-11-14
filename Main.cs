@@ -22,9 +22,10 @@ namespace BLRPC
         internal const string DownloadLink = "null";
         
         // Stuff for userdata folder
-        private static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC");
-        private static readonly string DLLPath = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC", "discord_game_sdk.dll");
-        private static readonly string UserEntriesPath = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC", "UserEntries.txt");
+        private static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "Weather Electric/BLRPC");
+        private static readonly string LegacyDirectory = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC");
+        private static readonly string DLLPath = Path.Combine(UserDataDirectory, "discord_game_sdk.dll");
+        private static readonly string UserEntriesPath = Path.Combine(UserDataDirectory, "UserEntries.txt");
         // Stuff for loading the discord game SDK assembly
         private static bool _hasLoadedLib;
         private static IntPtr _rpcLib;
@@ -51,17 +52,7 @@ namespace BLRPC
             if (IsQuest) return;
             Preferences.Setup();
             var discord = Process.GetProcessesByName("discord");
-            #if DEBUG
-            foreach (var process in discord)
-            {
-                ModConsole.Msg($"Discord: {process.ProcessName}");
-            }
             var discordcanary = Process.GetProcessesByName("discordcanary");
-            foreach (var process in discordcanary)
-            {
-                ModConsole.Msg($"Discord: {process.ProcessName}");
-            }
-            #endif
             if (discordcanary.Length <= 0 && discord.Length <= 0)
             {
                 ModConsole.Error("Neither Discord or Discord Canary are running!");
@@ -79,13 +70,30 @@ namespace BLRPC
             }
             if (!File.Exists(DLLPath))
             {
-                ModConsole.Msg($"Discord SDK not unpacked, unpacking at {DLLPath}", LoggingMode.DEBUG);
-                File.WriteAllBytes(DLLPath, EmbeddedResource.GetResourceBytes("discord_game_sdk.dll"));
+                ModConsole.Msg($"Discord SDK not unpacked, checking legacy path", LoggingMode.DEBUG);
+                if (Directory.Exists(LegacyDirectory) && File.Exists(Path.Combine(LegacyDirectory, "discord_game_sdk.dll")))
+                {
+                    File.Move(Path.Combine(LegacyDirectory, "discord_game_sdk.dll"), DLLPath);
+                }
+                else
+                {
+                    ModConsole.Msg($"Legacy path not found, creating at {DLLPath}", LoggingMode.DEBUG);
+                    File.WriteAllBytes(DLLPath, EmbeddedResource.GetResourceBytes("discord_game_sdk.dll"));
+                }
             }
             if (!File.Exists(UserEntriesPath))
             {
-                ModConsole.Msg($"User entries file not unpacked, unpacking at {UserEntriesPath}", LoggingMode.DEBUG);
-                File.WriteAllBytes(UserEntriesPath, EmbeddedResource.GetResourceBytes("UserEntries.txt"));
+                ModConsole.Msg($"User entries file not unpacked, checking legacy path", LoggingMode.DEBUG);
+                if (Directory.Exists(LegacyDirectory) && File.Exists(Path.Combine(LegacyDirectory, "UserEntries.txt")))
+                {
+                    var entries = Path.Combine(LegacyDirectory, "UserEntries.txt");
+                    File.Move(entries, UserEntriesPath);
+                }
+                else
+                {
+                    ModConsole.Msg($"Legacy path not found, creating at {UserEntriesPath}", LoggingMode.DEBUG);
+                    File.WriteAllBytes(UserEntriesPath, EmbeddedResource.GetResourceBytes("UserEntries.txt"));
+                }
             }
             if (!_hasLoadedLib)
             {
