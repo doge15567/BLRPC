@@ -18,7 +18,7 @@ namespace BLRPC
         internal const string Description = "Discord Rich Presence for BONELAB";
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
-        internal const string Version = "1.3.3";
+        internal const string Version = "1.3.4";
         internal const string DownloadLink = "null";
         
         // Stuff for userdata folder
