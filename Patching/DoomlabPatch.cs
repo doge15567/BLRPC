@@ -13,7 +13,7 @@ namespace BLRPC.Patching
             public static void Postfix(Mobj __instance)
             {
                 if (Main.IsQuest || Main.DiscordClosed) return;
-                if (Preferences.detailsMode == DetailsMode.NPCDeaths)
+                if (Preferences.detailsMode.Value == DetailsMode.NPCDeaths)
                 {
                     if (!__instance.flags.HasFlag(MobjFlags.MF_COUNTKILL)) return;
                     UpdateCounter();
@@ -24,7 +24,7 @@ namespace BLRPC.Patching
         private static void UpdateCounter()
         {
             Counter += 1;
-            ModConsole.Msg($"DoomNPC died, new death count is {Counter}", LoggingMode.DEBUG);
+            ModConsole.Msg($"DoomNPC died, new death count is {Counter}", 1);
             GlobalVariables.details = $"NPC Deaths: {Counter}";
             Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
         }

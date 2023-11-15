@@ -15,7 +15,7 @@ namespace BLRPC.Patching
             public static void Postfix(Gun __instance)
             {
                 if (Main.IsQuest || Main.DiscordClosed) return;
-                if (Preferences.detailsMode == DetailsMode.GunShots)
+                if (Preferences.detailsMode.Value == DetailsMode.GunShots)
                 {
                     if (__instance.GetComponent<SpawnGun>()) return;
                     UpdateCounter();
@@ -26,7 +26,7 @@ namespace BLRPC.Patching
         private static void UpdateCounter()
         {
             Counter += 1;
-            ModConsole.Msg($"Gun fired, new shot count is {Counter}", LoggingMode.DEBUG);
+            ModConsole.Msg($"Gun fired, new shot count is {Counter}", 1);
             GlobalVariables.details = $"Gun Shots Fired: {Counter}";
             Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
         }

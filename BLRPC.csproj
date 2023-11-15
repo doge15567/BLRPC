@@ -55,7 +55,6 @@
         <Compile Include="Internal\GlobalVariables.cs" />
         <Compile Include="Main.cs"/>
         <Compile Include="Melon\ModConsole.cs" />
-        <Compile Include="Melon\ModPref.cs" />
         <Compile Include="Melon\Preferences.cs" />
         <Compile Include="Patching\NPCDeathCounter.cs" />
         <Compile Include="Patching\DoomlabPatch.cs" />

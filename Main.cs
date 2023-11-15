@@ -65,25 +65,25 @@ namespace BLRPC
             }
             if (!Directory.Exists(UserDataDirectory))
             {
-                ModConsole.Msg($"User data directory not found, creating at {UserDataDirectory}", LoggingMode.DEBUG);
+                ModConsole.Msg($"User data directory not found, creating at {UserDataDirectory}", 1);
                 Directory.CreateDirectory(UserDataDirectory);
             }
             if (!File.Exists(DLLPath))
             {
-                ModConsole.Msg($"Discord SDK not unpacked, checking legacy path", LoggingMode.DEBUG);
+                ModConsole.Msg($"Discord SDK not unpacked, checking legacy path", 1);
                 if (Directory.Exists(LegacyDirectory) && File.Exists(Path.Combine(LegacyDirectory, "discord_game_sdk.dll")))
                 {
                     File.Move(Path.Combine(LegacyDirectory, "discord_game_sdk.dll"), DLLPath);
                 }
                 else
                 {
-                    ModConsole.Msg($"Legacy path not found, creating at {DLLPath}", LoggingMode.DEBUG);
+                    ModConsole.Msg($"Legacy path not found, creating at {DLLPath}", 1);
                     File.WriteAllBytes(DLLPath, EmbeddedResource.GetResourceBytes("discord_game_sdk.dll"));
                 }
             }
             if (!File.Exists(UserEntriesPath))
             {
-                ModConsole.Msg($"User entries file not unpacked, checking legacy path", LoggingMode.DEBUG);
+                ModConsole.Msg($"User entries file not unpacked, checking legacy path", 1);
                 if (Directory.Exists(LegacyDirectory) && File.Exists(Path.Combine(LegacyDirectory, "UserEntries.txt")))
                 {
                     var entries = Path.Combine(LegacyDirectory, "UserEntries.txt");
@@ -91,17 +91,17 @@ namespace BLRPC
                 }
                 else
                 {
-                    ModConsole.Msg($"Legacy path not found, creating at {UserEntriesPath}", LoggingMode.DEBUG);
+                    ModConsole.Msg($"Legacy path not found, creating at {UserEntriesPath}", 1);
                     File.WriteAllBytes(UserEntriesPath, EmbeddedResource.GetResourceBytes("UserEntries.txt"));
                 }
             }
             if (!_hasLoadedLib)
             {
-                ModConsole.Msg($"Loading Discord SDK from {DLLPath}", LoggingMode.DEBUG);
+                ModConsole.Msg($"Loading Discord SDK from {DLLPath}", 1);
                 _rpcLib = DllTools.LoadLibrary(DLLPath);
                 _hasLoadedLib = true;
             }
-            ModConsole.Msg("Initializing RPC", LoggingMode.DEBUG);
+            ModConsole.Msg("Initializing RPC", 1);
             Rpc.Initialize();
             MelonCoroutines.Start(AvatarUpdate());
             Hooking.OnLevelInitialized += OnLevelLoad;
@@ -143,18 +143,18 @@ namespace BLRPC
         {
             if (IsQuest || DiscordClosed) return;
             _levelLoaded = true;
-            MelonLogger.Msg($"Level loaded: {levelInfo.title}", LoggingMode.DEBUG);
+            ModConsole.Msg($"Level loaded: {levelInfo.title}", 1);
             NPCDeathCounter.Counter = 0;
             ShotCounter.Counter = 0;
             SpawnCounter.Counter = 0;
             DoomlabPatch.Counter = 0;
             GlobalVariables.status = $"In {levelInfo.title}";
-            ModConsole.Msg($"Status is {GlobalVariables.status}", LoggingMode.DEBUG);
+            ModConsole.Msg($"Status is {GlobalVariables.status}", 1);
             GlobalVariables.largeImageKey = CheckBarcode.CheckMap(levelInfo.barcode);
-            ModConsole.Msg($"Large image key is {GlobalVariables.largeImageKey}", LoggingMode.DEBUG);
+            ModConsole.Msg($"Large image key is {GlobalVariables.largeImageKey}", 1);
             GlobalVariables.largeImageText = levelInfo.title;
-            ModConsole.Msg($"Large image text is {GlobalVariables.largeImageText}", LoggingMode.DEBUG);
-            switch (Preferences.detailsMode.entry.Value)
+            ModConsole.Msg($"Large image text is {GlobalVariables.largeImageText}", 1);
+            switch (Preferences.detailsMode.Value)
             {
                 case DetailsMode.GunShots:
                     GlobalVariables.details = "Gun Shots Fired: 0";
@@ -178,7 +178,7 @@ namespace BLRPC
                     break;
                 case DetailsMode.Entries:
                     GlobalVariables.details = GetEntry();
-                    ModConsole.Msg($"Details are {GlobalVariables.details}", LoggingMode.DEBUG);
+                    ModConsole.Msg($"Details are {GlobalVariables.details}", 1);
                     Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
                     break;
                 case DetailsMode.PlayerDeaths:

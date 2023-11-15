@@ -7,9 +7,9 @@ namespace BLRPC.Internal
     {
         public static int GetPalletCount()
         {
-            ModConsole.Msg("Getting pallet count", LoggingMode.DEBUG);
+            ModConsole.Msg("Getting pallet count", 1);
             var count = AssetWarehouse.Instance.GetPallets().Count;
-            ModConsole.Msg($"Pallet count is {count}", LoggingMode.DEBUG);
+            ModConsole.Msg($"Pallet count is {count}", 1);
             return count;
         }
     }

@@ -15,7 +15,7 @@ namespace BLRPC.Patching
             public static void Postfix(AIBrain __instance)
             {
                 if (Main.IsQuest || Main.DiscordClosed) return;
-                if (Preferences.detailsMode == DetailsMode.NPCDeaths)
+                if (Preferences.detailsMode.Value == DetailsMode.NPCDeaths)
                 {
                     UpdateCounter();
                 }
@@ -25,7 +25,7 @@ namespace BLRPC.Patching
         private static void UpdateCounter()
         {
             Counter += 1;
-            ModConsole.Msg($"NPC died, new death count is {Counter}", LoggingMode.DEBUG);
+            ModConsole.Msg($"NPC died, new death count is {Counter}", 1);
             GlobalVariables.details = $"NPC Deaths: {Counter}";
             Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
         }

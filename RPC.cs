@@ -11,12 +11,12 @@ namespace BLRPC
         private static readonly long Start = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         public static void Initialize()
         {
-            ModConsole.Msg("Initializing RPC", LoggingMode.DEBUG);
-            Discord = new global::Discord.Discord(Preferences.discordAppId, (ulong)CreateFlags.Default);
-            ModConsole.Msg($"Discord is {Discord}", LoggingMode.DEBUG);
-            ModConsole.Msg($"Application ID is {Preferences.discordAppId}", LoggingMode.DEBUG);
+            ModConsole.Msg("Initializing RPC", 1);
+            Discord = new global::Discord.Discord(Preferences.discordAppId.Value, (ulong)CreateFlags.Default);
+            ModConsole.Msg($"Discord is {Discord}", 1);
+            ModConsole.Msg($"Application ID is {Preferences.discordAppId.Value}", 1);
             _activityManager = Discord.GetActivityManager();
-            ModConsole.Msg($"Activity manager is {_activityManager}", LoggingMode.DEBUG);
+            ModConsole.Msg($"Activity manager is {_activityManager}", 1);
             SetRpc(null, "Loading Game", "bonelab", "BONELAB", null, null);
         }
 
@@ -27,7 +27,7 @@ namespace BLRPC
         
         public static void SetRpc(string details, string state, string largeImageKey, string largeImageText, string smallImageKey, string smallImageText)
         {
-            ModConsole.Msg($"Setting activity with details {details}, state {state}, large image key {largeImageKey}, and large image text {largeImageText}", LoggingMode.DEBUG);
+            ModConsole.Msg($"Setting activity with details {details}, state {state}, large image key {largeImageKey}, and large image text {largeImageText}", 1);
             var activity = new Activity
             {
                 State = state,
@@ -49,7 +49,7 @@ namespace BLRPC
             {
                 if (result == global::Discord.Result.Ok)
                 {
-                    ModConsole.Msg("Successfully set activity!", LoggingMode.DEBUG);
+                    ModConsole.Msg("Successfully set activity!", 1);
                 }
                 else
                 {

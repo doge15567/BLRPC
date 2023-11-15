@@ -12,7 +12,7 @@ namespace BLRPC.Patching
             public static void Postfix(Player_Health __instance)
             {
                 if (Main.IsQuest || Main.DiscordClosed) return;
-                if (Preferences.detailsMode == DetailsMode.PlayerDeaths)
+                if (Preferences.detailsMode.Value == DetailsMode.PlayerDeaths)
                 {
                     UpdateCounter();
                 }
@@ -24,7 +24,7 @@ namespace BLRPC.Patching
         private static void UpdateCounter()
         {
             Counter += 1;
-            ModConsole.Msg($"Playerdied, new death count is {Counter}", LoggingMode.DEBUG);
+            ModConsole.Msg($"Playerdied, new death count is {Counter}", 1);
             GlobalVariables.details = $"Player Deaths: {Counter}";
             Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
         }
