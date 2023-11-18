@@ -53,6 +53,7 @@
         <Compile Include="Internal\EmbeddedResource.cs" />
         <Compile Include="Internal\ExtraesMode.cs" />
         <Compile Include="Internal\GlobalVariables.cs" />
+        <Compile Include="Internal\StupidShit.cs" />
         <Compile Include="Main.cs"/>
         <Compile Include="Melon\ModConsole.cs" />
         <Compile Include="Melon\Preferences.cs" />

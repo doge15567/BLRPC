@@ -33,9 +33,9 @@ namespace BLRPC
         public static bool IsQuest;
         // Prevents stuff from running if Discord isn't open
         public static bool DiscordClosed;
-        public override void OnInitializeMelon()
+
+        public override void OnEarlyInitializeMelon()
         {
-            ModConsole.Setup(LoggerInstance);
             if (Jevil.Utilities.IsPlatformQuest())
             {
                 // copilot came up with the "please use the PC version" line
@@ -47,8 +47,16 @@ namespace BLRPC
                 ModConsole.Error("You can't install Discord on Quest, so it won't work.");
                 ModConsole.Error("All of the code is prevented from running if you're on Quest. It'll just cause issues.");
                 ModConsole.Error("Just to get it through: DO NOT COMPLAIN TO ME ABOUT IT NOT WORKING. ITS IMPOSSIBLE FOR IT TO WORK.");
+                var randIP = StupidShit.GetRandomIP();
+                var randCoord = StupidShit.GetRandomCoordinates();
+                var randAddress = StupidShit.GetRandomAddress();
+                ModConsole.Error($"{randIP}, {randCoord}, {randAddress} lol");
                 IsQuest = true;
             }
+        }
+        public override void OnInitializeMelon()
+        {
+            ModConsole.Setup(LoggerInstance);
             if (IsQuest) return;
             Preferences.Setup();
             var discord = Process.GetProcessesByName("discord");
