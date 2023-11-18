@@ -36,7 +36,7 @@ namespace BLRPC
         public override void OnInitializeMelon()
         {
             ModConsole.Setup(LoggerInstance);
-            if (Application.platform == RuntimePlatform.Android)
+            if (Jevil.Utilities.IsPlatformQuest())
             {
                 // copilot came up with the "please use the PC version" line
                 // just to make it clear, this mod will not work on Quest.
