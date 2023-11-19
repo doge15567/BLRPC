@@ -18,8 +18,8 @@ namespace BLRPC
         internal const string Description = "Discord Rich Presence for BONELAB";
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
-        internal const string Version = "1.3.4";
-        internal const string DownloadLink = "null";
+        internal const string Version = "1.4.0";
+        internal const string DownloadLink = "https://bonelab.thunderstore.io/package/CarrionAndOn/BonelabRichPresence/";
         
         // Stuff for userdata folder
         private static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "Weather Electric/BLRPC");
@@ -31,29 +31,10 @@ namespace BLRPC
         private static IntPtr _rpcLib;
         // Quest users.
         public static bool IsQuest;
+        private static bool _checkedQuest;
         // Prevents stuff from running if Discord isn't open
         public static bool DiscordClosed;
-
-        public override void OnEarlyInitializeMelon()
-        {
-            if (Jevil.Utilities.IsPlatformQuest())
-            {
-                // copilot came up with the "please use the PC version" line
-                // just to make it clear, this mod will not work on Quest.
-                // wait they wont see these comments they're kinda stupid
-                // eh fuck it ill just add more logging to make it obvious
-                ModConsole.Error("You are on Quest! This mod won't work! Please use the PC version of BONELAB!");
-                ModConsole.Error("Seriously, this won't work at all. Don't come whining to me.");
-                ModConsole.Error("You can't install Discord on Quest, so it won't work.");
-                ModConsole.Error("All of the code is prevented from running if you're on Quest. It'll just cause issues.");
-                ModConsole.Error("Just to get it through: DO NOT COMPLAIN TO ME ABOUT IT NOT WORKING. ITS IMPOSSIBLE FOR IT TO WORK.");
-                var randIP = StupidShit.GetRandomIP();
-                var randCoord = StupidShit.GetRandomCoordinates();
-                var randAddress = StupidShit.GetRandomAddress();
-                ModConsole.Error($"{randIP}, {randCoord}, {randAddress} lol");
-                IsQuest = true;
-            }
-        }
+        
         public override void OnInitializeMelon()
         {
             ModConsole.Setup(LoggerInstance);
@@ -112,6 +93,7 @@ namespace BLRPC
             ModConsole.Msg("Initializing RPC", 1);
             Rpc.Initialize();
             MelonCoroutines.Start(AvatarUpdate());
+            BoneMenu.Setup();
             Hooking.OnLevelInitialized += OnLevelLoad;
             Hooking.OnLevelUnloaded += OnLevelUnload;
         }
@@ -125,8 +107,18 @@ namespace BLRPC
                 DllTools.FreeLibrary(_rpcLib);
             }
         }
+        
         public override void OnUpdate()
         {
+            if (_checkedQuest)
+            {
+                if (HelperMethods.IsAndroid())
+                {
+                    ModConsole.Error("You are on Quest! This mod won't work! Please use the PC version of BONELAB!");
+                    IsQuest = true;
+                }
+                _checkedQuest = true;
+            }
             if (IsQuest || DiscordClosed) return;
             Rpc.Discord.RunCallbacks();
         }
@@ -152,17 +144,17 @@ namespace BLRPC
             if (IsQuest || DiscordClosed) return;
             _levelLoaded = true;
             ModConsole.Msg($"Level loaded: {levelInfo.title}", 1);
-            NPCDeathCounter.Counter = 0;
-            ShotCounter.Counter = 0;
+            if (Preferences.ResetKillsOnLevelLoad.Value) NPCDeathCounter.Counter = 0;
+            if (Preferences.ResetGunShotsOnLevelLoad.Value) ShotCounter.Counter = 0;
+            if (Preferences.ResetDeathsOnLevelLoad.Value) PlayerDeathCounter.Counter = 0;
             SpawnCounter.Counter = 0;
-            DoomlabPatch.Counter = 0;
             GlobalVariables.status = $"In {levelInfo.title}";
             ModConsole.Msg($"Status is {GlobalVariables.status}", 1);
             GlobalVariables.largeImageKey = CheckBarcode.CheckMap(levelInfo.barcode);
             ModConsole.Msg($"Large image key is {GlobalVariables.largeImageKey}", 1);
             GlobalVariables.largeImageText = levelInfo.title;
             ModConsole.Msg($"Large image text is {GlobalVariables.largeImageText}", 1);
-            switch (Preferences.detailsMode.Value)
+            switch (Preferences.DetailsMode.Value)
             {
                 case DetailsMode.GunShots:
                     GlobalVariables.details = "Gun Shots Fired: 0";

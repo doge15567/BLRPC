@@ -53,12 +53,12 @@
         <Compile Include="Internal\EmbeddedResource.cs" />
         <Compile Include="Internal\ExtraesMode.cs" />
         <Compile Include="Internal\GlobalVariables.cs" />
-        <Compile Include="Internal\StupidShit.cs" />
         <Compile Include="Main.cs"/>
+        <Compile Include="Melon\BoneMenu.cs" />
+        <Compile Include="Melon\BoneMenuExtensions.cs" />
         <Compile Include="Melon\ModConsole.cs" />
         <Compile Include="Melon\Preferences.cs" />
         <Compile Include="Patching\NPCDeathCounter.cs" />
-        <Compile Include="Patching\DoomlabPatch.cs" />
         <Compile Include="Patching\PlayerDeathCounter.cs" />
         <Compile Include="Patching\ShotCounter.cs" />
         <Compile Include="Patching\SpawnCounter.cs" />

@@ -15,7 +15,7 @@ namespace BLRPC.Patching
             public static void Postfix(Gun __instance)
             {
                 if (Main.IsQuest || Main.DiscordClosed) return;
-                if (Preferences.detailsMode.Value == DetailsMode.GunShots)
+                if (Preferences.DetailsMode.Value == DetailsMode.GunShots)
                 {
                     if (__instance.GetComponent<SpawnGun>()) return;
                     UpdateCounter();

@@ -4,7 +4,7 @@ using Discord;
 
 namespace BLRPC
 {
-    public static class Rpc
+    internal static class Rpc
     {
         public static Discord.Discord Discord;
         private static ActivityManager _activityManager;
@@ -12,9 +12,9 @@ namespace BLRPC
         public static void Initialize()
         {
             ModConsole.Msg("Initializing RPC", 1);
-            Discord = new global::Discord.Discord(Preferences.discordAppId.Value, (ulong)CreateFlags.Default);
+            Discord = new global::Discord.Discord(Preferences.DiscordAppId.Value, (ulong)CreateFlags.Default);
             ModConsole.Msg($"Discord is {Discord}", 1);
-            ModConsole.Msg($"Application ID is {Preferences.discordAppId.Value}", 1);
+            ModConsole.Msg($"Application ID is {Preferences.DiscordAppId.Value}", 1);
             _activityManager = Discord.GetActivityManager();
             ModConsole.Msg($"Activity manager is {_activityManager}", 1);
             SetRpc(null, "Loading Game", "bonelab", "BONELAB", null, null);
