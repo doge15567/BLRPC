@@ -19,7 +19,7 @@ namespace BLRPC
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
         internal const string Version = "1.4.0";
-        internal const string DownloadLink = "https://bonelab.thunderstore.io/package/CarrionAndOn/BonelabRichPresence/";
+        internal const string DownloadLink = "https://bonelab.thunderstore.io/package/SoulWithMae/BonelabRichPresence/";
         
         // Stuff for userdata folder
         private static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "Weather Electric/BLRPC");
