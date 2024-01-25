@@ -18,7 +18,7 @@ namespace BLRPC
         internal const string Description = "Discord Rich Presence for BONELAB";
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
-        internal const string Version = "1.4.0";
+        internal const string Version = "1.4.1";
         internal const string DownloadLink = "https://bonelab.thunderstore.io/package/SoulWithMae/BonelabRichPresence/";
         
         // Stuff for userdata folder
@@ -38,19 +38,21 @@ namespace BLRPC
         public override void OnInitializeMelon()
         {
             ModConsole.Setup(LoggerInstance);
+            // Quest is a cunt can we bomb facebook already
             if (IsQuest) return;
             Preferences.Setup();
             var discord = Process.GetProcessesByName("discord");
             var discordcanary = Process.GetProcessesByName("discordcanary");
-            if (discordcanary.Length <= 0 && discord.Length <= 0)
+            var discordptb = Process.GetProcessesByName("discordptb");
+            if (discordcanary.Length <= 0 && discord.Length <= 0 && discordptb.Length <= 0)
             {
-                ModConsole.Error("Neither Discord or Discord Canary are running!");
+                ModConsole.Error("Neither Discord, Discord Canary, or Discord PTB are running!");
                 DiscordClosed = true;
                 return;
             }
-            if (discordcanary.Length > 0 && discord.Length > 0)
+            if ((discord.Length > 0 && discordcanary.Length > 0) || (discord.Length > 0 && discordptb.Length > 0) || (discordcanary.Length > 0 && discordptb.Length > 0))
             {
-                ModConsole.Error("You have both Discord and Discord Canary running! Discord may struggle to pick one, and it may not work! Please close one and restart!");
+                ModConsole.Error("You have 2 Discords open! Discord may struggle to pick one, and it may not work! Please close one and restart!");
             }
             if (!Directory.Exists(UserDataDirectory))
             {
@@ -115,6 +117,7 @@ namespace BLRPC
                 if (HelperMethods.IsAndroid())
                 {
                     ModConsole.Error("You are on Quest! This mod won't work! Please use the PC version of BONELAB!");
+                    // kys
                     IsQuest = true;
                 }
                 _checkedQuest = true;
