@@ -12,6 +12,7 @@
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <Deterministic>true</Deterministic>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,23 +47,23 @@
         <Compile Include="DiscordGameSDK\LobbyManager.cs" />
         <Compile Include="DiscordGameSDK\StorageManager.cs" />
         <Compile Include="DiscordGameSDK\StoreManager.cs" />
-        <Compile Include="Internal\AvatarHandler.cs" />
-        <Compile Include="Internal\CheckBarcode.cs" />
-        <Compile Include="Internal\CheckPallets.cs" />
+        <Compile Include="Handlers\AvatarHandler.cs" />
+        <Compile Include="Handlers\FusionHandler.cs" />
+        <Compile Include="Handlers\Helpers\CheckBarcode.cs" />
+        <Compile Include="Handlers\Helpers\CheckPallets.cs" />
+        <Compile Include="Handlers\DeathHandler.cs" />
+        <Compile Include="Handlers\GunshotHandler.cs" />
+        <Compile Include="Handlers\SpawnGunHandler.cs" />
         <Compile Include="Internal\DllTools.cs" />
         <Compile Include="Internal\EmbeddedResource.cs" />
         <Compile Include="Internal\ExtraesMode.cs" />
         <Compile Include="Internal\GlobalVariables.cs" />
-        <Compile Include="Main.cs"/>
+        <Compile Include="Main.cs" />
         <Compile Include="Melon\BoneMenu.cs" />
         <Compile Include="Melon\BoneMenuExtensions.cs" />
         <Compile Include="Melon\ModConsole.cs" />
         <Compile Include="Melon\Preferences.cs" />
-        <Compile Include="Patching\NPCDeathCounter.cs" />
-        <Compile Include="Patching\PlayerDeathCounter.cs" />
-        <Compile Include="Patching\ShotCounter.cs" />
-        <Compile Include="Patching\SpawnCounter.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="RPC.cs" />
     </ItemGroup>
     <ItemGroup>
@@ -81,8 +82,8 @@
         <Reference Include="Il2Cppmscorlib">
             <HintPath>References\Il2Cppmscorlib.dll</HintPath>
         </Reference>
-        <Reference Include="JeviLib">
-          <HintPath>References\JeviLib.dll</HintPath>
+        <Reference Include="LabFusion">
+          <HintPath>References\LabFusion.dll</HintPath>
         </Reference>
         <Reference Include="MelonLoader">
             <HintPath>References\MelonLoader.dll</HintPath>
@@ -93,7 +94,7 @@
         <Reference Include="SLZ.Marrow.SDK">
           <HintPath>References\SLZ.Marrow.SDK.dll</HintPath>
         </Reference>
-        <Reference Include="System"/>
+        <Reference Include="System" />
         <Reference Include="UnhollowerBaseLib">
             <HintPath>References\UnhollowerBaseLib.dll</HintPath>
         </Reference>

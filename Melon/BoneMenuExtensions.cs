@@ -3,14 +3,14 @@ using BoneLib.BoneMenu.Elements;
 using MelonLoader;
 using UnityEngine;
 
-namespace BLRPC.Melon
+namespace BLRPC.Melon;
+
+internal static class BoneMenuExtensions
 {
-    internal static class BoneMenuExtensions
+    #region Bool
+        
+    public static BoolElement CreateBoolPreference(this MenuCategory category, string name, Color color, MelonPreferences_Entry<bool> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
     {
-        #region Bool
-        
-        public static BoolElement CreateBoolPreference(this MenuCategory category, string name, Color color, MelonPreferences_Entry<bool> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
             var boolElement = category.CreateBoolElement(name, color, pref.Value, v =>
             {
                 pref.Value = v;
@@ -19,8 +19,8 @@ namespace BLRPC.Melon
             return boolElement;
         }
     
-        public static BoolElement CreateBoolPreference(this MenuCategory category, string name, string hexColor, MelonPreferences_Entry<bool> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static BoolElement CreateBoolPreference(this MenuCategory category, string name, string hexColor, MelonPreferences_Entry<bool> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var boolElement = category.CreateBoolElement(name, hexColor, pref.Value, v =>
             {
                 pref.Value = v;
@@ -29,8 +29,8 @@ namespace BLRPC.Melon
             return boolElement;
         }
         
-        public static BoolElement CreateBoolPreference(this SubPanelElement category, string name, Color color, MelonPreferences_Entry<bool> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static BoolElement CreateBoolPreference(this SubPanelElement category, string name, Color color, MelonPreferences_Entry<bool> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var boolElement = category.CreateBoolElement(name, color, pref.Value, v =>
             {
                 pref.Value = v;
@@ -39,8 +39,8 @@ namespace BLRPC.Melon
             return boolElement;
         }
     
-        public static BoolElement CreateBoolPreference(this SubPanelElement category, string name, string hexColor, MelonPreferences_Entry<bool> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static BoolElement CreateBoolPreference(this SubPanelElement category, string name, string hexColor, MelonPreferences_Entry<bool> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var boolElement = category.CreateBoolElement(name, hexColor, pref.Value, v =>
             {
                 pref.Value = v;
@@ -49,12 +49,12 @@ namespace BLRPC.Melon
             return boolElement;
         }
         
-        #endregion
+    #endregion
     
-        #region Float
+    #region Float
         
-        public static FloatElement CreateFloatPreference(this MenuCategory category, string name, Color color, float increment, float min, float max, MelonPreferences_Entry<float> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static FloatElement CreateFloatPreference(this MenuCategory category, string name, Color color, float increment, float min, float max, MelonPreferences_Entry<float> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var floatElement = category.CreateFloatElement(name, color, pref.Value, increment, min, max, v =>
             {
                 pref.Value = v;
@@ -63,8 +63,8 @@ namespace BLRPC.Melon
             return floatElement;
         }
     
-        public static FloatElement CreateFloatPreference(this MenuCategory category, string name, string hexColor, float increment, float min, float max, MelonPreferences_Entry<float> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static FloatElement CreateFloatPreference(this MenuCategory category, string name, string hexColor, float increment, float min, float max, MelonPreferences_Entry<float> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var floatElement = category.CreateFloatElement(name, hexColor, pref.Value, increment, min, max, v =>
             {
                 pref.Value = v;
@@ -73,8 +73,8 @@ namespace BLRPC.Melon
             return floatElement;
         }
         
-        public static FloatElement CreateFloatPreference(this SubPanelElement category, string name, Color color, float increment, float min, float max, MelonPreferences_Entry<float> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static FloatElement CreateFloatPreference(this SubPanelElement category, string name, Color color, float increment, float min, float max, MelonPreferences_Entry<float> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var floatElement = category.CreateFloatElement(name, color, pref.Value, increment, min, max, v =>
             {
                 pref.Value = v;
@@ -83,8 +83,8 @@ namespace BLRPC.Melon
             return floatElement;
         }
     
-        public static FloatElement CreateFloatPreference(this SubPanelElement category, string name, string hexColor, float increment, float min, float max, MelonPreferences_Entry<float> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static FloatElement CreateFloatPreference(this SubPanelElement category, string name, string hexColor, float increment, float min, float max, MelonPreferences_Entry<float> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var floatElement = category.CreateFloatElement(name, hexColor, pref.Value, increment, min, max, v =>
             {
                 pref.Value = v;
@@ -93,12 +93,12 @@ namespace BLRPC.Melon
             return floatElement;
         }
         
-        #endregion
+    #endregion
         
-        #region Int
+    #region Int
     
-        public static IntElement CreateIntPreference(this MenuCategory category, string name, Color color, int increment, int min, int max, MelonPreferences_Entry<int> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static IntElement CreateIntPreference(this MenuCategory category, string name, Color color, int increment, int min, int max, MelonPreferences_Entry<int> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var intElement = category.CreateIntElement(name, color, pref.Value, increment, min, max, v =>
             {
                 pref.Value = v;
@@ -107,8 +107,8 @@ namespace BLRPC.Melon
             return intElement;
         }
     
-        public static IntElement CreateIntPreference(this MenuCategory category, string name, string hexColor, int increment, int min, int max, MelonPreferences_Entry<int> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static IntElement CreateIntPreference(this MenuCategory category, string name, string hexColor, int increment, int min, int max, MelonPreferences_Entry<int> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var intElement = category.CreateIntElement(name, hexColor, pref.Value, increment, min, max, v =>
             {
                 pref.Value = v;
@@ -117,8 +117,8 @@ namespace BLRPC.Melon
             return intElement;
         }
         
-        public static IntElement CreateIntPreference(this SubPanelElement category, string name, Color color, int increment, int min, int max, MelonPreferences_Entry<int> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static IntElement CreateIntPreference(this SubPanelElement category, string name, Color color, int increment, int min, int max, MelonPreferences_Entry<int> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var intElement = category.CreateIntElement(name, color, pref.Value, increment, min, max, v =>
             {
                 pref.Value = v;
@@ -127,8 +127,8 @@ namespace BLRPC.Melon
             return intElement;
         }
     
-        public static IntElement CreateIntPreference(this SubPanelElement category, string name, string hexColor, int increment, int min, int max, MelonPreferences_Entry<int> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
-        {
+    public static IntElement CreateIntPreference(this SubPanelElement category, string name, string hexColor, int increment, int min, int max, MelonPreferences_Entry<int> pref, MelonPreferences_Category prefCategory, bool autoSave = true)
+    {
             var intElement = category.CreateIntElement(name, hexColor, pref.Value, increment, min, max, v =>
             {
                 pref.Value = v;
@@ -137,12 +137,12 @@ namespace BLRPC.Melon
             return intElement;
         }
         
-        #endregion
+    #endregion
         
-        #region Enum
+    #region Enum
     
-        public static EnumElement<TEnum> CreateEnumPreference<TEnum>(this MenuCategory category, string name, Color color, MelonPreferences_Entry<TEnum> pref, MelonPreferences_Category prefCategory, bool autoSave = true) where TEnum : Enum
-        {
+    public static EnumElement<TEnum> CreateEnumPreference<TEnum>(this MenuCategory category, string name, Color color, MelonPreferences_Entry<TEnum> pref, MelonPreferences_Category prefCategory, bool autoSave = true) where TEnum : Enum
+    {
             var enumElement = category.CreateEnumElement(name, color, pref.Value, v =>
             {
                 pref.Value = v;
@@ -151,8 +151,8 @@ namespace BLRPC.Melon
             return enumElement;
         }
     
-        public static EnumElement<TEnum> CreateEnumPreference<TEnum>(this MenuCategory category, string name, string hexColor, MelonPreferences_Entry<TEnum> pref, MelonPreferences_Category prefCategory, bool autoSave = true) where TEnum : Enum
-        {
+    public static EnumElement<TEnum> CreateEnumPreference<TEnum>(this MenuCategory category, string name, string hexColor, MelonPreferences_Entry<TEnum> pref, MelonPreferences_Category prefCategory, bool autoSave = true) where TEnum : Enum
+    {
             var enumElement = category.CreateEnumElement(name, hexColor, pref.Value, v =>
             {
                 pref.Value = v;
@@ -161,8 +161,8 @@ namespace BLRPC.Melon
             return enumElement;
         }
         
-        public static EnumElement<TEnum> CreateEnumPreference<TEnum>(this SubPanelElement category, string name, Color color, MelonPreferences_Entry<TEnum> pref, MelonPreferences_Category prefCategory, bool autoSave = true) where TEnum : Enum
-        {
+    public static EnumElement<TEnum> CreateEnumPreference<TEnum>(this SubPanelElement category, string name, Color color, MelonPreferences_Entry<TEnum> pref, MelonPreferences_Category prefCategory, bool autoSave = true) where TEnum : Enum
+    {
             var enumElement = category.CreateEnumElement(name, color, pref.Value, v =>
             {
                 pref.Value = v;
@@ -171,8 +171,8 @@ namespace BLRPC.Melon
             return enumElement;
         }
     
-        public static EnumElement<TEnum> CreateEnumPreference<TEnum>(this SubPanelElement category, string name, string hexColor, MelonPreferences_Entry<TEnum> pref, MelonPreferences_Category prefCategory, bool autoSave = true) where TEnum : Enum
-        {
+    public static EnumElement<TEnum> CreateEnumPreference<TEnum>(this SubPanelElement category, string name, string hexColor, MelonPreferences_Entry<TEnum> pref, MelonPreferences_Category prefCategory, bool autoSave = true) where TEnum : Enum
+    {
             var enumElement = category.CreateEnumElement(name, hexColor, pref.Value, v =>
             {
                 pref.Value = v;
@@ -181,6 +181,5 @@ namespace BLRPC.Melon
             return enumElement;
         }
         
-        #endregion
-    }
+    #endregion
 }
