@@ -47,24 +47,26 @@
         <Compile Include="DiscordGameSDK\LobbyManager.cs" />
         <Compile Include="DiscordGameSDK\StorageManager.cs" />
         <Compile Include="DiscordGameSDK\StoreManager.cs" />
-        <Compile Include="Handlers\AvatarHandler.cs" />
-        <Compile Include="Handlers\FusionHandler.cs" />
-        <Compile Include="Handlers\Helpers\CheckBarcode.cs" />
-        <Compile Include="Handlers\Helpers\CheckPallets.cs" />
-        <Compile Include="Handlers\DeathHandler.cs" />
-        <Compile Include="Handlers\GunshotHandler.cs" />
-        <Compile Include="Handlers\SpawnGunHandler.cs" />
+        <Compile Include="GlobalUsings.cs" />
         <Compile Include="Internal\DllTools.cs" />
         <Compile Include="Internal\EmbeddedResource.cs" />
         <Compile Include="Internal\ExtraesMode.cs" />
-        <Compile Include="Internal\GlobalVariables.cs" />
         <Compile Include="Main.cs" />
         <Compile Include="Melon\BoneMenu.cs" />
         <Compile Include="Melon\BoneMenuExtensions.cs" />
         <Compile Include="Melon\ModConsole.cs" />
         <Compile Include="Melon\Preferences.cs" />
+        <Compile Include="Melon\UserData.cs" />
+        <Compile Include="Presence\Handlers\AvatarHandler.cs" />
+        <Compile Include="Presence\Handlers\DeathHandler.cs" />
+        <Compile Include="Presence\Handlers\FusionHandler.cs" />
+        <Compile Include="Presence\Handlers\GunshotHandler.cs" />
+        <Compile Include="Presence\Handlers\Helpers\CheckBarcode.cs" />
+        <Compile Include="Presence\Handlers\Helpers\CheckPallets.cs" />
+        <Compile Include="Presence\Handlers\SpawnGunHandler.cs" />
+        <Compile Include="Presence\RpcManager.cs" />
+        <Compile Include="Presence\Variables\GlobalVariables.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="RPC.cs" />
     </ItemGroup>
     <ItemGroup>
         <Reference Include="0Harmony">

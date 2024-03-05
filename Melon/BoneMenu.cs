@@ -1,6 +1,5 @@
 ﻿using BoneLib.BoneMenu;
 using BoneLib.BoneMenu.Elements;
-using MelonLoader;
 using SLZ.Marrow.SceneStreaming;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ internal static class BoneMenu
     private static MenuCategory _mainCategory;
     private static MenuCategory _menuCategory;
     private static FunctionElement _reloadButton;
-    private static readonly MelonEvent<DetailsMode, DetailsMode> OnEntryValueChanged = Preferences.DetailsMode.OnEntryValueChanged;
+    private static readonly MelonEvent<DetailsMode, DetailsMode> EntryValueChanged = Preferences.DetailsMode.OnEntryValueChanged;
     public static void Setup()
     {
         _mainCategory = MenuManager.CreateCategory("Weather Electric", "#6FBDFF");
@@ -40,7 +39,7 @@ internal static class BoneMenu
             
         #endregion
             
-        OnEntryValueChanged.Subscribe(AddReloadButton);
+        EntryValueChanged.Subscribe(AddReloadButton);
     }
 
     private static void AddReloadButton(DetailsMode oldval, DetailsMode newval)

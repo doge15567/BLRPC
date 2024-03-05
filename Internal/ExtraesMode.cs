@@ -1,11 +1,9 @@
-﻿using System;
+﻿namespace BLRPC.Internal;
 
-namespace BLRPC.Internal;
-
-public static class ExtraesMode
+internal static class ExtraesMode
 {
         // this all comes from the BW/BL-CHAOS ads effect, extraes suggested i add it and goddamn it was a good idea
-        private static readonly string[] ads = new string[] {
+        private static readonly string[] Ads = {
                 "my balls lol!!!!!!!!",
                 "deez what sir",
                 "hey mods... ni-",
@@ -674,7 +672,7 @@ public static class ExtraesMode
         public static string RandomScreamingAboutNonsense()
         {
                 var rand = new Random();
-                var randomIndex = rand.Next(0, ads.Length);
-                return ads[randomIndex];
+                var randomIndex = rand.Next(0, Ads.Length);
+                return Ads[randomIndex];
         }
 }

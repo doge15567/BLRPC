@@ -1,6 +1,6 @@
 ﻿using BoneLib;
 
-namespace BLRPC.Handlers.Helpers;
+namespace BLRPC.Presence.Handlers.Helpers;
 
 internal static class CheckBarcode
 {

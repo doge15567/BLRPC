@@ -1,10 +1,8 @@
-﻿using MelonLoader;
-
-namespace BLRPC.Melon;
+﻿namespace BLRPC.Melon;
 
 internal static class Preferences
 {
-    public static readonly MelonPreferences_Category GlobalCategory = MelonPreferences.CreateCategory("Global");
+    private static readonly MelonPreferences_Category GlobalCategory = MelonPreferences.CreateCategory("Global");
     public static readonly MelonPreferences_Category Category = MelonPreferences.CreateCategory("BLRPC");
 
     public static MelonPreferences_Entry<int> LoggingMode;

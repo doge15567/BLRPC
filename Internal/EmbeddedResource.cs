@@ -1,11 +1,10 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace BLRPC.Internal;
 
 internal static class EmbeddedResource
 {
-    public static byte[] GetResourceBytes(String filename)
+    public static byte[] GetResourceBytes(string filename)
     {
         var assembly = Assembly.GetExecutingAssembly();
         foreach (var resource in assembly.GetManifestResourceNames())

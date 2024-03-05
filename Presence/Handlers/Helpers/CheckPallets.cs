@@ -1,7 +1,6 @@
-﻿using BLRPC.Melon;
-using SLZ.Marrow.Warehouse;
+﻿using SLZ.Marrow.Warehouse;
 
-namespace BLRPC.Handlers.Helpers;
+namespace BLRPC.Presence.Handlers.Helpers;
 
 internal static class CheckPallets
 {

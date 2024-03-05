@@ -1,13 +1,8 @@
-﻿using BLRPC.Internal;
-using BLRPC.Melon;
-using HarmonyLib;
-using SLZ.AI;
-using SLZ.Props;
-using SLZ.Props.Weapons;
+﻿using SLZ.Props;
 
-namespace BLRPC.Handlers;
+namespace BLRPC.Presence.Handlers;
 
-public static class SpawnGunHandler
+internal static class SpawnGunHandler
 {
     [HarmonyPatch(typeof(SpawnGun), "OnFire")]
     public class SpawnGunSpawn
@@ -22,12 +17,12 @@ public static class SpawnGunHandler
         }
     }
 
-    public static int Counter = 0;
+    public static int Counter;
     private static void UpdateCounter()
     {
         Counter += 1;
         ModConsole.Msg($"Spawnable placed, new spawn count is {Counter}", 1);
-        GlobalVariables.details = $"Objects Spawned: {Counter}";
-        Rpc.UpdateRpc();
+        GlobalVariables.Details = $"Objects Spawned: {Counter}";
+        RpcManager.UpdateRpc();
     }
 }

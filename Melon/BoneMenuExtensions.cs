@@ -1,6 +1,4 @@
-﻿using System;
-using BoneLib.BoneMenu.Elements;
-using MelonLoader;
+﻿using BoneLib.BoneMenu.Elements;
 using UnityEngine;
 
 namespace BLRPC.Melon;

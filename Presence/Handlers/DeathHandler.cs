@@ -1,12 +1,9 @@
-﻿using BLRPC.Internal;
-using BLRPC.Melon;
-using HarmonyLib;
-using NEP.DOOMLAB.Entities;
+﻿using NEP.DOOMLAB.Entities;
 using SLZ.AI;
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedParameter.Global
 
-namespace BLRPC.Handlers;
+namespace BLRPC.Presence.Handlers;
 
 internal static class DeathHandler
 {
@@ -39,13 +36,13 @@ internal static class DeathHandler
             }
         }
         
-        public static int Counter = 0;
+        public static int Counter;
         private static void UpdateCounter()
         {
             Counter += 1;
             ModConsole.Msg($"NPC died, new death count is {Counter}", 1);
-            GlobalVariables.details = $"NPC Deaths: {Counter}";
-            Rpc.UpdateRpc();
+            GlobalVariables.Details = $"NPC Deaths: {Counter}";
+            RpcManager.UpdateRpc();
         }
     }
 
@@ -64,14 +61,14 @@ internal static class DeathHandler
             }
         }
         
-        public static int Counter = 0;
+        public static int Counter;
         
         private static void UpdateCounter()
         {
             Counter += 1;
             ModConsole.Msg($"Player died, new death count is {Counter}", 1);
-            GlobalVariables.details = $"Player Deaths: {Counter}";
-            Rpc.UpdateRpc();
+            GlobalVariables.Details = $"Player Deaths: {Counter}";
+            RpcManager.UpdateRpc();
         }
         
     }

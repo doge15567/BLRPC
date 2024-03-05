@@ -1,12 +1,9 @@
-﻿using BLRPC.Internal;
-using BLRPC.Melon;
-using HarmonyLib;
-using SLZ.Props;
+﻿using SLZ.Props;
 using SLZ.Props.Weapons;
 
-namespace BLRPC.Handlers;
+namespace BLRPC.Presence.Handlers;
 
-public static class GunshotHandler
+internal static class GunshotHandler
 {
     [HarmonyPatch(typeof(Gun), "OnFire")]
     public class GunFire
@@ -21,12 +18,12 @@ public static class GunshotHandler
             }
         }
     }
-    public static int Counter = 0;
+    public static int Counter;
     private static void UpdateCounter()
     {
         Counter += 1;
         ModConsole.Msg($"Gun fired, new shot count is {Counter}", 1);
-        GlobalVariables.details = $"Gun Shots Fired: {Counter}";
-        Rpc.UpdateRpc();
+        GlobalVariables.Details = $"Gun Shots Fired: {Counter}";
+        RpcManager.UpdateRpc();
     }
 }

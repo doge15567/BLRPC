@@ -1,13 +1,10 @@
-﻿using BLRPC.Handlers.Helpers;
-using BLRPC.Internal;
-using BoneLib;
-using HarmonyLib;
+﻿using BLRPC.Presence.Handlers.Helpers;
 using SLZ.Rig;
 using SLZ.VRMK;
 
-namespace BLRPC.Handlers;
+namespace BLRPC.Presence.Handlers;
 
-public static class AvatarHandler
+internal static class AvatarHandler
 {
     [HarmonyPatch(typeof(ArtRig), "SetAvatar")]
     public class PlayerDeath
@@ -17,9 +14,9 @@ public static class AvatarHandler
             var aviBarcode = __instance.manager.AvatarCrate.Crate.Barcode;
             var aviTitle = __instance.manager.AvatarCrate.Crate.Title;
             if (aviTitle == null || aviBarcode == null) return;
-            GlobalVariables.smallImageKey = CheckBarcode.CheckAvatar(aviBarcode);
-            GlobalVariables.smallImageText = aviTitle;
-            Rpc.UpdateRpc();
+            GlobalVariables.SmallImageKey = CheckBarcode.CheckAvatar(aviBarcode);
+            GlobalVariables.SmallImageText = aviTitle;
+            RpcManager.UpdateRpc();
         }
     }
 }

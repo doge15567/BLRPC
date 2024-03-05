@@ -1,18 +1,14 @@
-﻿using System;
-using System.Reflection;
-using BLRPC.Internal;
-using Discord;
+﻿using System.Reflection;
 using LabFusion.Network;
 using LabFusion.Preferences;
 using LabFusion.Representation;
 using LabFusion.Utilities;
+using static BLRPC.Presence.Variables.GlobalVariables;
 
-namespace BLRPC.Patching;
+namespace BLRPC.Presence.Handlers;
 
 internal static class FusionHandler
-{
-    public static ActivityParty Party;
-
+{ 
     private static int GetMaxPlayers()
     {
         Type fusionPreferences = typeof(FusionPreferences);
@@ -81,14 +77,14 @@ internal static class FusionHandler
         Party.Size.CurrentSize = PlayerIdManager.PlayerCount;
         Party.Size.MaxSize = GetMaxPlayers();
         Party.Privacy = ConvertPartyPrivacy(GetServerPrivacy());
-        Rpc.UpdateRpc();
+        RpcManager.UpdateRpc();
     }
         
     private static void OnServerSettingsChanged()
     {
         Party.Size.MaxSize = GetMaxPlayers();
         Party.Privacy = ConvertPartyPrivacy(GetServerPrivacy());
-        Rpc.UpdateRpc();
+        RpcManager.UpdateRpc();
     }
         
     private static void OnStartLobby()
@@ -97,7 +93,7 @@ internal static class FusionHandler
         Party.Size.CurrentSize = PlayerIdManager.PlayerCount;
         Party.Size.MaxSize = GetMaxPlayers();
         Party.Privacy = ConvertPartyPrivacy(GetServerPrivacy());
-        Rpc.UpdateRpc();
+        RpcManager.UpdateRpc();
     }
 
     private static void OnLeaveLobby()
@@ -106,18 +102,18 @@ internal static class FusionHandler
         Party.Size.CurrentSize = 0;
         Party.Size.MaxSize = 0;
         Party.Privacy = ActivityPartyPrivacy.Private;
-        Rpc.UpdateRpc();
+        RpcManager.UpdateRpc();
     }
 
     private static void OnPlayerJoin(PlayerId playerId)
     {
         Party.Size.CurrentSize = PlayerIdManager.PlayerCount;
-        Rpc.UpdateRpc();
+        RpcManager.UpdateRpc();
     }
 
     private static void OnPlayerLeave(PlayerId playerId)
     {
         Party.Size.CurrentSize = PlayerIdManager.PlayerCount;
-        Rpc.UpdateRpc();
+        RpcManager.UpdateRpc();
     }
 }
