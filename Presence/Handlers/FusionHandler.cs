@@ -7,6 +7,7 @@ namespace BLRPC.Presence.Handlers;
 
 internal static class FusionHandler
 {
+    public static bool InServer;
     private static ActivityParty _party;
     
     private static ActivityPartyPrivacy ConvertPartyPrivacy(ServerPrivacy serverPrivacy)
@@ -52,6 +53,7 @@ internal static class FusionHandler
 
     private static void OnJoinLobby()
     {
+        InServer = true;
         ModConsole.Msg("Joined lobby, setting party activity.", 1);
         _party.Id = $"{PlayerIdManager.GetPlayerId(0).LongId}";
         _party.Size.CurrentSize = PlayerIdManager.PlayerCount;
@@ -71,6 +73,7 @@ internal static class FusionHandler
         
     private static void OnStartLobby()
     {
+        InServer = true;
         ModConsole.Msg("Started lobby, setting party activity.", 1);
         _party.Id = $"{PlayerIdManager.GetPlayerId(0).LongId}";
         _party.Size.CurrentSize = PlayerIdManager.PlayerCount;
@@ -83,6 +86,7 @@ internal static class FusionHandler
 
     private static void OnLeaveLobby()
     {
+        InServer = false;
         ModConsole.Msg("Left lobby, clearing party activity.", 1);
         _party.Id = "disconnected";
         _party.Size.CurrentSize = 0;

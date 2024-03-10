@@ -12,14 +12,14 @@ internal static class AvatarHandler
     {
         public static void Postfix(ArtRig __instance, Avatar avatar)
         {
-            var aviBarcode = __instance.manager.AvatarCrate.Crate.Barcode;
-            var aviTitle = __instance.manager.AvatarCrate.Crate.Title;
-            if (aviTitle == null || aviBarcode == null) return;
             DelayUtilities.Delay(() =>
             {
+                var aviBarcode = __instance.manager.AvatarCrate.Crate.Barcode;
+                var aviTitle = __instance.manager.AvatarCrate.Crate.Title;
+                if (aviTitle == null || aviBarcode == null) return;
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, CheckBarcode.CheckAvatar(aviBarcode));
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, aviTitle);
-            }, 10);
+            }, 2);
         }
     }
 }

@@ -9,7 +9,7 @@ internal static class LevelHandler
 {
     public static void OnLevelLoaded(LevelInfo levelInfo)
     {
-        RpcManager.SetActivity(RpcManager.ActivityField.State, $"In {levelInfo.title}");
+        RpcManager.SetActivity(RpcManager.ActivityField.State, FusionHandler.InServer ? $"In {levelInfo.title} | Fusion" : $"In {levelInfo.title}");
         RpcManager.SetActivity(RpcManager.ActivityField.LargeImageKey, CheckBarcode.CheckMap(levelInfo.barcode));
         RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, levelInfo.title);
         
