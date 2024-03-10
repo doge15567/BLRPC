@@ -36,9 +36,11 @@
     <PropertyGroup>
         <StartupObject/>
     </PropertyGroup>
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="COPY &quot;$(TargetPath)&quot; &quot;I:\Steam\steamapps\common\BONELAB\Mods&quot;" />
-    </Target>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+    <PropertyGroup>
+      <PostBuildEvent>COPY "$(TargetPath)" "$(SolutionDir)Staging\Mods"
+COPY "$(TargetPath)" "$(SolutionDir)Links\Mods"</PostBuildEvent>
+    </PropertyGroup>
     <ItemGroup>
         <Compile Include="DiscordGameSDK\ActivityManager.cs" />
         <Compile Include="DiscordGameSDK\Constants.cs" />
@@ -70,41 +72,41 @@
     </ItemGroup>
     <ItemGroup>
         <Reference Include="0Harmony">
-          <HintPath>References\0Harmony.dll</HintPath>
+          <HintPath>Links\MelonLoader\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp">
-          <HintPath>References\Assembly-CSharp.dll</HintPath>
+          <HintPath>Links\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="BoneLib">
-          <HintPath>References\BoneLib.dll</HintPath>
+          <HintPath>Links\Mods\BoneLib.dll</HintPath>
         </Reference>
         <Reference Include="DOOMLAB">
-          <HintPath>References\DOOMLAB.dll</HintPath>
+          <HintPath>Links\Mods\DOOMLAB.dll</HintPath>
         </Reference>
         <Reference Include="Il2Cppmscorlib">
-            <HintPath>References\Il2Cppmscorlib.dll</HintPath>
+            <HintPath>Links\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
         </Reference>
         <Reference Include="LabFusion">
-          <HintPath>References\LabFusion.dll</HintPath>
+          <HintPath>Links\Mods\LabFusion.dll</HintPath>
         </Reference>
         <Reference Include="MelonLoader">
-            <HintPath>References\MelonLoader.dll</HintPath>
+            <HintPath>Links\MelonLoader\MelonLoader.dll</HintPath>
         </Reference>
         <Reference Include="SLZ.Marrow">
-          <HintPath>References\SLZ.Marrow.dll</HintPath>
+          <HintPath>Links\MelonLoader\Managed\SLZ.Marrow.dll</HintPath>
         </Reference>
         <Reference Include="SLZ.Marrow.SDK">
-          <HintPath>References\SLZ.Marrow.SDK.dll</HintPath>
+          <HintPath>Links\MelonLoader\Managed\SLZ.Marrow.SDK.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="UnhollowerBaseLib">
-            <HintPath>References\UnhollowerBaseLib.dll</HintPath>
+            <HintPath>Links\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
-          <HintPath>References\UnityEngine.dll</HintPath>
+          <HintPath>Links\MelonLoader\Managed\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-          <HintPath>References\UnityEngine.CoreModule.dll</HintPath>
+          <HintPath>Links\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -113,5 +115,4 @@
     <ItemGroup>
       <EmbeddedResource Include="Resources\UserEntries.txt" />
     </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>
