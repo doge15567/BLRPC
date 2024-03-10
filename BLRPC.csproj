@@ -63,9 +63,9 @@
         <Compile Include="Presence\Handlers\GunshotHandler.cs" />
         <Compile Include="Presence\Handlers\Helpers\CheckBarcode.cs" />
         <Compile Include="Presence\Handlers\Helpers\CheckPallets.cs" />
+        <Compile Include="Presence\Handlers\LevelHandler.cs" />
         <Compile Include="Presence\Handlers\SpawnGunHandler.cs" />
         <Compile Include="Presence\RpcManager.cs" />
-        <Compile Include="Presence\Variables\GlobalVariables.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

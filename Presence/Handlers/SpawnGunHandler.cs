@@ -22,7 +22,6 @@ internal static class SpawnGunHandler
     {
         Counter += 1;
         ModConsole.Msg($"Spawnable placed, new spawn count is {Counter}", 1);
-        GlobalVariables.Details = $"Objects Spawned: {Counter}";
-        RpcManager.UpdateRpc();
+        RpcManager.SetActivity(RpcManager.ActivityField.Details, $"Objects Spawned: {Counter}");
     }
 }

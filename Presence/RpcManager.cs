@@ -3,17 +3,37 @@
 internal static class RpcManager
 {
     public static Discord.Discord Discord;
-    private static ActivityManager _activityManager;
+    public static ActivityManager ActivityManager;
     private static readonly long Start = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+    
+    private static Activity _activity;
+    
     public static void Init()
     {
         ModConsole.Msg("Initializing RPC", 1);
         Discord = new global::Discord.Discord(Preferences.DiscordAppId.Value, (ulong)CreateFlags.Default);
         ModConsole.Msg($"Discord is {Discord}", 1);
         ModConsole.Msg($"Application ID is {Preferences.DiscordAppId.Value}", 1);
-        _activityManager = Discord.GetActivityManager();
-        ModConsole.Msg($"Activity manager is {_activityManager}", 1);
-        SetRpc(null, "Loading Game", "bonelab", "BONELAB", null, null);
+        ActivityManager = Discord.GetActivityManager();
+        ModConsole.Msg($"Activity manager is {ActivityManager}", 1);
+        _activity = new Activity
+        {
+            State = "Loading Game",
+#if DEBUG
+            Details = "boobs.",
+#endif
+            Timestamps =
+            {
+                Start = Start
+            },
+            Assets =
+            {
+                LargeImage = "bonelab",
+                LargeText = "BONELAB"
+            },
+            Instance = false
+        };
+        UpdateRpc();
     }
 
     public static void Dispose()
@@ -21,61 +41,84 @@ internal static class RpcManager
         Discord.Dispose();
     }
 
-    public static void UpdateRpc()
+    public static void SetActivity(ActivityField activityField, string value)
     {
-        ModConsole.Msg($"Setting activity with details {GlobalVariables.Details}, state {GlobalVariables.Status}, large image key {GlobalVariables.LargeImageKey}, and large image text {GlobalVariables.LargeImageText}", 1);
-        var activity = new Activity
+        switch (activityField)
         {
-            State = GlobalVariables.Status,
-            Details = GlobalVariables.Details,
-            Timestamps =
-            {
-                Start = Start
-            },
-            Assets =
-            {
-                LargeImage = GlobalVariables.LargeImageKey,
-                LargeText = GlobalVariables.LargeImageText,
-                SmallImage = GlobalVariables.SmallImageKey,
-                SmallText = GlobalVariables.SmallImageText
-            },
-            Instance = false,
-            Party = GlobalVariables.Party
-        };
-        _activityManager.UpdateActivity(activity, (result) =>
+            case ActivityField.State:
+                _activity.State = value;
+                break;
+            case ActivityField.Details:
+                _activity.Details = value;
+                break;
+            case ActivityField.LargeImageKey:
+                _activity.Assets.LargeImage = value;
+                break;
+            case ActivityField.LargeImageText:
+                _activity.Assets.LargeText = value;
+                break;
+            case ActivityField.SmallImageKey:
+                _activity.Assets.SmallImage = value;
+                break;
+            case ActivityField.SmallImageText:
+                _activity.Assets.SmallText = value;
+                break;
+            case ActivityField.Party:
+                ModConsole.Error("This error is my fault, called a method wrong.");
+                break;
+            default:
+                ModConsole.Error("Invalid activity field!");
+                break;
+        }
+        UpdateRpc();
+    }
+    public static void SetActivity(ActivityField activityField, ActivityParty party)
+    {
+        switch (activityField)
         {
-            if (result == Result.Ok)
-            {
-                ModConsole.Msg("Successfully set activity!", 1);
-            }
-            else
-            {
-                ModConsole.Error("Failed to set activity!");
-            }
-        });
+            case ActivityField.State:
+                ModConsole.Error("This error is my fault, called a method wrong.");
+                break;
+            case ActivityField.Details:
+                ModConsole.Error("This error is my fault, called a method wrong.");
+                break;
+            case ActivityField.LargeImageKey:
+                ModConsole.Error("This error is my fault, called a method wrong.");
+                break;
+            case ActivityField.LargeImageText:
+                ModConsole.Error("This error is my fault, called a method wrong.");
+                break;
+            case ActivityField.SmallImageKey:
+                ModConsole.Error("This error is my fault, called a method wrong.");
+                break;
+            case ActivityField.SmallImageText:
+                ModConsole.Error("This error is my fault, called a method wrong.");
+                break;
+            case ActivityField.Party:
+                _activity.Party = party;
+                break;
+            default:
+                ModConsole.Error("Invalid activity field!");
+                break;
+        }
+        UpdateRpc();
     }
 
-    public static void SetRpc(string details, string state, string largeImageKey, string largeImageText, string smallImageKey, string smallImageText)
+    public enum ActivityField
     {
-        ModConsole.Msg($"Setting activity with details {details}, state {state}, large image key {largeImageKey}, and large image text {largeImageText}", 1);
-        var activity = new Activity
-        {
-            State = state,
-            Details = details,
-            Timestamps =
-            {
-                Start = Start
-            },
-            Assets =
-            {
-                LargeImage = largeImageKey,
-                LargeText = largeImageText,
-                SmallImage = smallImageKey,
-                SmallText = smallImageText
-            },
-            Instance = false
-        };
-        _activityManager.UpdateActivity(activity, (result) =>
+        State,
+        Details,
+        LargeImageKey,
+        LargeImageText,
+        SmallImageKey,
+        SmallImageText,
+        Party
+    }
+
+    private static void UpdateRpc()
+    {
+        ModConsole.Msg($"Setting activity | Details: {_activity.Details} | State: {_activity.State} | LargeImageKey: {_activity.Assets.LargeImage} | LargeImageText: {_activity.Assets.LargeText} | SmallImageKey: {_activity.Assets.SmallImage} | SmallImageText: {_activity.Assets.SmallText}", 1);
+        ActivityManager.UpdateActivity(_activity, (result) =>
         {
             if (result == Result.Ok)
             {
@@ -83,7 +126,7 @@ internal static class RpcManager
             }
             else
             {
-                ModConsole.Error("Failed to set activity!");
+                ModConsole.Error($"Failed to set activity: {result.ToString()}");
             }
         });
     }

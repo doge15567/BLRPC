@@ -41,8 +41,7 @@ internal static class DeathHandler
         {
             Counter += 1;
             ModConsole.Msg($"NPC died, new death count is {Counter}", 1);
-            GlobalVariables.Details = $"NPC Deaths: {Counter}";
-            RpcManager.UpdateRpc();
+            RpcManager.SetActivity(RpcManager.ActivityField.Details, $"NPC Deaths: {Counter}");
         }
     }
 
@@ -67,9 +66,7 @@ internal static class DeathHandler
         {
             Counter += 1;
             ModConsole.Msg($"Player died, new death count is {Counter}", 1);
-            GlobalVariables.Details = $"Player Deaths: {Counter}";
-            RpcManager.UpdateRpc();
+            RpcManager.SetActivity(RpcManager.ActivityField.Details, $"Player Deaths: {Counter}");
         }
-        
     }
 }

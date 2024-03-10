@@ -1,10 +1,6 @@
 ﻿using System.Diagnostics;
 using BoneLib;
-using System.IO;
-using BLRPC.Presence.Handlers.Helpers;
-using BLRPC.Internal;
 using BLRPC.Presence;
-using Random = System.Random;
 
 namespace BLRPC;
 
@@ -30,13 +26,21 @@ public class Main : MelonMod
         // Quest is a cunt can we bomb facebook already
         if (IsQuest) return;
         Preferences.Setup();
+#if DEBUG
+        ModConsole.Warning("This is a debug build! Things may be unstable!");
+#endif
         if (!DiscordOpen()) return;
         UserData.Setup();
         ModConsole.Msg("Initializing RPC", 1);
         RpcManager.Init();
-        if (HelperMethods.CheckIfAssemblyLoaded("labfusion")) FusionHandler.Init();
         BoneMenu.Setup();
         Hooking.OnLevelInitialized += OnLevelLoad;
+    }
+
+    public override void OnLateInitializeMelon()
+    {
+        // BLRPC's regular OnInitializeMelon is called before Fusion is loaded, not good
+        FusionHandler.Init();
     }
 
     private static bool DiscordOpen()
@@ -88,49 +92,6 @@ public class Main : MelonMod
         if (Preferences.ResetGunShotsOnLevelLoad.Value) GunshotHandler.Counter = 0;
         if (Preferences.ResetDeathsOnLevelLoad.Value) DeathHandler.Player.Counter = 0;
         SpawnGunHandler.Counter = 0;
-        GlobalVariables.Status = $"In {levelInfo.title}";
-        ModConsole.Msg($"Status is {GlobalVariables.Status}", 1);
-        GlobalVariables.LargeImageKey = CheckBarcode.CheckMap(levelInfo.barcode);
-        ModConsole.Msg($"Large image key is {GlobalVariables.LargeImageKey}", 1);
-        GlobalVariables.LargeImageText = levelInfo.title;
-        ModConsole.Msg($"Large image text is {GlobalVariables.LargeImageText}", 1);
-        switch (Preferences.DetailsMode.Value)
-        {
-            case DetailsMode.GunShots:
-                GlobalVariables.Details = "Gun Shots Fired: 0";
-                break;
-            case DetailsMode.NPCDeaths:
-                GlobalVariables.Details = "NPC Deaths: 0";
-                break;
-            case DetailsMode.SpawnablesPlaced:
-                GlobalVariables.Details = "Objects Spawned: 0";
-                break;
-            case DetailsMode.SDKMods:
-                GlobalVariables.Details = $"SDK Mods Loaded: {CheckPallets.GetPalletCount()}";
-                break;
-            case DetailsMode.Extraes:
-                GlobalVariables.Details = ExtraesMode.RandomScreamingAboutNonsense();
-                break;
-            case DetailsMode.Entries:
-                GlobalVariables.Details = GetEntry();
-                ModConsole.Msg($"Details are {GlobalVariables.Details}", 1);
-                break;
-            case DetailsMode.PlayerDeaths:
-                GlobalVariables.Details = $"Player Deaths: {DeathHandler.Player.Counter}";
-                break;
-            default:
-                ModConsole.Error("You don't have a proper mode set!");
-                GlobalVariables.Details = "Somehow, this broke!";
-                break;
-        }
-        RpcManager.UpdateRpc();
-    }
-
-    private static string GetEntry()
-    {
-        var rnd = new Random();
-        var lines = File.ReadAllLines(UserData.UserEntriesPath);
-        var r = rnd.Next(lines.Length);
-        return lines[r];
+        LevelHandler.OnLevelLoaded(levelInfo);
     }
 }

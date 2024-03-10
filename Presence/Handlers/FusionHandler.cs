@@ -1,119 +1,106 @@
-﻿using System.Reflection;
-using LabFusion.Network;
+﻿using LabFusion.Network;
 using LabFusion.Preferences;
 using LabFusion.Representation;
 using LabFusion.Utilities;
-using static BLRPC.Presence.Variables.GlobalVariables;
 
 namespace BLRPC.Presence.Handlers;
 
 internal static class FusionHandler
-{ 
-    private static int GetMaxPlayers()
-    {
-        Type fusionPreferences = typeof(FusionPreferences);
-        FieldInfo activeServerSettings = fusionPreferences.GetField("ActiveServerSettings", BindingFlags.Static | BindingFlags.NonPublic);
-        if (activeServerSettings != null)
-        {
-            int maxPlayers = (int)activeServerSettings.FieldType.GetField("MaxPlayers").GetValue(null);
-            return maxPlayers;
-        }
-        return default;
-    }
-        
-    private static ServerPrivacy GetServerPrivacy()
-    {
-        Type fusionPreferences = typeof(FusionPreferences);
-        FieldInfo activeServerSettings = fusionPreferences.GetField("ActiveServerSettings", BindingFlags.Static | BindingFlags.NonPublic);
-        if (activeServerSettings != null)
-        {
-            ServerPrivacy serverPrivacy = (ServerPrivacy)activeServerSettings.FieldType.GetField("ServerPrivacy").GetValue(null);
-            return serverPrivacy;
-        }
-
-        return default;
-    }
-
+{
+    private static ActivityParty _party;
+    
     private static ActivityPartyPrivacy ConvertPartyPrivacy(ServerPrivacy serverPrivacy)
     {
-        switch (serverPrivacy)
+        return serverPrivacy switch
         {
-            case ServerPrivacy.PUBLIC:
-                return ActivityPartyPrivacy.Public;
-            case ServerPrivacy.FRIENDS_ONLY:
-                return ActivityPartyPrivacy.Private;
-            case ServerPrivacy.PRIVATE:
-                return ActivityPartyPrivacy.Private;
-            case ServerPrivacy.LOCKED:
-                return ActivityPartyPrivacy.Private;
-            default:
-                return ActivityPartyPrivacy.Private;
-        }
+            ServerPrivacy.PUBLIC => ActivityPartyPrivacy.Public,
+            ServerPrivacy.FRIENDS_ONLY => ActivityPartyPrivacy.Private,
+            ServerPrivacy.PRIVATE => ActivityPartyPrivacy.Private,
+            ServerPrivacy.LOCKED => ActivityPartyPrivacy.Private,
+            _ => ActivityPartyPrivacy.Private
+        };
     }
         
     public static void Init()
     {
+#if DEBUG
+        ModConsole.Msg("THIS IS GETTING CALLED!");
+#endif
         MultiplayerHooking.OnJoinServer += OnJoinLobby;
         MultiplayerHooking.OnDisconnect += OnLeaveLobby;
         MultiplayerHooking.OnStartServer += OnStartLobby;
         MultiplayerHooking.OnPlayerJoin += OnPlayerJoin;
         MultiplayerHooking.OnPlayerLeave += OnPlayerLeave;
         MultiplayerHooking.OnServerSettingsChanged += OnServerSettingsChanged;
-        Party = new ActivityParty
+        _party = new ActivityParty
         {
-            Id = "",
+            Id = "disconnected",
             Size =
             {
                 CurrentSize = 0,
                 MaxSize = 0
-            },
-            Privacy = ActivityPartyPrivacy.Private
+            }
         };
+        
+        RpcManager.ActivityManager.OnActivityJoin += OnDiscordJoin;
+    }
+
+    private static void OnDiscordJoin(string secret)
+    {
+        
     }
 
     private static void OnJoinLobby()
     {
-        Party.Id = $"{PlayerIdManager.GetPlayerId(0).LongId}";
-        Party.Size.CurrentSize = PlayerIdManager.PlayerCount;
-        Party.Size.MaxSize = GetMaxPlayers();
-        Party.Privacy = ConvertPartyPrivacy(GetServerPrivacy());
-        RpcManager.UpdateRpc();
+        ModConsole.Msg("Joined lobby, setting party activity.", 1);
+        _party.Id = $"{PlayerIdManager.GetPlayerId(0).LongId}";
+        _party.Size.CurrentSize = PlayerIdManager.PlayerCount;
+        _party.Size.MaxSize = FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue();
+        _party.Privacy = ConvertPartyPrivacy(FusionPreferences.ActiveServerSettings.Privacy.GetValue());
+        RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
     }
         
     private static void OnServerSettingsChanged()
     {
-        Party.Size.MaxSize = GetMaxPlayers();
-        Party.Privacy = ConvertPartyPrivacy(GetServerPrivacy());
-        RpcManager.UpdateRpc();
+        if (_party.Id == "disconnected") return;
+        ModConsole.Msg("Server settings changed, updating party activity.", 1);
+        _party.Size.MaxSize = FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue();
+        _party.Privacy = ConvertPartyPrivacy(FusionPreferences.ActiveServerSettings.Privacy.GetValue());
+        RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
     }
         
     private static void OnStartLobby()
     {
-        Party.Id = $"{PlayerIdManager.GetPlayerId(0).LongId}";
-        Party.Size.CurrentSize = PlayerIdManager.PlayerCount;
-        Party.Size.MaxSize = GetMaxPlayers();
-        Party.Privacy = ConvertPartyPrivacy(GetServerPrivacy());
-        RpcManager.UpdateRpc();
+        ModConsole.Msg("Started lobby, setting party activity.", 1);
+        _party.Id = $"{PlayerIdManager.GetPlayerId(0).LongId}";
+        _party.Size.CurrentSize = PlayerIdManager.PlayerCount;
+        _party.Size.MaxSize = FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue();
+#if DEBUG
+        ModConsole.Msg($"Max players is {FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue()}", 1);
+#endif
+        RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
     }
 
     private static void OnLeaveLobby()
     {
-        Party.Id = "";
-        Party.Size.CurrentSize = 0;
-        Party.Size.MaxSize = 0;
-        Party.Privacy = ActivityPartyPrivacy.Private;
-        RpcManager.UpdateRpc();
+        ModConsole.Msg("Left lobby, clearing party activity.", 1);
+        _party.Id = "disconnected";
+        _party.Size.CurrentSize = 0;
+        _party.Size.MaxSize = 0;
+        RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
     }
 
     private static void OnPlayerJoin(PlayerId playerId)
     {
-        Party.Size.CurrentSize = PlayerIdManager.PlayerCount;
-        RpcManager.UpdateRpc();
+        ModConsole.Msg("Player joined, updating party activity.", 1);
+        _party.Size.CurrentSize = PlayerIdManager.PlayerCount;
+        RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
     }
 
     private static void OnPlayerLeave(PlayerId playerId)
     {
-        Party.Size.CurrentSize = PlayerIdManager.PlayerCount;
-        RpcManager.UpdateRpc();
+        ModConsole.Msg("Player left, updating party activity.", 1);
+        _party.Size.CurrentSize = PlayerIdManager.PlayerCount;
+        RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
     }
 }

@@ -23,7 +23,6 @@ internal static class GunshotHandler
     {
         Counter += 1;
         ModConsole.Msg($"Gun fired, new shot count is {Counter}", 1);
-        GlobalVariables.Details = $"Gun Shots Fired: {Counter}";
-        RpcManager.UpdateRpc();
+        RpcManager.SetActivity(RpcManager.ActivityField.Details, $"Gun Shots Fired: {Counter}");
     }
 }
