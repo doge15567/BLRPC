@@ -10,6 +10,7 @@ internal static class AvatarHandler
     [HarmonyPatch(typeof(ArtRig), "SetAvatar")]
     public class ArtRigSetAvatar
     {
+        // ReSharper disable once InconsistentNaming
         public static void Postfix(ArtRig __instance, Avatar avatar)
         {
             DelayUtilities.Delay(() =>

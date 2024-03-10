@@ -63,6 +63,9 @@ internal static class RpcManager
             case ActivityField.SmallImageText:
                 _activity.Assets.SmallText = value;
                 break;
+            case ActivityField.JoinSecret:
+                _activity.Secrets.Join = value;
+                break;
             case ActivityField.Party:
                 ModConsole.Error("This error is my fault, called a method wrong.");
                 break;
@@ -112,10 +115,11 @@ internal static class RpcManager
         LargeImageText,
         SmallImageKey,
         SmallImageText,
-        Party
+        Party,
+        JoinSecret
     }
 
-    private static void UpdateRpc()
+    public static void UpdateRpc()
     {
         ModConsole.Msg($"Setting activity | Details: {_activity.Details} | State: {_activity.State} | LargeImageKey: {_activity.Assets.LargeImage} | LargeImageText: {_activity.Assets.LargeText} | SmallImageKey: {_activity.Assets.SmallImage} | SmallImageText: {_activity.Assets.SmallText}", 1);
         ActivityManager.UpdateActivity(_activity, (result) =>

@@ -2,6 +2,9 @@
 using LabFusion.Preferences;
 using LabFusion.Representation;
 using LabFusion.Utilities;
+using SLZ.Marrow.SceneStreaming;
+using Steamworks;
+using Result = Discord.Result;
 
 namespace BLRPC.Presence.Handlers;
 
@@ -9,6 +12,8 @@ internal static class FusionHandler
 {
     public static bool InServer;
     private static ActivityParty _party;
+    
+    private static LobbyManager _lobbyManager;
     
     private static ActivityPartyPrivacy ConvertPartyPrivacy(ServerPrivacy serverPrivacy)
     {
@@ -21,18 +26,33 @@ internal static class FusionHandler
             _ => ActivityPartyPrivacy.Private
         };
     }
+    
+    private static LobbyType ConvertLobbyType(ServerPrivacy serverPrivacy)
+    {
+        return serverPrivacy switch
+        {
+            ServerPrivacy.PUBLIC => LobbyType.Public,
+            ServerPrivacy.FRIENDS_ONLY => LobbyType.Private,
+            ServerPrivacy.PRIVATE => LobbyType.Private,
+            ServerPrivacy.LOCKED => LobbyType.Private,
+            _ => LobbyType.Private
+        };
+    }
         
     public static void Init()
     {
 #if DEBUG
         ModConsole.Msg("THIS IS GETTING CALLED!");
 #endif
+        _lobbyManager = RpcManager.Discord.GetLobbyManager();
+        
         MultiplayerHooking.OnJoinServer += OnJoinLobby;
         MultiplayerHooking.OnDisconnect += OnLeaveLobby;
         MultiplayerHooking.OnStartServer += OnStartLobby;
         MultiplayerHooking.OnPlayerJoin += OnPlayerJoin;
         MultiplayerHooking.OnPlayerLeave += OnPlayerLeave;
         MultiplayerHooking.OnServerSettingsChanged += OnServerSettingsChanged;
+        
         _party = new ActivityParty
         {
             Id = "disconnected",
@@ -42,13 +62,21 @@ internal static class FusionHandler
                 MaxSize = 0
             }
         };
-        
-        RpcManager.ActivityManager.OnActivityJoin += OnDiscordJoin;
+
+        RpcManager.ActivityManager.OnActivityJoin += secret => _lobbyManager.ConnectLobbyWithActivitySecret(secret, DiscordJoinLobby);
     }
 
-    private static void OnDiscordJoin(string secret)
+    private static void DiscordJoinLobby(Result result, ref Lobby lobby)
     {
-        
+        if (InServer) return;
+        if (result != Result.Ok)
+        {
+            ModConsole.Error($"Failed to join lobby: {result.ToString()}");
+            return;
+        }
+        SteamId steamId = ulong.Parse(_lobbyManager.GetLobbyMetadataValue(lobby.Id, "steamLobbyId"));
+        SteamMatchmaking.JoinLobbyAsync(steamId);
+        RpcManager.SetActivity(RpcManager.ActivityField.JoinSecret, _lobbyManager.GetLobbyActivitySecret(lobby.Id));
     }
 
     private static void OnJoinLobby()
@@ -74,6 +102,13 @@ internal static class FusionHandler
     private static void OnStartLobby()
     {
         InServer = true;
+
+        var lobbyTransaction = _lobbyManager.GetLobbyCreateTransaction();
+        lobbyTransaction.SetCapacity(FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue());
+        lobbyTransaction.SetType(ConvertLobbyType(FusionPreferences.ActiveServerSettings.Privacy.GetValue()));
+        lobbyTransaction.SetLocked(FusionPreferences.ActiveServerSettings.Privacy.GetValue() == ServerPrivacy.LOCKED);
+        _lobbyManager.CreateLobby(lobbyTransaction, OnDiscordLobbyCreate);
+        
         ModConsole.Msg("Started lobby, setting party activity.", 1);
         _party.Id = $"{PlayerIdManager.GetPlayerId(0).LongId}";
         _party.Size.CurrentSize = PlayerIdManager.PlayerCount;
@@ -84,6 +119,18 @@ internal static class FusionHandler
         RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
     }
 
+    private static void OnDiscordLobbyCreate(Result result, ref Lobby lobby)
+    {
+        if (result != Result.Ok)
+        {
+            ModConsole.Error($"Failed to create lobby: {result.ToString()}");
+            return;
+        }
+        LobbyTransaction transaction = _lobbyManager.GetLobbyUpdateTransaction(lobby.Id);
+        transaction.SetMetadata("steamLobbyId", PlayerIdManager.GetPlayerId(0).LongId.ToString());
+        RpcManager.SetActivity(RpcManager.ActivityField.JoinSecret, _lobbyManager.GetLobbyActivitySecret(lobby.Id));
+    }
+
     private static void OnLeaveLobby()
     {
         InServer = false;
@@ -92,6 +139,8 @@ internal static class FusionHandler
         _party.Size.CurrentSize = 0;
         _party.Size.MaxSize = 0;
         RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
+        RpcManager.SetActivity(RpcManager.ActivityField.State, $"In {SceneStreamer.Session.Level.Title}");
+        RpcManager.SetActivity(RpcManager.ActivityField.JoinSecret, "");
     }
 
     private static void OnPlayerJoin(PlayerId playerId)
