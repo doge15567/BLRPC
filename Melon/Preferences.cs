@@ -1,28 +1,26 @@
-﻿using MelonLoader;
+﻿namespace BLRPC.Melon;
 
-namespace BLRPC.Melon
+internal static class Preferences
 {
-    internal static class Preferences
+    private static readonly MelonPreferences_Category GlobalCategory = MelonPreferences.CreateCategory("Global");
+    public static readonly MelonPreferences_Category Category = MelonPreferences.CreateCategory("BLRPC");
+
+    public static MelonPreferences_Entry<int> LoggingMode;
+    public static MelonPreferences_Entry<long> DiscordAppId;
+    public static MelonPreferences_Entry<DetailsMode> DetailsMode;
+        
+    // NPC Deaths Settings
+    public static MelonPreferences_Entry<bool> CountDoomlabDeaths;
+    public static MelonPreferences_Entry<bool> ResetKillsOnLevelLoad;
+        
+    // Player Deaths Settings
+    public static MelonPreferences_Entry<bool> ResetDeathsOnLevelLoad;
+        
+    // Gun Shots Settings
+    public static MelonPreferences_Entry<bool> ResetGunShotsOnLevelLoad;
+
+    public static void Setup()
     {
-        public static readonly MelonPreferences_Category GlobalCategory = MelonPreferences.CreateCategory("Global");
-        public static readonly MelonPreferences_Category Category = MelonPreferences.CreateCategory("BLRPC");
-
-        public static MelonPreferences_Entry<int> LoggingMode;
-        public static MelonPreferences_Entry<long> DiscordAppId;
-        public static MelonPreferences_Entry<DetailsMode> DetailsMode;
-        
-        // NPC Deaths Settings
-        public static MelonPreferences_Entry<bool> CountDoomlabDeaths;
-        public static MelonPreferences_Entry<bool> ResetKillsOnLevelLoad;
-        
-        // Player Deaths Settings
-        public static MelonPreferences_Entry<bool> ResetDeathsOnLevelLoad;
-        
-        // Gun Shots Settings
-        public static MelonPreferences_Entry<bool> ResetGunShotsOnLevelLoad;
-
-        public static void Setup()
-        {
             // Basic
             LoggingMode = GlobalCategory.GetEntry<int>("LoggingMode") ?? GlobalCategory.CreateEntry("LoggingMode", 0, "Logging Mode", "The level of logging to use. 0 = Important Only, 1 = All");
             DiscordAppId = Category.CreateEntry("DiscordAppId", 1162864836418490388, "Discord Application ID", "The application ID for the Discord application that will be used for Rich Presence.");
@@ -41,15 +39,14 @@ namespace BLRPC.Melon
             Category.SaveToFile(false);
             ModConsole.Msg("Finished preferences setup", 1);
         }
-    }
-    public enum DetailsMode
-    {
-        Entries,
-        NPCDeaths,
-        GunShots,
-        Extraes,
-        SDKMods,
-        SpawnablesPlaced,
-        PlayerDeaths
-    }
+}
+public enum DetailsMode
+{
+    Entries,
+    NPCDeaths,
+    GunShots,
+    Extraes,
+    SDKMods,
+    SpawnablesPlaced,
+    PlayerDeaths
 }

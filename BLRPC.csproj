@@ -12,6 +12,7 @@
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <Deterministic>true</Deterministic>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,9 +36,11 @@
     <PropertyGroup>
         <StartupObject/>
     </PropertyGroup>
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="COPY &quot;$(TargetPath)&quot; &quot;I:\Steam\steamapps\common\BONELAB\Mods&quot;" />
-    </Target>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+    <PropertyGroup>
+      <PostBuildEvent>COPY "$(TargetPath)" "$(SolutionDir)Staging\Mods"
+COPY "$(TargetPath)" "$(SolutionDir)Links\Mods"</PostBuildEvent>
+    </PropertyGroup>
     <ItemGroup>
         <Compile Include="DiscordGameSDK\ActivityManager.cs" />
         <Compile Include="DiscordGameSDK\Constants.cs" />
@@ -46,62 +49,64 @@
         <Compile Include="DiscordGameSDK\LobbyManager.cs" />
         <Compile Include="DiscordGameSDK\StorageManager.cs" />
         <Compile Include="DiscordGameSDK\StoreManager.cs" />
-        <Compile Include="Internal\AvatarHandler.cs" />
-        <Compile Include="Internal\CheckBarcode.cs" />
-        <Compile Include="Internal\CheckPallets.cs" />
+        <Compile Include="GlobalUsings.cs" />
         <Compile Include="Internal\DllTools.cs" />
         <Compile Include="Internal\EmbeddedResource.cs" />
         <Compile Include="Internal\ExtraesMode.cs" />
-        <Compile Include="Internal\GlobalVariables.cs" />
-        <Compile Include="Main.cs"/>
+        <Compile Include="Main.cs" />
         <Compile Include="Melon\BoneMenu.cs" />
         <Compile Include="Melon\BoneMenuExtensions.cs" />
         <Compile Include="Melon\ModConsole.cs" />
         <Compile Include="Melon\Preferences.cs" />
-        <Compile Include="Patching\NPCDeathCounter.cs" />
-        <Compile Include="Patching\PlayerDeathCounter.cs" />
-        <Compile Include="Patching\ShotCounter.cs" />
-        <Compile Include="Patching\SpawnCounter.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="RPC.cs" />
+        <Compile Include="Melon\UserData.cs" />
+        <Compile Include="Presence\Handlers\AvatarHandler.cs" />
+        <Compile Include="Presence\Handlers\DeathHandler.cs" />
+        <Compile Include="Presence\Handlers\FusionHandler.cs" />
+        <Compile Include="Presence\Handlers\GunshotHandler.cs" />
+        <Compile Include="Presence\Handlers\Helpers\CheckBarcode.cs" />
+        <Compile Include="Presence\Handlers\Helpers\CheckPallets.cs" />
+        <Compile Include="Presence\Handlers\LevelHandler.cs" />
+        <Compile Include="Presence\Handlers\SpawnGunHandler.cs" />
+        <Compile Include="Presence\RpcManager.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
         <Reference Include="0Harmony">
-          <HintPath>References\0Harmony.dll</HintPath>
+          <HintPath>Links\MelonLoader\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp">
-          <HintPath>References\Assembly-CSharp.dll</HintPath>
+          <HintPath>Links\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="BoneLib">
-          <HintPath>References\BoneLib.dll</HintPath>
+          <HintPath>Links\Mods\BoneLib.dll</HintPath>
         </Reference>
         <Reference Include="DOOMLAB">
-          <HintPath>References\DOOMLAB.dll</HintPath>
+          <HintPath>Links\Mods\DOOMLAB.dll</HintPath>
         </Reference>
         <Reference Include="Il2Cppmscorlib">
-            <HintPath>References\Il2Cppmscorlib.dll</HintPath>
+            <HintPath>Links\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
         </Reference>
-        <Reference Include="JeviLib">
-          <HintPath>References\JeviLib.dll</HintPath>
+        <Reference Include="LabFusion">
+          <HintPath>Links\Mods\LabFusion.dll</HintPath>
         </Reference>
         <Reference Include="MelonLoader">
-            <HintPath>References\MelonLoader.dll</HintPath>
+            <HintPath>Links\MelonLoader\MelonLoader.dll</HintPath>
         </Reference>
         <Reference Include="SLZ.Marrow">
-          <HintPath>References\SLZ.Marrow.dll</HintPath>
+          <HintPath>Links\MelonLoader\Managed\SLZ.Marrow.dll</HintPath>
         </Reference>
         <Reference Include="SLZ.Marrow.SDK">
-          <HintPath>References\SLZ.Marrow.SDK.dll</HintPath>
+          <HintPath>Links\MelonLoader\Managed\SLZ.Marrow.SDK.dll</HintPath>
         </Reference>
-        <Reference Include="System"/>
+        <Reference Include="System" />
         <Reference Include="UnhollowerBaseLib">
-            <HintPath>References\UnhollowerBaseLib.dll</HintPath>
+            <HintPath>Links\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
-          <HintPath>References\UnityEngine.dll</HintPath>
+          <HintPath>Links\MelonLoader\Managed\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-          <HintPath>References\UnityEngine.CoreModule.dll</HintPath>
+          <HintPath>Links\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -110,5 +115,4 @@
     <ItemGroup>
       <EmbeddedResource Include="Resources\UserEntries.txt" />
     </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>

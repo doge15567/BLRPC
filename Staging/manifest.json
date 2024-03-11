@@ -1,0 +1,9 @@
+{
+    "name": "BonelabRichPresence",
+    "version_number": "2.0.0",
+    "website_url": "https://github.com/WeatherElectric/BLRPC",
+    "description": "Adds Discord Rich Presence to BONELAB.",
+    "dependencies": [
+		"gnonme-BoneLib-2.4.0"
+    ]
+}

@@ -1,14 +1,13 @@
-﻿using BLRPC.Internal;
-using BLRPC.Melon;
-using HarmonyLib;
-using NEP.DOOMLAB.Entities;
+﻿using NEP.DOOMLAB.Entities;
 using SLZ.AI;
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedParameter.Global
 
-namespace BLRPC.Patching
+namespace BLRPC.Presence.Handlers;
+
+internal static class DeathHandler
 {
-    public static class NPCDeathCounter
+    public static class NPC
     {
         [HarmonyPatch(typeof(AIBrain), "OnDeath")]
         public class AIBrain_OnDeath
@@ -37,13 +36,37 @@ namespace BLRPC.Patching
             }
         }
         
-        public static int Counter = 0;
+        public static int Counter;
         private static void UpdateCounter()
         {
             Counter += 1;
             ModConsole.Msg($"NPC died, new death count is {Counter}", 1);
-            GlobalVariables.details = $"NPC Deaths: {Counter}";
-            Rpc.SetRpc(GlobalVariables.details, GlobalVariables.status, GlobalVariables.largeImageKey, GlobalVariables.largeImageText, GlobalVariables.smallImageKey, GlobalVariables.smallImageText);
+            RpcManager.SetActivity(RpcManager.ActivityField.Details, $"NPC Deaths: {Counter}");
+        }
+    }
+
+    public static class Player
+    {
+        [HarmonyPatch(typeof(Player_Health), "Death")]
+        public class PlayerDeath
+        {
+            public static void Postfix(Player_Health __instance)
+            {
+                if (Main.IsQuest || Main.DiscordClosed) return;
+                if (Preferences.DetailsMode.Value == DetailsMode.PlayerDeaths)
+                {
+                    UpdateCounter();
+                }
+            }
+        }
+        
+        public static int Counter;
+        
+        private static void UpdateCounter()
+        {
+            Counter += 1;
+            ModConsole.Msg($"Player died, new death count is {Counter}", 1);
+            RpcManager.SetActivity(RpcManager.ActivityField.Details, $"Player Deaths: {Counter}");
         }
     }
 }
