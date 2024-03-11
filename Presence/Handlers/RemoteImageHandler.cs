@@ -1,82 +1,72 @@
-﻿using BLRPC.Melon;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.Networking.Match;
-using ModioModNetworker;
+﻿using System.Collections.Generic;
 using ModioModNetworker.Utilities;
 using ModioModNetworker.Data;
 using SLZ.Marrow.Warehouse;
 
-namespace BLRPC.Internal
+namespace BLRPC.Internal;
+
+internal class RemoteImageHandler
 {
-    internal class RemoteImageHandler
+    private static readonly Dictionary<string, string> ImageCache = new();
+
+
+    public static string CheckforExternalImage(string imageKey, string fallBackKey)
     {
 
-        public static Dictionary<string, string> ImageCache = new Dictionary<string, string>();
+        ModConsole.Msg("Check External Image Called with value " + imageKey, 1);
 
-
-        public static string CheckforExternalImage(string ImageKey, string FallBackKey)
+        if (ImageCache.ContainsKey(imageKey))
         {
-
-            ModConsole.Msg("Check External Image Called with value " + ImageKey, 1);
-
-            if (ImageCache.ContainsKey(ImageKey))
-            {
-                ModConsole.Msg(ImageKey + " was already processed, and was cached with value " + ImageCache[ImageKey], 1);
-                return ImageCache[ImageKey];
-            }
-            
-            string ModioNetworkURI = GetModioImage(ImageKey, FallBackKey);
-            if (ModioNetworkURI != null) { ImageCache.Add(ImageKey, ModioNetworkURI); }
-            else { ImageCache.Add(ImageKey, FallBackKey); }
-
-            ModConsole.Msg("Image Key Cache of " + ImageKey + " was set with " + ImageCache[ImageKey], 1);
-
-            ModConsole.Msg("Check for external image"+ImageKey+" finished, with value " + ImageCache[ImageKey], 1);
-            return ImageCache[ImageKey];
+            ModConsole.Msg(imageKey + " was already processed, and was cached with value " + ImageCache[imageKey], 1);
+            return ImageCache[imageKey];
         }
 
-        public static ModInfo GetModInfoForAvatarBarcode(string barcode) // Unimplemented in ModioModNetworker for some reason?????
+        if (GetModioImage(imageKey, fallBackKey) is { } modioNetworkUri) { ImageCache.Add(imageKey, modioNetworkUri); }
+        else { ImageCache.Add(imageKey, fallBackKey); }
+
+        ModConsole.Msg("Image Key Cache of " + imageKey + " was set with " + ImageCache[imageKey], 1);
+
+        ModConsole.Msg("Check for external image"+imageKey+" finished, with value " + ImageCache[imageKey], 1);
+        return ImageCache[imageKey];
+    }
+
+    private static ModInfo GetModInfoForAvatarBarcode(string barcode) // Unimplemented in ModioModNetworker for some reason?????
+    {
+        AvatarCrate avatarCrate =
+            AssetWarehouse.Instance.GetCrate<AvatarCrate>(barcode);
+        if (avatarCrate == null)
         {
-            AvatarCrate avatarCrate =
-                AssetWarehouse.Instance.GetCrate<AvatarCrate>(barcode);
-            if (avatarCrate == null)
-            {
-                return null;
-            }
-
-            string palletBarcode = avatarCrate._pallet._barcode;
-            return ModInfoUtilities.GetModInfoForPalletBarcode(palletBarcode);
-        }
-
-
-
-
-        public static string GetModioImage(string imageKey, string FallbackKey)
-        {
-            ModInfo info;
-            if (FallbackKey == "moddedmap") { info = ModInfoUtilities.GetModInfoForLevelBarcode(imageKey); }
-            else if (FallbackKey == "moddedavatar") { info = GetModInfoForAvatarBarcode(imageKey); }
-            else return null;
-            if (info != null) { 
-                if (info.IsTracked())
-                {
-                    ModConsole.Msg("Mod was Mod.io tracked and we returned " + info.thumbnailLink , 1);
-                    return info.thumbnailLink;
-                } 
-            }
             return null;
-            
         }
 
+        string palletBarcode = avatarCrate._pallet._barcode;
+        return ModInfoUtilities.GetModInfoForPalletBarcode(palletBarcode);
+    }
+
+
+    private static string GetModioImage(string imageKey, string fallbackKey)
+    {
+        ModInfo info;
+        switch (fallbackKey)
+        {
+            case "moddedmap":
+                info = ModInfoUtilities.GetModInfoForLevelBarcode(imageKey);
+                break;
+            case "moddedavatar":
+                info = GetModInfoForAvatarBarcode(imageKey);
+                break;
+            default:
+                return null;
+        }
+        if (info != null) { 
+            if (info.IsTracked())
+            {
+                ModConsole.Msg("Mod was Mod.io tracked and we returned " + info.thumbnailLink , 1);
+                return info.thumbnailLink;
+            } 
+        }
+        return null;
+            
     }
 
 }
-
-

@@ -10,12 +10,14 @@ public class Main : MelonMod
     internal const string Description = "Discord Rich Presence for BONELAB";
     internal const string Author = "SoulWithMae";
     internal const string Company = "Weather Electric";
-    internal const string Version = "2.0.0";
+    internal const string Version = "2.1.0";
     internal const string DownloadLink = "https://bonelab.thunderstore.io/package/SoulWithMae/BonelabRichPresence/";
     
     // Quest users.
     public static bool IsQuest;
     private static bool _checkedQuest;
+
+    public static bool NetworkerInstalled;
     
     // Prevents stuff from running if Discord isn't open
     public static bool DiscordClosed;
@@ -41,6 +43,7 @@ public class Main : MelonMod
     {
         // BLRPC's regular OnInitializeMelon is called before Fusion is loaded, not good
         if (HelperMethods.CheckIfAssemblyLoaded("labfusion")) FusionHandler.Init();
+        NetworkerInstalled = HelperMethods.CheckIfAssemblyLoaded("modiomodnetworker");
     }
 
     private static bool DiscordOpen()

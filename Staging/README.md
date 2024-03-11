@@ -1,13 +1,12 @@
 # BLRPC
 Discord Rich Presence for BONELAB
 
+## Mod.io Mod Networker Support - doge15567's Addition
+* If networker is installed, custom maps and avatars will use the mod's thumbnail.
+
 ## Fusion Support
 * If Fusion is installed, you can invite people to your Fusion servers through Discord.
 * It will show the current players in the server, then the max players allowed in the server in the status.
-
-## ModioModNetworker integration
-* If ModioModNetworker is installed, modded maps and avatars will have their icons pulled from the mod's Mod.io page's thumbnail
-* Not sure if its optional idk
 
 ## Installation
 1. Download the latest release from [here](https://bonelab.thunderstore.io/package/CarrionAndOn/BonelabRichPresence/)
