@@ -40,7 +40,7 @@ public class Main : MelonMod
     public override void OnLateInitializeMelon()
     {
         // BLRPC's regular OnInitializeMelon is called before Fusion is loaded, not good
-        FusionHandler.Init();
+        if (HelperMethods.CheckIfAssemblyLoaded("labfusion")) FusionHandler.Init();
     }
 
     private static bool DiscordOpen()
