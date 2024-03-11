@@ -1,3 +1,10 @@
+**2.0.0**
+* Added Fusion support
+* Many internal optimizations
+* Avatar handling is infinitely better
+* No longer requires JeviLib at all, doesn't even have to be installed once.
+* More default entries. Why not.
+
 **1.4.1**
 * Made JeviLib an optional dependency so game still opens without it (READ README.)
 

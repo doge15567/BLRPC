@@ -1,10 +1,9 @@
 # BLRPC
 Discord Rich Presence for BONELAB
 
-## JeviLib
-* You do not actually need it installed.
-* You just need to have opened the game once with JeviLib installed so it can fix a few things within MelonLoader.
-* Don't remove it if you have other mods that require it's actual functions though, this mod only needs the fixes that it applies and you don't need JeviLib installed for the fixes to persist.
+## Fusion Support
+* If Fusion is installed, you can invite people to your Fusion servers through Discord.
+* It will show the current players in the server, then the max players allowed in the server in the status.
 
 ## Installation
 1. Download the latest release from [here](https://bonelab.thunderstore.io/package/CarrionAndOn/BonelabRichPresence/)
