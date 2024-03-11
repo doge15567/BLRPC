@@ -12,6 +12,7 @@ internal static class FusionHandler
 {
     public static bool InServer;
     private static ActivityParty _party;
+    private static Lobby _lobby;
     
     private static LobbyManager _lobbyManager;
     
@@ -75,7 +76,11 @@ internal static class FusionHandler
             return;
         }
         SteamId steamId = ulong.Parse(_lobbyManager.GetLobbyMetadataValue(lobby.Id, "steamLobbyId"));
-        SteamMatchmaking.JoinLobbyAsync(steamId);
+        if (NetworkInfo.CurrentNetworkLayer is SteamNetworkLayer steamLayer)
+        {
+            steamLayer.JoinServer(steamId);
+        }
+        _lobby = lobby;
         RpcManager.SetActivity(RpcManager.ActivityField.JoinSecret, _lobbyManager.GetLobbyActivitySecret(lobby.Id));
     }
 
@@ -83,19 +88,30 @@ internal static class FusionHandler
     {
         InServer = true;
         ModConsole.Msg("Joined lobby, setting party activity.", 1);
-        _party.Id = $"{PlayerIdManager.GetPlayerId(0).LongId}";
         _party.Size.CurrentSize = PlayerIdManager.PlayerCount;
         _party.Size.MaxSize = FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue();
         _party.Privacy = ConvertPartyPrivacy(FusionPreferences.ActiveServerSettings.Privacy.GetValue());
+        _party.Id = _lobby.Id.ToString();
         RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
     }
         
     private static void OnServerSettingsChanged()
     {
-        if (_party.Id == "disconnected") return;
+        if (!InServer) return;
         ModConsole.Msg("Server settings changed, updating party activity.", 1);
         _party.Size.MaxSize = FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue();
         _party.Privacy = ConvertPartyPrivacy(FusionPreferences.ActiveServerSettings.Privacy.GetValue());
+        var lobbyTransaction = _lobbyManager.GetLobbyUpdateTransaction(_lobby.Id);
+        lobbyTransaction.SetCapacity(FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue());
+        lobbyTransaction.SetType(ConvertLobbyType(FusionPreferences.ActiveServerSettings.Privacy.GetValue()));
+        lobbyTransaction.SetLocked(FusionPreferences.ActiveServerSettings.Privacy.GetValue() == ServerPrivacy.LOCKED);
+        _lobbyManager.UpdateLobby(_lobby.Id, lobbyTransaction, res =>
+        {
+            if (res != Result.Ok)
+            {
+                ModConsole.Error($"Failed to update lobby: {res.ToString()}");
+            }
+        });
         RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
     }
         
@@ -108,15 +124,6 @@ internal static class FusionHandler
         lobbyTransaction.SetType(ConvertLobbyType(FusionPreferences.ActiveServerSettings.Privacy.GetValue()));
         lobbyTransaction.SetLocked(FusionPreferences.ActiveServerSettings.Privacy.GetValue() == ServerPrivacy.LOCKED);
         _lobbyManager.CreateLobby(lobbyTransaction, OnDiscordLobbyCreate);
-        
-        ModConsole.Msg("Started lobby, setting party activity.", 1);
-        _party.Id = $"{PlayerIdManager.GetPlayerId(0).LongId}";
-        _party.Size.CurrentSize = PlayerIdManager.PlayerCount;
-        _party.Size.MaxSize = FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue();
-#if DEBUG
-        ModConsole.Msg($"Max players is {FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue()}", 1);
-#endif
-        RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
     }
 
     private static void OnDiscordLobbyCreate(Result result, ref Lobby lobby)
@@ -126,8 +133,28 @@ internal static class FusionHandler
             ModConsole.Error($"Failed to create lobby: {result.ToString()}");
             return;
         }
+        
         LobbyTransaction transaction = _lobbyManager.GetLobbyUpdateTransaction(lobby.Id);
-        transaction.SetMetadata("steamLobbyId", PlayerIdManager.GetPlayerId(0).LongId.ToString());
+        transaction.SetMetadata("steamLobbyId", SteamClient.SteamId.ToString());
+        _lobbyManager.UpdateLobby(lobby.Id, transaction, res =>
+        {
+            if (res != Result.Ok)
+            {
+                ModConsole.Error($"Failed to update lobby: {res.ToString()}");
+            }
+        });
+        
+        _lobby = lobby;
+        
+        ModConsole.Msg("Started lobby, setting party activity.", 1);
+        _party.Size.CurrentSize = PlayerIdManager.PlayerCount;
+        _party.Size.MaxSize = FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue();
+        _party.Id = SteamClient.SteamId.ToString();
+#if DEBUG
+        ModConsole.Msg($"Max players is {FusionPreferences.ActiveServerSettings.MaxPlayers.GetValue()}");
+        ModConsole.Msg($"SteamID is {SteamClient.SteamId.ToString()}");
+#endif
+        RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
         RpcManager.SetActivity(RpcManager.ActivityField.JoinSecret, _lobbyManager.GetLobbyActivitySecret(lobby.Id));
     }
 
@@ -135,7 +162,7 @@ internal static class FusionHandler
     {
         InServer = false;
         ModConsole.Msg("Left lobby, clearing party activity.", 1);
-        _party.Id = "disconnected";
+        _party.Id = "";
         _party.Size.CurrentSize = 0;
         _party.Size.MaxSize = 0;
         RpcManager.SetActivity(RpcManager.ActivityField.Party, _party);
