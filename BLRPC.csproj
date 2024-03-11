@@ -1,118 +1,122 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{0DEB755F-D57A-4285-9D70-C592E340CDB4}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <RootNamespace>BLRPC</RootNamespace>
-        <AssemblyName>BLRPC</AssemblyName>
-        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-        <Deterministic>true</Deterministic>
-        <LangVersion>default</LangVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup>
-        <StartupObject/>
-    </PropertyGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-    <PropertyGroup>
-      <PostBuildEvent>COPY "$(TargetPath)" "$(SolutionDir)Staging\Mods"
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0DEB755F-D57A-4285-9D70-C592E340CDB4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BLRPC</RootNamespace>
+    <AssemblyName>BLRPC</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <LangVersion>default</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>COPY "$(TargetPath)" "$(SolutionDir)Staging\Mods"
 COPY "$(TargetPath)" "$(SolutionDir)Links\Mods"</PostBuildEvent>
-    </PropertyGroup>
-    <ItemGroup>
-        <Compile Include="DiscordGameSDK\ActivityManager.cs" />
-        <Compile Include="DiscordGameSDK\Constants.cs" />
-        <Compile Include="DiscordGameSDK\Core.cs" />
-        <Compile Include="DiscordGameSDK\ImageManager.cs" />
-        <Compile Include="DiscordGameSDK\LobbyManager.cs" />
-        <Compile Include="DiscordGameSDK\StorageManager.cs" />
-        <Compile Include="DiscordGameSDK\StoreManager.cs" />
-        <Compile Include="GlobalUsings.cs" />
-        <Compile Include="Internal\DllTools.cs" />
-        <Compile Include="Internal\EmbeddedResource.cs" />
-        <Compile Include="Internal\ExtraesMode.cs" />
-        <Compile Include="Main.cs" />
-        <Compile Include="Melon\BoneMenu.cs" />
-        <Compile Include="Melon\BoneMenuExtensions.cs" />
-        <Compile Include="Melon\ModConsole.cs" />
-        <Compile Include="Melon\Preferences.cs" />
-        <Compile Include="Melon\UserData.cs" />
-        <Compile Include="Presence\Handlers\AvatarHandler.cs" />
-        <Compile Include="Presence\Handlers\DeathHandler.cs" />
-        <Compile Include="Presence\Handlers\FusionHandler.cs" />
-        <Compile Include="Presence\Handlers\GunshotHandler.cs" />
-        <Compile Include="Presence\Handlers\Helpers\CheckBarcode.cs" />
-        <Compile Include="Presence\Handlers\Helpers\CheckPallets.cs" />
-        <Compile Include="Presence\Handlers\LevelHandler.cs" />
-        <Compile Include="Presence\Handlers\SpawnGunHandler.cs" />
-        <Compile Include="Presence\RpcManager.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-        <Reference Include="0Harmony">
-          <HintPath>Links\MelonLoader\0Harmony.dll</HintPath>
-        </Reference>
-        <Reference Include="Assembly-CSharp">
-          <HintPath>Links\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
-        </Reference>
-        <Reference Include="BoneLib">
-          <HintPath>Links\Mods\BoneLib.dll</HintPath>
-        </Reference>
-        <Reference Include="DOOMLAB">
-          <HintPath>Links\Mods\DOOMLAB.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2Cppmscorlib">
-            <HintPath>Links\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
-        </Reference>
-        <Reference Include="LabFusion">
-          <HintPath>Links\Mods\LabFusion.dll</HintPath>
-        </Reference>
-        <Reference Include="MelonLoader">
-            <HintPath>Links\MelonLoader\MelonLoader.dll</HintPath>
-        </Reference>
-        <Reference Include="SLZ.Marrow">
-          <HintPath>Links\MelonLoader\Managed\SLZ.Marrow.dll</HintPath>
-        </Reference>
-        <Reference Include="SLZ.Marrow.SDK">
-          <HintPath>Links\MelonLoader\Managed\SLZ.Marrow.SDK.dll</HintPath>
-        </Reference>
-        <Reference Include="System" />
-        <Reference Include="UnhollowerBaseLib">
-            <HintPath>Links\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine">
-          <HintPath>Links\MelonLoader\Managed\UnityEngine.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-          <HintPath>Links\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Include="Resources\discord_game_sdk.dll" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Include="Resources\UserEntries.txt" />
-    </ItemGroup>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DiscordGameSDK\ActivityManager.cs" />
+    <Compile Include="DiscordGameSDK\Constants.cs" />
+    <Compile Include="DiscordGameSDK\Core.cs" />
+    <Compile Include="DiscordGameSDK\ImageManager.cs" />
+    <Compile Include="DiscordGameSDK\LobbyManager.cs" />
+    <Compile Include="DiscordGameSDK\StorageManager.cs" />
+    <Compile Include="DiscordGameSDK\StoreManager.cs" />
+    <Compile Include="GlobalUsings.cs" />
+    <Compile Include="Internal\DllTools.cs" />
+    <Compile Include="Internal\EmbeddedResource.cs" />
+    <Compile Include="Internal\ExtraesMode.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Melon\BoneMenu.cs" />
+    <Compile Include="Melon\BoneMenuExtensions.cs" />
+    <Compile Include="Melon\ModConsole.cs" />
+    <Compile Include="Melon\Preferences.cs" />
+    <Compile Include="Melon\UserData.cs" />
+    <Compile Include="Presence\Handlers\AvatarHandler.cs" />
+    <Compile Include="Presence\Handlers\DeathHandler.cs" />
+    <Compile Include="Presence\Handlers\FusionHandler.cs" />
+    <Compile Include="Presence\Handlers\GunshotHandler.cs" />
+    <Compile Include="Presence\Handlers\Helpers\CheckBarcode.cs" />
+    <Compile Include="Presence\Handlers\Helpers\CheckPallets.cs" />
+    <Compile Include="Presence\Handlers\LevelHandler.cs" />
+    <Compile Include="Presence\Handlers\RemoteImageHandler.cs" />
+    <Compile Include="Presence\Handlers\SpawnGunHandler.cs" />
+    <Compile Include="Presence\RpcManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>Links\MelonLoader\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>Links\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="BoneLib">
+      <HintPath>Links\Mods\BoneLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DOOMLAB">
+      <HintPath>Links\DOOMLAB.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>Links\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="LabFusion">
+      <HintPath>Links\Mods\LabFusion.dll</HintPath>
+    </Reference>
+    <Reference Include="MelonLoader">
+      <HintPath>Links\MelonLoader\MelonLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="ModioModNetworker">
+      <HintPath>Links\Mods\ModioModNetworker.dll</HintPath>
+    </Reference>
+    <Reference Include="SLZ.Marrow">
+      <HintPath>Links\MelonLoader\Managed\SLZ.Marrow.dll</HintPath>
+    </Reference>
+    <Reference Include="SLZ.Marrow.SDK">
+      <HintPath>Links\MelonLoader\Managed\SLZ.Marrow.SDK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="UnhollowerBaseLib">
+      <HintPath>Links\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>Links\MelonLoader\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>Links\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\discord_game_sdk.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\UserEntries.txt" />
+  </ItemGroup>
 </Project>
