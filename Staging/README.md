@@ -5,6 +5,10 @@ Discord Rich Presence for BONELAB
 * If Fusion is installed, you can invite people to your Fusion servers through Discord.
 * It will show the current players in the server, then the max players allowed in the server in the status.
 
+## ModioModNetworker integration
+* If ModioModNetworker is installed, modded maps and avatars will have their icons pulled from the mod's Mod.io page's thumbnail
+* Not sure if its optional idk
+
 ## Installation
 1. Download the latest release from [here](https://bonelab.thunderstore.io/package/CarrionAndOn/BonelabRichPresence/)
 2. Extract the zip file into your BONELAB directory

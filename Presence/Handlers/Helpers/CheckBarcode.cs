@@ -1,4 +1,5 @@
-﻿using BoneLib;
+﻿using BLRPC.Internal;
+using BoneLib;
 
 namespace BLRPC.Presence.Handlers.Helpers;
 
@@ -29,7 +30,7 @@ internal static class CheckBarcode
             CommonBarcodes.Avatars.DuckSeasonDog => "duckseasondog",
             CommonBarcodes.Avatars.PolyBlank => "polyblank",
             CommonBarcodes.Avatars.PolyDebugger => "polyblank",
-            _ => "moddedavatar"
+            _ => RemoteImageHandler.CheckforExternalImage(barcode, "moddedavatar")
         };
     }
     public static string CheckMap(string barcode)
@@ -68,7 +69,7 @@ internal static class CheckBarcode
             CommonBarcodes.Maps.Tuscany => "tuscany",
             CommonBarcodes.Maps.ContainerYard => "containeryard",
             CommonBarcodes.Maps.Mirror => "mirror",
-            _ => "moddedmap"
+            _ => RemoteImageHandler.CheckforExternalImage(barcode,"moddedmap")
         };
     }
 }
