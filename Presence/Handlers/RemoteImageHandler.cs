@@ -18,7 +18,7 @@ namespace BLRPC.Internal
     internal class RemoteImageHandler
     {
 
-        public static Dictionary<string, string> ImageCache;
+        public static Dictionary<string, string> ImageCache = new Dictionary<string, string>();
 
 
         public static string CheckforExternalImage(string ImageKey, string FallBackKey)
@@ -31,10 +31,10 @@ namespace BLRPC.Internal
                 ModConsole.Msg(ImageKey + " was already processed, and was cached with value " + ImageCache[ImageKey], 1);
                 return ImageCache[ImageKey];
             }
-
-            string modiofallbackuri = GetModioImage(ImageKey, FallBackKey);
-            if (modiofallbackuri != null) { ImageCache[ImageKey] = modiofallbackuri; }
-            else { ImageCache[ImageKey] = FallBackKey; }
+            
+            string ModioNetworkURI = GetModioImage(ImageKey, FallBackKey);
+            if (ModioNetworkURI != null) { ImageCache.Add(ImageKey, ModioNetworkURI); }
+            else { ImageCache.Add(ImageKey, FallBackKey); }
 
             ModConsole.Msg("Image Key Cache of " + ImageKey + " was set with " + ImageCache[ImageKey], 1);
 
@@ -64,12 +64,15 @@ namespace BLRPC.Internal
             if (FallbackKey == "moddedmap") { info = ModInfoUtilities.GetModInfoForLevelBarcode(imageKey); }
             else if (FallbackKey == "moddedavatar") { info = GetModInfoForAvatarBarcode(imageKey); }
             else return null;
-            if (info.IsTracked())
-            {
-                ModConsole.Msg("Mod was trackde and we returned " + info.thumbnailLink, 1);
-                return info.thumbnailLink;
+            if (info != null) { 
+                if (info.IsTracked())
+                {
+                    ModConsole.Msg("Mod was Mod.io tracked and we returned " + info.thumbnailLink , 1);
+                    return info.thumbnailLink;
+                } 
             }
-            else return null;
+            return null;
+            
         }
 
     }
