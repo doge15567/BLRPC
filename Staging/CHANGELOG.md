@@ -1,3 +1,9 @@
+**2.1.1**
+* Slight oversight causing it to not even send the barcode to the image methods
+
+**2.1.0**
+* Modded maps and avatars will use the mod.io thumbnail (doge15567)
+
 **2.0.0**
 * Added Fusion support
 * Many internal optimizations

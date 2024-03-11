@@ -10,7 +10,7 @@ public class Main : MelonMod
     internal const string Description = "Discord Rich Presence for BONELAB";
     internal const string Author = "SoulWithMae";
     internal const string Company = "Weather Electric";
-    internal const string Version = "2.1.0";
+    internal const string Version = "2.1.1";
     internal const string DownloadLink = "https://bonelab.thunderstore.io/package/SoulWithMae/BonelabRichPresence/";
     
     // Quest users.
