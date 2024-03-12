@@ -1,3 +1,6 @@
+**2.1.2**
+* Fixed Fusion players triggering the avatar update for the local player
+
 **2.1.1**
 * Slight oversight causing it to not even send the barcode to the image methods
 

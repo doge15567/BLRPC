@@ -13,6 +13,11 @@ internal static class AvatarHandler
         // ReSharper disable once InconsistentNaming
         public static void Postfix(ArtRig __instance, Avatar avatar)
         {
+            if (Main.FusionInstalled)
+            {
+                if (!__instance.manager.IsSelf()) return;
+            }
+            
             DelayUtilities.Delay(() =>
             {
                 var aviBarcode = __instance.manager.AvatarCrate.Crate.Barcode;
