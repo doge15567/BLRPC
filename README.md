@@ -1,8 +1,8 @@
 # BLRPC
 Discord Rich Presence for BONELAB
 
-## Mod Auto Downloader Support - doge15567's Addition
-* If a mod is installed with the Mod.IO downloaded, custom maps and avatars will use the mod's thumbnail.
+## In-Game Downloader Support - doge15567's Addition
+* If a mod is installed with the in game Mod.IO downloader, custom maps and avatars or the mod will use the mod's mod.io thumbnail.
 
 ## Fusion Support
 * If Fusion is installed, you can invite people to your Fusion servers through Discord.
