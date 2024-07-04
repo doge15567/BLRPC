@@ -52,5 +52,6 @@ if not os.path.exists(ml_path):
 
 # Then bridge these folders into a local "Links" folder with a hard link
 print("Creating an env variable for bl...")
-
-os.environ["BONELAB_DIR"] = bl_path
+cmd = "SETX {0} \"{1}\"".format("BONELAB_DIR", bl_path)
+print(cmd)
+os.system(cmd)
