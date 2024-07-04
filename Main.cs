@@ -3,6 +3,7 @@ using BoneLib;
 using BLRPC.Presence;
 using Il2CppSLZ.VRMK;
 using LabFusion.Utilities;
+using System.Text.RegularExpressions;
 
 namespace BLRPC;
 
@@ -89,7 +90,21 @@ public class Main : MelonMod
         if (IsQuest || DiscordClosed) return;
         RpcManager.Discord.RunCallbacks();
     }
-    
+
+
+    public static string RemoveRichText(string str) //Function from fusion string extention
+    {
+        Regex rich = new(@"<[^>]*>");
+        string plainText = str;
+
+        if (rich.IsMatch(plainText))
+        {
+            plainText = rich.Replace(plainText, string.Empty);
+        }
+
+        return plainText;
+    }
+
     private static void OnLevelLoad(LevelInfo levelInfo)
     {
         if (IsQuest || DiscordClosed) return;
@@ -100,13 +115,13 @@ public class Main : MelonMod
         SpawnGunHandler.Counter = 0;
         LevelHandler.OnLevelLoaded(levelInfo);
     }
-    public void OnAvatarChange(Avatar avatar)
+    public static void OnAvatarChange(Avatar avatar)
     {
         {
             DelayUtilities.Delay(() =>
             {
                 var aviBarcode = BoneLib.Player.rigManager.AvatarCrate.Crate.Barcode;
-                var aviTitle = BoneLib.Player.rigManager.AvatarCrate.Crate.Title;
+                var aviTitle = Main.RemoveRichText(BoneLib.Player.rigManager.AvatarCrate.Crate.Title);
                 if (aviTitle == null || aviBarcode == null) return;
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, BLRPC.Presence.Handlers.Helpers.CheckBarcode.CheckAvatar(aviBarcode));
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, aviTitle);

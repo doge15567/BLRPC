@@ -9,6 +9,8 @@ internal static class LevelHandler
 {
     public static void OnLevelLoaded(LevelInfo levelInfo)
     {
+
+        levelInfo.title = Main.RemoveRichText(levelInfo.title);
         RpcManager.SetActivity(RpcManager.ActivityField.State, FusionHandler.InServer ? $"In {levelInfo.title} | Fusion" : $"In {levelInfo.title}");
         RpcManager.SetActivity(RpcManager.ActivityField.LargeImageKey, CheckBarcode.CheckMap(levelInfo.barcode));
         RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, levelInfo.title);

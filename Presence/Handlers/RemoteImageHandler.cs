@@ -124,7 +124,7 @@ internal class ModInfoUtilities
         ModConsole.Msg("Deserialized correctly", 1);
 
 
-        string url = manifest.ModListing.ThumbnailUrl;
+        string url = manifest.ModListing?.ThumbnailUrl;
 
         ModConsole.Msg("URL is " + url, 1);
 
