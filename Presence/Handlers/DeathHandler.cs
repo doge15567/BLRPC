@@ -1,5 +1,6 @@
-﻿using NEP.DOOMLAB.Entities;
-using SLZ.AI;
+﻿//using NEP.DOOMLAB.Entities;
+using Il2CppSLZ.Marrow.AI;
+using Il2CppSLZ.Bonelab;
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedParameter.Global
 
@@ -22,6 +23,7 @@ internal static class DeathHandler
             }
         }
         
+        /*
         [HarmonyPatch(typeof(Mobj), "Kill")]
         public class Mobj_OnDeath
         {
@@ -35,7 +37,8 @@ internal static class DeathHandler
                 }
             }
         }
-        
+        */
+
         public static int Counter;
         private static void UpdateCounter()
         {

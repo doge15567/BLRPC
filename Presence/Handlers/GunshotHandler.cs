@@ -1,5 +1,4 @@
-﻿using SLZ.Props;
-using SLZ.Props.Weapons;
+﻿using Il2CppSLZ.Bonelab;
 
 namespace BLRPC.Presence.Handlers;
 

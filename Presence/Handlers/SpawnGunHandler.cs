@@ -1,4 +1,4 @@
-﻿using SLZ.Props;
+﻿using Il2CppSLZ.Bonelab;
 
 namespace BLRPC.Presence.Handlers;
 

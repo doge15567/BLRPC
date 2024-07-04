@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using BoneLib;
 using BLRPC.Presence;
+using Il2CppSLZ.VRMK;
+using LabFusion.Utilities;
 
 namespace BLRPC;
 
@@ -18,7 +20,6 @@ public class Main : MelonMod
     private static bool _checkedQuest;
 
     public static bool FusionInstalled;
-    public static bool NetworkerInstalled;
     
     // Prevents stuff from running if Discord isn't open
     public static bool DiscordClosed;
@@ -38,13 +39,13 @@ public class Main : MelonMod
         RpcManager.Init();
         BoneMenu.Setup();
         Hooking.OnLevelInitialized += OnLevelLoad;
+        Hooking.OnSwitchAvatarPostfix += OnAvatarChange;
     }
 
     public override void OnLateInitializeMelon()
     {
         // BLRPC's regular OnInitializeMelon is called before Fusion is loaded, not good
         if (HelperMethods.CheckIfAssemblyLoaded("labfusion")) FusionHandler.Init();
-        NetworkerInstalled = HelperMethods.CheckIfAssemblyLoaded("modiomodnetworker");
         FusionInstalled = HelperMethods.CheckIfAssemblyLoaded("labfusion");
     }
 
@@ -98,5 +99,19 @@ public class Main : MelonMod
         if (Preferences.ResetDeathsOnLevelLoad.Value) DeathHandler.Player.Counter = 0;
         SpawnGunHandler.Counter = 0;
         LevelHandler.OnLevelLoaded(levelInfo);
+    }
+    public void OnAvatarChange(Avatar avatar)
+    {
+        {
+            DelayUtilities.Delay(() =>
+            {
+                var aviBarcode = BoneLib.Player.rigManager.AvatarCrate.Crate.Barcode;
+                var aviTitle = BoneLib.Player.rigManager.AvatarCrate.Crate.Title;
+                if (aviTitle == null || aviBarcode == null) return;
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, BLRPC.Presence.Handlers.Helpers.CheckBarcode.CheckAvatar(aviBarcode));
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, aviTitle);
+            }, 2);
+        }
+
     }
 }

@@ -51,19 +51,6 @@ if not os.path.exists(ml_path):
     exit(1)
 
 # Then bridge these folders into a local "Links" folder with a hard link
-print("Linking files and folders...")
+print("Creating an env variable for bl...")
 
-if not os.path.exists("./Links"):
-    os.mkdir("./Links")
-
-os.symlink(mod_path, "./Links/Mods")
-os.symlink(ml_path, "./Links/MelonLoader")
-os.symlink(bl_path, "./Links/Game")
-
-print("Finding BONELAB executable...")
-
-for file in os.listdir(bl_path):
-    if file.endswith(".exe") and file.startswith("BONELAB"):
-        print("Found '" + file + "'")
-        os.symlink(os.path.join(bl_path, file), "./Links/BONELAB.exe")
-        break
+os.environ["BONELAB_DIR"] = bl_path

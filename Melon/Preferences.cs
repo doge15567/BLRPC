@@ -1,4 +1,5 @@
 ﻿namespace BLRPC.Melon;
+using MelonLoader.Utils;
 
 internal static class Preferences
 {
@@ -33,9 +34,9 @@ internal static class Preferences
             // Gun Shots
             ResetGunShotsOnLevelLoad = Category.CreateEntry("ResetGunShotsOnLevelLoad", true, "Reset Gun Shots On Level Load", "Whether or not to reset the gun shot counter on level load");
             // Save to file
-            GlobalCategory.SetFilePath(MelonUtils.UserDataDirectory+"/WeatherElectric.cfg");
+            GlobalCategory.SetFilePath(MelonEnvironment.UserDataDirectory+"/WeatherElectric.cfg");
             GlobalCategory.SaveToFile(false);
-            Category.SetFilePath(MelonUtils.UserDataDirectory+"/WeatherElectric.cfg");
+            Category.SetFilePath(MelonEnvironment.UserDataDirectory+"/WeatherElectric.cfg");
             Category.SaveToFile(false);
             ModConsole.Msg("Finished preferences setup", 1);
         }

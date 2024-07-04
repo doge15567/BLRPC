@@ -2,7 +2,7 @@
 using LabFusion.Preferences;
 using LabFusion.Representation;
 using LabFusion.Utilities;
-using SLZ.Marrow.SceneStreaming;
+using Il2CppSLZ.Marrow.SceneStreaming;
 using Steamworks;
 using Result = Discord.Result;
 

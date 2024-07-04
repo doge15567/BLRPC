@@ -1,6 +1,6 @@
 ﻿using BoneLib.BoneMenu;
 using BoneLib.BoneMenu.Elements;
-using SLZ.Marrow.SceneStreaming;
+using Il2CppSLZ.Marrow.SceneStreaming;
 using UnityEngine;
 
 namespace BLRPC.Melon;

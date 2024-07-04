@@ -30,7 +30,7 @@ internal static class CheckBarcode
             CommonBarcodes.Avatars.DuckSeasonDog => "duckseasondog",
             CommonBarcodes.Avatars.PolyBlank => "polyblank",
             CommonBarcodes.Avatars.PolyDebugger => "polyblank",
-            _ => Main.NetworkerInstalled ? RemoteImageHandler.CheckforExternalImage(barcode, "moddedavatar") : "moddedavatar"
+            _ => RemoteImageHandler.CheckforExternalImage(barcode, "moddedavatar")
         };
     }
     
@@ -70,7 +70,7 @@ internal static class CheckBarcode
             CommonBarcodes.Maps.Tuscany => "tuscany",
             CommonBarcodes.Maps.ContainerYard => "containeryard",
             CommonBarcodes.Maps.Mirror => "mirror",
-            _ => Main.NetworkerInstalled ? RemoteImageHandler.CheckforExternalImage(barcode, "moddedmap") : "moddedmap"
+            _ => RemoteImageHandler.CheckforExternalImage(barcode, "moddedmap")
         };
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System.IO;
 using BLRPC.Internal;
+using MelonLoader.Utils;
 
 namespace BLRPC.Melon;
 
 internal static class UserData
 {
-    private static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "Weather Electric/BLRPC");
-    private static readonly string LegacyDirectory = Path.Combine(MelonUtils.UserDataDirectory, "BLRPC");
+    private static readonly string UserDataDirectory = Path.Combine(MelonEnvironment.UserDataDirectory, "Weather Electric/BLRPC");
+    private static readonly string LegacyDirectory = Path.Combine(MelonEnvironment.UserDataDirectory, "BLRPC");
     private static readonly string DLLPath = Path.Combine(UserDataDirectory, "discord_game_sdk.dll");
     public static readonly string UserEntriesPath = Path.Combine(UserDataDirectory, "UserEntries.txt");
     
